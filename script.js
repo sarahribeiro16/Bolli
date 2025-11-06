@@ -9,7 +9,7 @@
 // -----------------------------------------------------------------------------
 
 // URL ATUALIZADA para o seu Google Apps Script (WebApp)
-const googleScriptURL = 'https://script.google.com/macros/s/AKfycbzRd7BCOPNgOHgobXmfWCZO88sZ4o6RpGepI7h0IIeHK-hP4afP8b71IK7kUa1sbrB2/exec';
+const googleScriptURL = 'https://script.google.com/macros/s/AKfycbwcmGjQ9XYGb2hv_cn6gbwufEhk3mx3tGFXkZoy4ccQSsAn5GVCWYNEJzzUAVQbMpKT-A/exec';
 
 // Número do WhatsApp para redirecionamento
 const whatsappNumber = '5541995404238';
@@ -357,7 +357,7 @@ async function handleFormSubmit(e) {
 
   // 4. Envio para Google Sheets
   try {
-    console.log('Enviando para Google Sheets...');
+    console.log('Enviando dados do pedido...');
     
     const response = await fetch(googleScriptURL, {
       method: 'POST',
@@ -366,7 +366,7 @@ async function handleFormSubmit(e) {
 
     if (response.ok) {
       const result = await response.json(); // Espera a resposta JSON
-      console.log('Resposta do Google Sheets:', result);
+      console.log('Resposta do servidor:', result);
 
       if (result.result === 'success') {
         // SUCESSO: O script GS funcionou
@@ -377,7 +377,7 @@ async function handleFormSubmit(e) {
         resetCart();
       } else {
         // ERRO: O script GS reportou um erro (ex: planilha não encontrada)
-        throw new Error(result.message || 'O script do Google reportou um erro.');
+        throw new Error(result.message || 'O servidor reportou um erro.');
       }
     } else {
       // ERRO: Erro de rede ou o script não foi encontrado (404, 500)
@@ -386,11 +386,11 @@ async function handleFormSubmit(e) {
 
   } catch (error) {
     // ERRO: Captura todos os erros (CORS, rede, JSON inválido)
-    console.error('Erro ao processar pedido:', error);
+    console.error('Erro ao salvar pedido:', error);
     isError = true;
     // Se falhar, pelo menos envia o pedido para o WhatsApp
     message = buildWhatsAppMessage(orderData, true);
-    showToast('❌ Erro ao processar pedido. Redirecionando para o WhatsApp para completar.');
+    showToast('❌ Erro ao processar. Redirecionando para o WhatsApp para completar.');
   
   } finally {
     // 5. Redirecionamento para WhatsApp
@@ -446,7 +446,7 @@ function buildWhatsAppMessage(data, isError = false) {
 
   let errorText = '';
   if (isError) {
-    errorText = '⚠️ *Por favor, confirme os dados abaixo:\n\n';
+    errorText = '⚠️ *HOUVE UM ERRO AO PROCESSAR SEU PEDIDO.*\nPor favor, confirme os dados abaixo:\n\n';
   }
 
   return `
