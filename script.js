@@ -10,7 +10,7 @@
 
 // !!! COLE A NOVA URL AQUI !!!
 // (A URL que você gerou no "Passo 1" com o novo código do Google Script)
-const GOOGLE_SCRIPT_URL ='https://script.google.com/macros/s/AKfycbzwmQUdIojIGbPQevdO5zhK3b849AkvtacYukz0dBjZSXLT6BHnGxxUsZ2XwdamluDK/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzAi3V_HfBrb4mB7gatK1xzUSv82KJbbqOBuLmmrbielT1QDh9M7efRDLomlPTaa1diCw/exec';
 
 // Número do WhatsApp para redirecionamento
 const whatsappNumber = '5541995404238';
@@ -445,13 +445,9 @@ function buildWhatsAppMessage(data, isError = false) {
     deliveryText = '*Retirada na loja*';
   }
 
-  let errorText = '';
-  if (isError) {
-    errorText = '⚠️ *HOUVE UM ERRO AO PROCESSAR SEU PEDIDO.*\nPor favor, confirme os dados abaixo:\n\n';
-  }
-
+  // As linhas 'errorText' e 'if(isError)' foram removidas
+  
   return `
-${errorText}
 Olá! Gostaria de confirmar meu pedido:
 
 *Pedido:* ${data.order_id}
