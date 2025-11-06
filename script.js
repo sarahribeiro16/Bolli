@@ -390,7 +390,7 @@ async function handleFormSubmit(e) {
     isError = true;
     // Se falhar, pelo menos envia o pedido para o WhatsApp
     message = buildWhatsAppMessage(orderData, true);
-    showToast('❌ Erro ao salvar. Redirecionando para o WhatsApp para completar.');
+    showToast('❌ Erro ao processar pedido. Redirecionando para o WhatsApp para completar.');
   
   } finally {
     // 5. Redirecionamento para WhatsApp
