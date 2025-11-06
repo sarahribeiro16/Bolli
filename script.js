@@ -9,7 +9,7 @@
 // -----------------------------------------------------------------------------
 
 // URL ATUALIZADA para o seu Google Apps Script (WebApp)
-const googleScriptURL = 'https://script.google.com/macros/s/AKfycbwcmGjQ9XYGb2hv_cn6gbwufEhk3mx3tGFXkZoy4ccQSsAn5GVCWYNEJzzUAVQbMpKT-A/exec';
+const googleScriptURL = 'https://script.google.com/macros/s/AKfycbzRd7BCOPNgOHgobXmfWCZO88sZ4o6RpGepI7h0IIeHK-hP4afP8b71IK7kUa1sbrB2/exec';
 
 // Número do WhatsApp para redirecionamento
 const whatsappNumber = '5541995404238';
