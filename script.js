@@ -446,7 +446,7 @@ function buildWhatsAppMessage(data, isError = false) {
 
   let errorText = '';
   if (isError) {
-    errorText = '⚠️ *HOUVE UM ERRO AO SALVAR NA PLANILHA.*\nPor favor, confirme os dados abaixo:\n\n';
+    errorText = '⚠️ *Por favor, confirme os dados abaixo:\n\n';
   }
 
   return `
