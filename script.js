@@ -8,8 +8,9 @@
 // VARIÁVEIS GLOBAIS E CONFIGURAÇÃO
 // -----------------------------------------------------------------------------
 
-// URL ATUALIZADA para o seu Google Apps Script (WebApp)
-const googleScriptURL = 'https://script.google.com/macros/s/AKfycbzRd7BCOPNgOHgobXmfWCZO88sZ4o6RpGepI7h0IIeHK-hP4afP8b71IK7kUa1sbrB2/exec';
+// !!! COLE A NOVA URL AQUI !!!
+// (A URL que você gerou no "Passo 1" com o novo código do Google Script)
+const googleScriptURL = 'https://script.google.com/macros/s/AKfycbzAi3V_HfBrb4mB7gatK1xzUSv82KJbbqOBuLmmrbielT1QDh9M7efRDLomlPTaa1diCw/exec';
 
 // Número do WhatsApp para redirecionamento
 const whatsappNumber = '5541995404238';
