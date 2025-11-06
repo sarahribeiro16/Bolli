@@ -412,21 +412,33 @@ document.addEventListener('DOMContentLoaded', () => {
       const response = await fetch(googleScriptURL, {
         method: 'POST',
         body: formData,
+        // O mode: 'cors' é implícito, mas é o que está acontecendo
       });
 
-      // Google Scripts geralmente redirecionam ou dão respostas 'opaque'
-      // Então não verificamos estritamente 'response.ok'
-      if (response) {
-        console.log('Pedido salvo com sucesso!');
-        message = buildWhatsAppMessage(orderData, false);
-        showToast('✅ Pedido recebido! Redirecionando para o WhatsApp...');
-        closeCheckout();
-        resetCart();
+      // A resposta do Google Script (definida no Passo 1) será 'ok'
+      if (response.ok) {
+        const result = await response.json(); // Espera a resposta JSON
+        console.log('Resposta do Google Sheets:', result);
+
+        if (result.result === 'success') {
+          // SUCESSO: O script GS funcionou
+          console.log('Pedido salvo com sucesso!');
+          message = buildWhatsAppMessage(orderData, false);
+          showToast('✅ Pedido recebido! Redirecionando para o WhatsApp...');
+          closeCheckout();
+          resetCart();
+        } else {
+          // ERRO: O script GS reportou um erro (ex: planilha não encontrada)
+          throw new Error(result.message || 'O script do Google reportou um erro.');
+        }
       } else {
-        throw new Error('Resposta do servidor não foi OK');
+        // ERRO: Erro de rede ou o script não foi encontrado (404, 500)
+        // Isso também pode capturar erros de CORS se o doOptions não estiver lá
+        throw new Error(`Erro de rede: ${response.status} ${response.statusText}`);
       }
 
     } catch (error) {
+      // ERRO: Captura todos os erros (CORS, rede, JSON inválido)
       console.error('Erro ao processar pedido:', error);
       isError = true;
       message = buildWhatsAppMessage(orderData, true);
