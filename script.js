@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Número de WhatsApp para onde o pedido será enviado (formato internacional)
   const whatsappNumber = "5541995404238";
 
-  // Definição dos produtos disponíveis (deve corresponder ao HTML)
+  // Definição dos produtos disponíveis (deve corresponder ao HTML e à Planilha)
   const products = [
     { id: 1, name: "Lata de cookies", price: 70 },
     { id: 2, name: "Lata suspiro", price: 60 },
@@ -37,16 +37,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const dateOptionsContainer = document.getElementById("dateOptions");
   const orderSummaryContainer = document.getElementById("orderSummary");
   const toastElement = document.getElementById("toast");
-  const submitButton = checkoutForm.querySelector('button[type="submit"]');
+  
+  // IDs dos botões (do index.html)
+  const submitButton = document.getElementById("submitOrderBtn");
+  const closeModalButton = document.getElementById("closeModalBtn");
+  const cancelCheckoutButton = document.getElementById("cancelCheckoutBtn");
 
   // --- FUNÇÕES PRINCIPAIS ---
 
   /**
    * Altera a quantidade de um produto no carrinho.
-   * @param {number} productId - O ID do produto.
-   * @param {number} change - A variação na quantidade (+1 ou -1).
+   * @param {Event} event - O evento de clique do botão.
    */
-  function changeQuantity(productId, change) {
+  function handleChangeQuantity(event) {
+    const button = event.currentTarget;
+    const productId = button.dataset.productId; // Pega o ID do data-attribute
+    const change = parseInt(button.dataset.change, 10); // Pega a mudança (+1 ou -1)
+
+    if (!productId) return;
+
     const currentQuantity = cart[productId] || 0;
     const newQuantity = Math.max(0, currentQuantity + change);
 
@@ -132,6 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentYear = today.getFullYear();
 
     // Se a data de hoje já passou do dia 23 de Dezembro, mostra as datas do próximo ano
+    // (getMonth() === 11 é Dezembro)
     if (today.getMonth() === 11 && today.getDate() > 23) {
       currentYear++;
     }
@@ -185,15 +195,14 @@ document.addEventListener("DOMContentLoaded", () => {
    */
   function updateOrderSummary() {
     let summaryHTML = "";
-    let total = 0;
+    const total = calculateTotal(); // Calcula o total
 
-    // Calcula o total e cria o HTML para cada item
+    // Itera sobre o carrinho para construir o HTML
     for (const productId in cart) {
       const product = products.find((p) => p.id == productId);
       if (product) {
         const quantity = cart[productId];
         const itemTotal = product.price * quantity;
-        total += itemTotal;
 
         summaryHTML += `
           <div class="summary-item">
@@ -306,6 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // Adiciona os produtos e suas quantidades ao objeto de dados
+    // (para a planilha)
     products.forEach((product) => {
       const quantity = cart[product.id] || 0;
       data[product.name] = quantity; // Ex: "Lata de cookies": 2
@@ -344,14 +354,14 @@ document.addEventListener("DOMContentLoaded", () => {
   /**
    * Constrói a mensagem de texto para o WhatsApp.
    * @param {object} data - Os dados do pedido.
-   * @param {boolean} [isError=false] - Se a mensagem é de erro.
+   * @param {string | null} [errorMessage=null] - A mensagem de erro (para diagnóstico).
    * @returns {string} A mensagem formatada.
    */
-  function buildWhatsAppMessage(data, isError = false) {
+  function buildWhatsAppMessage(data, errorMessage = null) {
     let itemsText = "";
     for (const productId in cart) {
       const product = products.find((p) => p.id == productId);
-      if (product) {
+      if (product && cart[productId] > 0) { // Garante que só itens > 0 sejam listados
         itemsText += `\n- ${product.name} (${cart[productId]}x)`;
       }
     }
@@ -360,16 +370,21 @@ document.addEventListener("DOMContentLoaded", () => {
     if (data.delivery_type === "Entrega") {
       deliveryText = `*Entrega:*
 ${data.delivery_address}
-${data.delivery_complement}
+${data.delivery_complement || "(Sem complemento)"}
 (Taxa de entrega a confirmar)`;
     } else {
       deliveryText = "*Retirada na loja*";
     }
 
-    // A mensagem de erro foi removida a pedido do usuário
-    
-    return `
-Olá! Gostaria de confirmar meu pedido:
+    // Mensagem de diagnóstico de erro (temporária)
+    const errorHeader = errorMessage
+      ? `⚠️ *ALERTA DE DIAGNÓSTICO* ⚠️
+(Houve um erro ao salvar. Por favor, envie esta mensagem assim mesmo.)
+*Erro Técnico:* ${errorMessage}
+---------------------\n\n`
+      : "";
+
+    return `${errorHeader}Olá! Gostaria de confirmar meu pedido:
 
 *Pedido:* ${data.order_id}
 *Data:* ${data.delivery_date}
@@ -412,9 +427,12 @@ ${deliveryText}
 
     // Coleta os dados
     const orderData = getOrderData();
-    const orderDataForSheet = new FormData();
+
+    // Constrói o FormData para o Google Script
+    // FormData é necessário para que o e.parameter[header] funcione no Google Script
+    const dataForSheet = new FormData();
     for (const key in orderData) {
-      orderDataForSheet.append(key, orderData[key]);
+      dataForSheet.append(key, orderData[key]);
     }
 
     // Feedback visual (botão de carregamento)
@@ -422,38 +440,52 @@ ${deliveryText}
     submitButton.textContent = "Processando...";
     submitButton.disabled = true;
 
+    let errorMessage = null;
+
     try {
       // Envia os dados para o Google Script
       const response = await fetch(googleScriptURL, {
         method: "POST",
-        mode: "no-cors", // Modo "no-cors" para o Google Script Web App
-        body: orderDataForSheet,
+        body: dataForSheet,
+        // O mode: 'no-cors' foi removido.
+        // O google_app_script.gs agora lida com CORS (doPost e doOptions),
+        // então podemos (e devemos) fazer uma requisição CORS normal.
       });
 
-      // NOTA: Em modo "no-cors", a resposta é 'opaca', o que significa
-      // que não podemos verificar o 'response.ok' ou ler o JSON de sucesso.
-      // Assumimos que o envio foi bem-sucedido se não houver um erro de rede.
-      // A única forma de ter certeza é o 'doPost' e 'doOptions' estarem 100% corretos
-      // no Google Script e a implantação estar pública ("Qualquer pessoa").
+      // Se a requisição foi feita, mas o Google Script retornou um erro (ex: Aba não encontrada)
+      if (!response.ok) {
+        // Tenta ler o erro que o Google Script enviou (do JSON)
+        const errorResult = await response.json();
+        throw new Error(errorResult.message || `Erro do servidor: ${response.statusText}`);
+      }
 
-      // Sucesso (assumido)
+      // Tenta ler a resposta de sucesso
+      const result = await response.json();
+      if (result.result !== "success") {
+        throw new Error(result.message || "O servidor reportou um erro.");
+      }
+
+      // Sucesso
       showToast("✅ Pedido recebido! Redirecionando para WhatsApp...", 4000);
-      const message = buildWhatsAppMessage(orderData, false);
-      redirectToWhatsApp(message);
-      closeCheckout();
-      resetCart();
-    } catch (error) {
-      // Erro
-      console.error("Erro ao enviar pedido:", error);
-      // *** ESTE É O NOVO CÓDIGO DE DIAGNÓSTICO ***
-      // Mostra o erro técnico exato no pop-up (toast)
-      const errorMessage = `❌ Erro: ${error.message || "Falha no envio"}`;
-      showToast(errorMessage, 6000); // Mostra por 6 segundos
 
-      // Mesmo com erro, envia o usuário para o WhatsApp para não perder o pedido
-      const message = buildWhatsAppMessage(orderData, true); // (true = erro)
-      redirectToWhatsApp(message);
+    } catch (error) {
+      // Erro (seja de rede/fetch, ou do Google Script)
+      console.error("Erro ao enviar pedido:", error);
+      errorMessage = `❌ Erro: ${error.message || "Falha desconhecida no envio"}`;
+      showToast(errorMessage, 6000); // Mostra por 6 segundos
+    
     } finally {
+      // Aconteça o que acontecer (sucesso ou erro),
+      // redireciona para o WhatsApp para não perder o pedido.
+      const message = buildWhatsAppMessage(orderData, errorMessage);
+      redirectToWhatsApp(message);
+
+      // Só limpa o carrinho e fecha o modal se NÃO houver erro
+      if (!errorMessage) {
+        closeCheckout();
+        resetCart();
+      }
+
       // Restaura o botão
       submitButton.textContent = originalButtonText;
       submitButton.disabled = false;
@@ -464,14 +496,10 @@ ${deliveryText}
 
   // Botão principal "Fazer Pedido"
   orderButton.addEventListener("click", openCheckout);
-  // Botão "Fechar" (X) no modal
-  checkoutModal
-    .querySelector(".close-btn")
-    .addEventListener("click", closeCheckout);
-  // Botão "Voltar ao cardápio"
-  checkoutModal
-    .querySelector(".btn-secondary")
-    .addEventListener("click", closeCheckout);
+  
+  // Botões do Modal
+  closeModalButton.addEventListener("click", closeCheckout);
+  cancelCheckoutButton.addEventListener("click", closeCheckout);
 
   // Botões de tipo de entrega (rádio)
   document
@@ -479,16 +507,20 @@ ${deliveryText}
     .forEach((input) => {
       input.addEventListener("change", toggleDeliveryAddress);
     });
+  
+  // Botões de Quantidade (usando delegação de eventos)
+  // O 'click' é adicionado à 'menu-grid' e só dispara se o clique foi num '.quantity-btn'
+  document.querySelector('.menu-grid').addEventListener('click', (event) => {
+    if (event.target.matches('.quantity-btn')) {
+      // 'event.target' é o botão que foi clicado
+      handleChangeQuantity({ currentTarget: event.target });
+    }
+  });
 
   // Submissão do formulário de checkout
   checkoutForm.addEventListener("submit", handleFormSubmit);
 
   // --- INICIALIZAÇÃO ---
-
-  // Torna as funções de quantidade globais para o HTML (onclick)
-  window.changeQuantity = changeQuantity;
-  window.closeCheckout = closeCheckout;
-  window.toggleDeliveryAddress = toggleDeliveryAddress;
 
   // Garante que o estado inicial do endereço esteja correto
   toggleDeliveryAddress();
