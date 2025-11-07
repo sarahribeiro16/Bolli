@@ -51,6 +51,8 @@ body {
   /* Adicionado para conter a imagem */
   overflow: hidden;
   padding: 0; /* Garante que a imagem preencha */
+  color: #FFFBE3; /* Cor do texto de fallback do logo */
+  font-size: 1.5em; /* Tamanho do texto de fallback */
 }
 
 /* Estilo para a imagem do logo dentro do placeholder */
@@ -96,12 +98,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 4em;
+  font-size: 1em; /* Reduzido para texto de placeholder */
   /* Borda removida para um visual limpo com a imagem */
   /* border: 2px dashed rgba(255, 251, 227, 0.5); */
   /* Adicionado para conter a imagem */
   overflow: hidden; /* Esconde partes da imagem que saem do container */
   padding: 0; /* Remove padding para a imagem preencher */
+  color: #FFFBE3; /* Cor do texto de fallback */
 }
 
 /* Estilo para a imagem do produto */
@@ -419,11 +422,41 @@ body {
   cursor: pointer;
 }
 
+/* *** MUDANÇA APLICADA AQUI ***
+  Substituímos o .radio-option input[type="radio"] original
+  pelas regras abaixo para customizar a aparência.
+*/
 .radio-option input[type="radio"] {
+  /* 1. Esconde a aparência nativa */
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  
+  /* 2. Define o tamanho da bolinha customizada */
   width: 18px;
   height: 18px;
-  accent-color: #FFFBE3;
+  
+  /* 3. Estilo NÃO SELECIONADO (Centro vermelho, borda bege) */
+  background-color: #790C21; 
+  border: 2px solid #FFFBE3;
+  border-radius: 50%;
+  
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  /* Ajuste de alinhamento vertical com o texto */
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
 }
+
+.radio-option input[type="radio"]:checked {
+  /* 4. Estilo SELECIONADO (Tudo bege) */
+  background-color: #FFFBE3;
+  border-color: #FFFBE3; 
+}
+/* Fim da mudança */
+
 
 .delivery-address {
   display: none;
@@ -596,7 +629,7 @@ body {
 
   .product-image {
     height: 150px;
-    font-size: 3em;
+    font-size: 1em;
     margin-bottom: 15px;
   }
 
