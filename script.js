@@ -360,7 +360,8 @@ async function handleFormSubmit(e) {
   try {
     console.log('Enviando dados do pedido...');
     
-    const response = await fetch(googleScriptURL, {
+    // Corrigido: A variável global é GOOGLE_SCRIPT_URL, não googleScriptURL
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
       method: 'POST',
       body: formData,
     });
@@ -400,8 +401,11 @@ async function handleFormSubmit(e) {
     submitBtn.disabled = false;
     isSubmitting = false;
 
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank'); // Abre em nova aba
+    // Só redireciona se a mensagem foi construída (ou seja, se passou da validação)
+    if (message) {
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank'); // Abre em nova aba
+    }
   }
 }
 
@@ -446,9 +450,14 @@ function buildWhatsAppMessage(data, isError = false) {
   }
 
   // As linhas 'errorText' e 'if(isError)' foram removidas
+  // Adiciona aviso de erro se necessário
+  let errorText = '';
+  if (isError) {
+      errorText = "*(Ocorreu um erro ao salvar na planilha, mas segue o pedido para confirmação manual)*\n\n";
+  }
   
   return `
-Olá! Gostaria de confirmar meu pedido:
+${errorText}Olá! Gostaria de confirmar meu pedido:
 
 *Pedido:* ${data.order_id}
 *Cliente:* ${data.customer_name}
