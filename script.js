@@ -373,6 +373,7 @@ async function handleFormSubmit(e) {
       if (result.result === 'success') {
         // SUCESSO: O script GS funcionou
         console.log('Pedido salvo com sucesso!');
+        // O 'isError' é false, a mensagem do WhatsApp será limpa
         message = buildWhatsAppMessage(orderData, false);
         showToast('✅ Pedido recebido! Redirecionando para o WhatsApp...');
         closeCheckout();
@@ -387,12 +388,20 @@ async function handleFormSubmit(e) {
     }
 
   } catch (error) {
-    // ERRO: Captura todos os erros (CORS, rede, JSON inválido)
+    // ERRO: Captura todos os erros (CORS, rede, JSON inválIDO)
     console.error('Erro ao salvar pedido:', error);
     isError = true;
     // Se falhar, pelo menos envia o pedido para o WhatsApp
+    // O 'isError' é true, mas a função buildWhatsAppMessage agora ignora isso
     message = buildWhatsAppMessage(orderData, true);
-    showToast('❌ Erro ao processar. Redirecionando para o WhatsApp para completar.');
+    
+    // --- MUDANÇA APLICADA ---
+    // O raciocínio agora é o mesmo do sucesso:
+    // A confirmação principal é o WhatsApp.
+    showToast('✅ Pedido recebido! Redirecionando para o WhatsApp...');
+    closeCheckout();
+    resetCart();
+    // showToast('❌ Erro ao processar. Redirecionando para o WhatsApp para completar.'); // Mensagem de erro removida
   
   } finally {
     // 5. Redirecionamento para WhatsApp
@@ -426,7 +435,7 @@ function calculateTotal() {
 /**
  * Constrói a mensagem formatada para o WhatsApp.
  * @param {object} data - Os dados do pedido.
- * @param {boolean} isError - Se a mensagem deve incluir um aviso de erro.
+ * @param {boolean} isError - Se a mensagem deve incluir um aviso de erro (AGORA IGNORADO).
  * @returns {string} - A mensagem formatada.
  */
 function buildWhatsAppMessage(data, isError = false) {
@@ -449,15 +458,12 @@ function buildWhatsAppMessage(data, isError = false) {
     deliveryText = '*Retirada na loja*';
   }
 
-  // As linhas 'errorText' e 'if(isError)' foram removidas
-  // Adiciona aviso de erro se necessário
-  let errorText = '';
-  if (isError) {
-      errorText = "*(Ocorreu um erro ao salvar na planilha, mas segue o pedido para confirmação manual)*\n\n";
-  }
+  // --- MUDANÇA APLICADA ---
+  // A variável 'errorText' e a verificação 'if (isError)' foram removidas
+  // para atender ao seu pedido. A mensagem agora é sempre limpa.
   
   return `
-${errorText}Olá! Gostaria de confirmar meu pedido:
+Olá! Gostaria de confirmar meu pedido:
 
 *Pedido:* ${data.order_id}
 *Cliente:* ${data.customer_name}
