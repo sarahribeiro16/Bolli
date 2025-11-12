@@ -10,7 +10,7 @@
 
 // !!! COLE A NOVA URL AQUI !!!
 // (A URL que você gerou no "Passo 1" com o novo código do Google Script)
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzuLkrewXcQHkYttZcYy-aQPjyK9me6j0U1BidQRISh97NEXwPpX9fuQHUMPC2z9VXNHw/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzwmQUdIojIGbPQevdO5zhK3b849AkvtacYukz0dBjZSXLT6BHnGxxUsZ2XwdamluDK/exec';
 
 // Número do WhatsApp para redirecionamento
 const whatsappNumber = '5541995404238';
