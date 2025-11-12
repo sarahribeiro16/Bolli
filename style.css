@@ -423,8 +423,8 @@ body {
 }
 
 /* *** MUDANÇA APLICADA AQUI ***
-  Substituímos o .radio-option input[type="radio"] original
-  pelas regras abaixo para customizar a aparência.
+   Substituímos o .radio-option input[type="radio"] original
+   pelas regras abaixo para customizar a aparência.
 */
 .radio-option input[type="radio"] {
   /* 1. Esconde a aparência nativa */
@@ -758,10 +758,29 @@ body {
     font-size: 0.85em;
   }
 
+  /* --- INÍCIO DA MUDANÇA (BOTÃO STICKY) --- */
   .checkout-buttons {
     flex-direction: column;
     gap: 10px;
+    
+    /* Regras para fixar os botões no mobile */
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    
+    /* Fundo para cobrir o conteúdo que rola por baixo */
+    background: linear-gradient(135deg, #790C21 0%, #8F152D 100%);
+    
+    /* Ajusta as margens e o padding para 
+      preencher a largura do modal (que tem 20px de padding)
+    */
+    margin: 0 -20px -20px -20px;
+    padding: 15px 20px 20px 20px;
+    
+    border-top: 1px solid rgba(255, 251, 227, 0.5);
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.4);
   }
+  /* --- FIM DA MUDANÇA --- */
 
   .btn-primary, .btn-secondary {
     width: 100%;
@@ -824,6 +843,17 @@ body {
   .checkout-content {
     padding: 15px;
   }
+
+  /* --- INÍCIO DA MUDANÇA (AJUSTE FINO DO STICKY) --- */
+  /*
+    Ajusta as margens e padding dos botões
+    para o padding de 15px desta tela menor.
+  */
+  .checkout-buttons {
+    margin: 0 -15px -15px -15px;
+    padding: 15px 15px 15px 15px;
+  }
+  /* --- FIM DA MUDANÇA --- */
 
   .date-grid {
     grid-template-columns: repeat(2, 1fr);
