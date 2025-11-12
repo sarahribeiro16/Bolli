@@ -10,7 +10,7 @@
 
 // !!! COLE A NOVA URL AQUI !!!
 // (A URL que você gerou no "Passo 1" com o novo código do Google Script)
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzwmQUdIojIGbPQevdO5zhK3b849AkvtacYukz0dBjZSXLT6BHnGxxUsZ2XwdamluDK/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzuLkrewXcQHkYttZcYy-aQPjyK9me6j0U1BidQRISh97NEXwPpX9fuQHUMPC2z9VXNHw/exec';
 
 // Número do WhatsApp para redirecionamento
 const whatsappNumber = '5541995404238';
@@ -354,7 +354,7 @@ async function handleFormSubmit(e) {
   });
   
   let message = '';
-  let isError = false;
+  // let isError = false; // Não precisamos mais disso
 
   // 4. Envio para Google Sheets
   try {
@@ -373,11 +373,6 @@ async function handleFormSubmit(e) {
       if (result.result === 'success') {
         // SUCESSO: O script GS funcionou
         console.log('Pedido salvo com sucesso!');
-        // O 'isError' é false, a mensagem do WhatsApp será limpa
-        message = buildWhatsAppMessage(orderData, false);
-        showToast('✅ Pedido recebido! Redirecionando para o WhatsApp...');
-        closeCheckout();
-        resetCart();
       } else {
         // ERRO: O script GS reportou um erro (ex: planilha não encontrada)
         throw new Error(result.message || 'O servidor reportou um erro.');
@@ -388,32 +383,33 @@ async function handleFormSubmit(e) {
     }
 
   } catch (error) {
-    // ERRO: Captura todos os erros (CORS, rede, JSON inválIDO)
-    console.error('Erro ao salvar pedido:', error);
-    isError = true;
-    // Se falhar, pelo menos envia o pedido para o WhatsApp
-    // O 'isError' é true, mas a função buildWhatsAppMessage agora ignora isso
-    message = buildWhatsAppMessage(orderData, true);
-    
-    // --- MUDANÇA APLICADA ---
-    // O raciocínio agora é o mesmo do sucesso:
-    // A confirmação principal é o WhatsApp.
-    showToast('✅ Pedido recebido! Redirecionando para o WhatsApp...');
-    closeCheckout();
-    resetCart();
-    // showToast('❌ Erro ao processar. Redirecionando para o WhatsApp para completar.'); // Mensagem de erro removida
+    // ERRO: Captura todos os erros (CORS, rede, JSON inválido)
+    console.error('Erro ao salvar pedido (continuando para o WhatsApp):', error);
+    // isError = true; // Não precisamos mais disso
   
   } finally {
     // 5. Redirecionamento para WhatsApp
-    // Isso acontece tanto em caso de sucesso quanto de erro
+    // ISSO AGORA RODA INDEPENDENTE DE SUCESSO OU FALHA DO 'TRY'
+    
     submitBtn.textContent = 'Confirmar Pedido';
     submitBtn.disabled = false;
     isSubmitting = false;
 
+    // Constrói a mensagem (sempre sem erro)
+    message = buildWhatsAppMessage(orderData, false); // O 'false' garante que nunca mostre a msg de erro
+    
+    // Mostra o feedback de sucesso para o usuário
+    showToast('✅ Pedido recebido! Redirecionando para o WhatsApp...');
+    closeCheckout();
+    resetCart();
+
     // Só redireciona se a mensagem foi construída (ou seja, se passou da validação)
     if (message) {
       const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-      window.open(whatsappUrl, '_blank'); // Abre em nova aba
+      
+      // *** MUDANÇA APLICADA AQUI ***
+      // window.open(whatsappUrl, '_blank'); // Abre em nova aba (BLOQUEADO NO MOBILE)
+      window.location.href = whatsappUrl; // Redireciona a aba atual (mais confiável no mobile)
     }
   }
 }
@@ -435,7 +431,7 @@ function calculateTotal() {
 /**
  * Constrói a mensagem formatada para o WhatsApp.
  * @param {object} data - Os dados do pedido.
- * @param {boolean} isError - Se a mensagem deve incluir um aviso de erro (AGORA IGNORADO).
+ * @param {boolean} isError - Se a mensagem deve incluir um aviso de erro.
  * @returns {string} - A mensagem formatada.
  */
 function buildWhatsAppMessage(data, isError = false) {
@@ -458,12 +454,16 @@ function buildWhatsAppMessage(data, isError = false) {
     deliveryText = '*Retirada na loja*';
   }
 
-  // --- MUDANÇA APLICADA ---
-  // A variável 'errorText' e a verificação 'if (isError)' foram removidas
-  // para atender ao seu pedido. A mensagem agora é sempre limpa.
+  // A menção de 'planilha' ou 'erro' foi removida da mensagem final.
+  // A variável 'isError' agora é ignorada, mas mantida caso queira reativar o log
+  let errorText = '';
+  if (isError) {
+      // Isso agora só aparece no console, não no WhatsApp
+      console.error("Ocorreu um erro ao salvar na planilha, mas o pedido foi enviado ao WhatsApp.");
+  }
   
   return `
-Olá! Gostaria de confirmar meu pedido:
+${errorText}Olá! Gostaria de confirmar meu pedido:
 
 *Pedido:* ${data.order_id}
 *Cliente:* ${data.customer_name}
