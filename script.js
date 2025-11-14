@@ -2,10 +2,6 @@
 document.addEventListener('DOMContentLoaded', () => {
             
     // ===== DADOS DOS PRODUTOS =====
-    //
-    //  NOVO CONTROLE DE ESTOQUE:
-    //  Para "desligar" um produto, mude 'inStock: true' para 'inStock: false'
-    //
     const products = [
         // --- CATEGORIA COOKIES ---
         {
@@ -16,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
             image: 'ferrero.png', 
             special: false,
             category: 'cookies',
-            inStock: true // <-- CONTROLE DE ESTOQUE
+            inStock: true
         },
         {
             id: 'kinder',
@@ -36,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             image: 'ferrero.png',
             special: false,
             category: 'cookies',
-            inStock: true // <-- EXEMPLO DE PRODUTO ESGOTADO
+            inStock: true
         },
         {
             id: 'pistache',
@@ -54,11 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
             image: 'ferrero.png',
-            special: true, // <-- TAG 'Especial da Semana' VAI APARECER
+            special: true,
             category: 'cookies',
             inStock: true
         },
-
         // --- CATEGORIA NATAL ---
         {
             id: 'natal-lata-cookies',
@@ -110,7 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
             category: 'natal',
             inStock: true
         },
-
         // --- CATEGORIA SUSPIROS ---
         {
             id: 'suspiro-tradicional',
@@ -127,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Suspiro Zero',
             price: 10.00,
             description: 'Suspiro zero açúcar 25g.',
-            image: 'ferrero.png', 
+            image: 'ferrero.pngg', 
             special: false,
             category: 'suspiros',
             inStock: false
@@ -135,7 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     // ===== CONFIGURE AQUI =====
-    // Número do seu WhatsApp (com código do país, sem + ou 00)
     const WHATSAPP_NUMBER = '5541995404238'; // Mude aqui para seu número
 
     // ===== ESTADO DO CARRINHO =====
@@ -145,8 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const productGrid = document.getElementById('product-grid');
     const natalProductGrid = document.getElementById('natal-product-grid');
     const suspirosProductGrid = document.getElementById('suspiros-product-grid');
-    
-    // Elementos do Carrinho
     const cartModal = document.getElementById('cart-modal');
     const cartContent = document.getElementById('cart-content');
     const openCartBtn = document.getElementById('open-cart-btn');
@@ -155,24 +146,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartTotalEl = document.getElementById('cart-total');
     const cartCountBadge = document.getElementById('cart-count-badge');
     const checkoutBtn = document.getElementById('checkout-btn');
-
-    // Elementos do Checkout
     const checkoutModal = document.getElementById('checkout-modal');
     const checkoutContent = document.getElementById('checkout-content');
     const closeCheckoutBtn = document.getElementById('close-checkout-btn');
     const checkoutForm = document.getElementById('checkout-form');
     const cancelCheckoutBtn = document.getElementById('cancel-checkout-btn');
     const sendWhatsappBtn = document.getElementById('send-whatsapp-btn');
-    
-    // Elementos do Formulário de Entrega
     const deliveryRadio = document.getElementById('delivery-delivery');
     const pickupRadio = document.getElementById('delivery-pickup');
     const deliveryAddressGroup = document.getElementById('delivery-address-group');
     const deliveryAddressInput = document.getElementById('address');
     const deliveryMessage = document.getElementById('delivery-message');
     const pickupMessage = document.getElementById('pickup-message');
-    
-    // Elementos do Modal de Sucesso
     const successModal = document.getElementById('success-modal');
     const closeSuccessBtn = document.getElementById('close-success-btn');
 
@@ -191,9 +176,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let descColor = 'text-bolli-desc';     // Cor padrão da descrição
         let priceColor = 'text-bolli-purple-light'; // Cor padrão do preço
 
-        // --- LÓGICA DE NATAL (MUDANÇA AQUI) ---
+        // --- LÓGICA DE NATAL (SEM FUNDO, TEXTO VERMELHO) ---
         if (product.category === 'natal') {
-            bgColor = 'bg-bolli-bg'; // <-- FUNDO BRANCO/BEGE DO SITE
+            bgColor = ''; // <-- SEM FUNDO ("SEM BLOQUINHO")
             textColor = 'text-bolli-christmas-red'; // <-- TEXTO VERMELHO
             descColor = 'text-bolli-desc';        // <-- Descrição cinza normal
             priceColor = 'text-bolli-christmas-red'; // <-- PREÇO VERMELHO
@@ -209,33 +194,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 </span>
                 
                 <div class="flex items-center space-x-3 bg-bolli-control-bg rounded-lg p-2">
-                    <button 
-                        class="decrease-qty-btn text-bolli-control-icon font-bold text-lg w-6 h-6 flex items-center justify-center rounded hover:bg-gray-300" 
-                        data-id="${product.id}"
-                        aria-label="Diminuir quantidade de ${product.name}"
-                    >
+                    <button class="decrease-qty-btn text-bolli-control-icon font-bold text-lg w-6 h-6 flex items-center justify-center rounded hover:bg-gray-300" data-id="${product.id}" aria-label="Diminuir quantidade de ${product.name}">
                         &minus;
                     </button>
-                    <span 
-                        id="quantity-${product.id}" 
-                        class="font-bold text-lg text-bolli-control-icon w-6 text-center"
-                    >
+                    <span id="quantity-${product.id}" class="font-bold text-lg text-bolli-control-icon w-6 text-center">
                         0
                     </span>
-                    <button 
-                        class="increase-qty-btn text-bolli-control-icon font-bold text-lg w-6 h-6 flex items-center justify-center rounded hover:bg-gray-300" 
-                        data-id="${product.id}"
-                        aria-label="Aumentar quantidade de ${product.name}"
-                    >
+                    <button class="increase-qty-btn text-bolli-control-icon font-bold text-lg w-6 h-6 flex items-center justify-center rounded hover:bg-gray-300" data-id="${product.id}" aria-label="Aumentar quantidade de ${product.name}">
                         &plus;
                     </button>
                 </div>
                 
-                <button 
-                    class="add-qty-to-cart-btn bg-bolli-control-bg text-bolli-control-icon rounded-lg p-3 hover:bg-gray-300 transition-colors"
-                    data-id="${product.id}"
-                    aria-label="Adicionar ${product.name} ao carrinho"
-                >
+                <button class="add-qty-to-cart-btn bg-bolli-control-bg text-bolli-control-icon rounded-lg p-3 hover:bg-gray-300 transition-colors" data-id="${product.id}" aria-label="Adicionar ${product.name} ao carrinho">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="9" cy="21" r="1"></circle>
                         <circle cx="20" cy="21" r="1"></circle>
@@ -245,9 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         } else {
             // Produto esgotado: mostra aviso
-            // (Verifica se a cor do preço era 'text-white' e aplica 'text-gray-300', senão usa 'text-gray-400')
             const priceLineThrough = (priceColor === 'text-white' || priceColor === 'text-bolli-christmas-red') ? 'text-gray-400' : 'text-gray-400';
-            
             controlBlock = `
                 <span class="text-2xl font-bold ${priceLineThrough} line-through">
                     ${formatCurrency(product.price)}
@@ -259,8 +227,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // --- HTML FINAL DO CARD ---
-        // (Adicionado 'rounded-lg' e 'overflow-hidden' ao card de Natal para a moldura)
-        const cardClasses = product.category === 'natal' ? `${bgColor} rounded-lg overflow-hidden shadow-lg` : bgColor;
+        // A classe 'cardClasses' agora é 'bgColor', que é '' para Natal e cookies.
+        const cardClasses = bgColor; 
         
         return `
             <div class="w-full max-w-xs ${cardClasses}">
@@ -275,8 +243,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             alt="${product.name}" 
                             class="w-full aspect-square object-cover rounded-lg ${!inStock ? 'opacity-60 grayscale' : ''}"
                         >
-                        
-                        <!-- TAG ESPECIAL (MOVIDA PARA CIMA DA IMAGEM) -->
                         ${isSpecial ? `
                         <div class="absolute top-2 left-2 bg-bolli-special-bg text-white text-xs font-sans px-3 py-1 rounded-full z-10 shadow-lg">
                             Especial da Semana
@@ -302,32 +268,25 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error(`Elemento do grid para a categoria '${category}' não foi encontrado.`);
             return;
         }
-        
-        gridElement.innerHTML = ''; // Limpa o grid
-        
-        // Filtra produtos pela categoria
+        gridElement.innerHTML = '';
         products.filter(p => p.category === category).forEach(product => {
             gridElement.innerHTML += createProductCard(product);
         });
     }
-
 
     /**
      * Adiciona uma quantidade específica de um item ao carrinho
      */
     function addToCartWithQuantity(productId, quantity) {
         const product = products.find(p => p.id === productId);
-        // Não adiciona se o produto não for encontrado, a quantidade for 0, ou se estiver sem estoque
         if (!product || quantity <= 0 || !product.inStock) return;
 
         const existingItem = cart.find(item => item.id === productId);
-
         if (existingItem) {
-            existingItem.quantity += quantity; // Soma a quantidade
+            existingItem.quantity += quantity;
         } else {
-            cart.push({ ...product, quantity: quantity }); // Adiciona novo com a quantidade
+            cart.push({ ...product, quantity: quantity });
         }
-
         renderCart();
         openCartModal();
     }
@@ -337,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function renderCart() {
         if (!cartItemsContainer) return;
-        cartItemsContainer.innerHTML = ''; // Limpa os itens
+        cartItemsContainer.innerHTML = '';
 
         if (cart.length === 0) {
             cartItemsContainer.innerHTML = '<p id="cart-empty-msg" class="text-center text-bolli-text-light mt-10">Seu carrinho está vazio.</p>';
@@ -350,8 +309,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="flex-1">
                             <h4 class="font-bold text-bolli-text-dark">${item.name}</h4>
                             <p class="text-sm text-bolli-purple-light font-medium">${formatCurrency(item.price)}</p>
-                            
-                            <!-- Controles de Quantidade -->
                             <div class="flex items-center space-x-2 mt-2">
                                 <button class="quantity-btn bg-gray-200 rounded-full w-6 h-6 flex items-center justify-center text-lg hover:bg-gray-300" data-id="${item.id}" data-action="decrease">
                                     &minus;
@@ -363,7 +320,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
                         <button class="remove-item-btn text-red-500 hover:text-red-700" data-id="${item.id}" aria-label="Remover ${item.name}">
-                            <!-- Ícone Lixeira -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                         </button>
                     </div>
@@ -372,7 +328,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             if (checkoutBtn) checkoutBtn.disabled = false;
         }
-        
         updateCartTotal();
         updateCartCountBadge();
     }
@@ -390,7 +345,6 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function updateCartCountBadge() {
         const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-        
         if (cartCountBadge) {
             if (totalItems > 0) {
                 cartCountBadge.textContent = totalItems;
@@ -414,7 +368,7 @@ document.addEventListener('DOMContentLoaded', () => {
             item.quantity--;
             if (item.quantity <= 0) {
                 removeFromCart(productId);
-                return; // Sai da função pois renderCart() já foi chamado
+                return;
             }
         }
         renderCart();
@@ -432,15 +386,9 @@ document.addEventListener('DOMContentLoaded', () => {
      * Limpa o array do carrinho, atualiza a UI, e reseta os contadores dos cards
      */
     function clearCartAndResetQuantities() {
-        // Limpa o array
         cart = [];
-        
-        // Atualiza a UI do carrinho (mostra "carrinho vazio")
-        renderCart(); 
-        
-        // Reseta os contadores de todos os produtos (cookies e natal)
+        renderCart();
         products.forEach(product => {
-            // Só reseta o contador se o produto tiver um (se estiver em estoque)
             const qtySpan = document.getElementById(`quantity-${product.id}`);
             if (qtySpan) {
                 qtySpan.textContent = '0';
@@ -452,12 +400,10 @@ document.addEventListener('DOMContentLoaded', () => {
      * Lida com cliques no grid de produtos (delegação de evento)
      */
     function handleProductGridClick(event) {
-        // A lógica de clique só funciona se os botões existirem (ou seja, se inStock for true)
         const increaseBtn = event.target.closest('.increase-qty-btn');
         const decreaseBtn = event.target.closest('.decrease-qty-btn');
         const addBtn = event.target.closest('.add-qty-to-cart-btn');
 
-        // Aumenta a quantidade no card
         if (increaseBtn) {
             const id = increaseBtn.dataset.id;
             const qtySpan = document.getElementById(`quantity-${id}`);
@@ -467,7 +413,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Diminui a quantidade no card
         if (decreaseBtn) {
             const id = decreaseBtn.dataset.id;
             const qtySpan = document.getElementById(`quantity-${id}`);
@@ -479,7 +424,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Adiciona a quantidade selecionada ao carrinho
         if (addBtn) {
             const id = addBtn.dataset.id;
             const qtySpan = document.getElementById(`quantity-${id}`);
@@ -487,7 +431,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const quantity = parseInt(qtySpan.textContent);
                 if (quantity > 0) {
                     addToCartWithQuantity(id, quantity);
-                    qtySpan.textContent = '0'; // Reseta o contador no card
+                    qtySpan.textContent = '0';
                 }
             }
         }
@@ -517,31 +461,26 @@ document.addEventListener('DOMContentLoaded', () => {
      * Lida com o clique de Envio para o WhatsApp
      */
     function handleWhatsAppClick() {
-        // 1. Valida o formulário
         if (!checkoutForm || !checkoutForm.reportValidity()) {
-            return; // Interrompe se o formulário for inválido
+            return;
         }
         
-        // 2. Pega os dados do formulário
         const formData = new FormData(checkoutForm);
         const customerData = {
             name: formData.get('name'),
             phone: formData.get('phone'),
             deliveryMethod: formData.get('deliveryMethod'),
-            address: formData.get('address') || 'N/A', // Pega o endereço ou 'N/A'
+            address: formData.get('address') || 'N/A',
         };
         
-        // 3. Gera a mensagem
         const message = generateWhatsAppMessage(customerData);
         const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
         
-        // 4. Abre o WhatsApp
         window.open(whatsappUrl, '_blank');
         
-        // 5. Limpa o carrinho, reseta o form, e mostra sucesso
         clearCartAndResetQuantities();
         checkoutForm.reset();
-        toggleDeliveryOptions(); // Reseta os campos de entrega/retirada
+        toggleDeliveryOptions();
         closeCheckoutModal();
         openSuccessModal();
     }
@@ -551,7 +490,6 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function generateWhatsAppMessage(customer) {
         let message = `*Olá, Bolli! Gostaria de fazer um pedido:*\n\n`;
-        
         message += '*--- MEU PEDIDO ---*\n';
         let total = 0;
         cart.forEach(item => {
@@ -561,7 +499,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         message += `\n*SUBTOTAL: ${formatCurrency(total)}*\n`;
-        // Você pode adicionar taxa de entrega aqui se desejar
         message += `*TOTAL: ${formatCurrency(total)}*\n\n`;
         
         message += '*--- MEUS DADOS ---*\n';
@@ -579,7 +516,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         message += '\nAguardo a confirmação do pedido!';
-        
         return message;
     }
 
@@ -587,7 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * Controla a exibição dos campos de Entrega/Retirada
      */
     function toggleDeliveryOptions() {
-        if (!deliveryRadio || !pickupRadio) return; // Se os elementos não existirem, não faz nada
+        if (!deliveryRadio || !pickupRadio) return;
         
         if (deliveryRadio.checked) {
             deliveryAddressGroup.classList.remove('hidden');
@@ -600,14 +536,12 @@ document.addEventListener('DOMContentLoaded', () => {
             pickupMessage.classList.remove('hidden');
             deliveryAddressInput.required = false;
         } else {
-            // Estado inicial (nada selecionado)
             deliveryAddressGroup.classList.add('hidden');
             deliveryMessage.classList.add('hidden');
             pickupMessage.classList.add('hidden');
             deliveryAddressInput.required = false;
         }
     }
-
 
     // ===== FUNÇÕES DE CONTROLE DOS MODAIS =====
     
@@ -652,9 +586,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ===== FUNÇÕES UTILITÁRIAS =====
     
-    /**
-     * Formata um número para o padrão BRL (R$ 0,00)
-     */
     function formatCurrency(value) {
         if (typeof value !== 'number') {
             value = 0;
@@ -667,48 +598,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ===== ADIÇÃO DE EVENT LISTENERS =====
     
-    // Renderização inicial
     renderProductsByCategory('cookies', productGrid);
     renderProductsByCategory('natal', natalProductGrid);
     renderProductsByCategory('suspiros', suspirosProductGrid);
-    renderCart(); // Para mostrar "carrinho vazio" inicialmente
+    renderCart();
 
-    // Abrir Carrinho
     if(openCartBtn) openCartBtn.addEventListener('click', openCartModal);
-    
-    // Fechar Carrinho
     if(closeCartBtn) closeCartBtn.addEventListener('click', closeCartModal);
     if(cartModal) cartModal.addEventListener('click', (event) => {
         if (event.target === cartModal) closeCartModal();
     });
     
-    // Abrir Checkout
     if(checkoutBtn) checkoutBtn.addEventListener('click', openCheckoutModal);
     
-    // Fechar Checkout
     if(closeCheckoutBtn) closeCheckoutBtn.addEventListener('click', closeCheckoutModal);
     if(cancelCheckoutBtn) cancelCheckoutBtn.addEventListener('click', closeCheckoutModal);
     if(checkoutModal) checkoutModal.addEventListener('click', (event) => {
         if (event.target === checkoutModal) closeCheckoutModal();
     });
 
-    // Fechar Sucesso
     if(closeSuccessBtn) closeSuccessBtn.addEventListener('click', closeSuccessModal);
 
-    // Ações de clique nos grids de produto (escutando em todos os grids)
     const allGrids = [productGrid, natalProductGrid, suspirosProductGrid];
     allGrids.forEach(grid => {
         if(grid) grid.addEventListener('click', handleProductGridClick);
     });
     
-    // Ações de clique nos itens do carrinho
     if(cartItemsContainer) cartItemsContainer.addEventListener('click', handleCartItemsClick);
     
-    // Envio do Pedido (clique no botão, não submit)
     if(sendWhatsappBtn) sendWhatsappBtn.addEventListener('click', handleWhatsAppClick);
 
-    // Lógica dos botões de Entrega/Retirada
     if(deliveryRadio) deliveryRadio.addEventListener('change', toggleDeliveryOptions);
     if(pickupRadio) pickupRadio.addEventListener('change', toggleDeliveryOptions);
+
+    // ===== LÓGICA DE SCROLL SUAVE =====
+    const navLinks = document.querySelectorAll('.smooth-scroll');
+    navLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault(); 
+            const targetId = link.getAttribute('href'); 
+            if (!targetId || targetId === '#') return;
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                const navBar = document.getElementById('main-nav');
+                const navHeight = navBar ? navBar.offsetHeight : 0;
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
 
 });
