@@ -37,7 +37,8 @@
                         'bolli-control-icon': '#6B6B6B',      // Ícones e texto dos controles
                         'bolli-christmas-red': '#790C21',     // Vermelho de Natal
                         'bolli-nav-bg': '#78284F',           // Cor da barra de navegação
-                        'bolli-nav-text': '#F8F7F2'          // Cor do texto da navegação
+                        'bolli-nav-text': '#F8F7F2',          // Cor do texto da navegação
+                        'bolli-cart-title': '#5C1F40'       // Cor do título "Meu Carrinho" e checkout
                     },
                     borderRadius: {
                         '44px': '44px', // Borda customizada
@@ -53,7 +54,7 @@
 </head>
 <body class="bg-bolli-bg text-bolli-text-dark">
 
-    <!-- ===== HEADER (Correção: sticky removido daqui) ===== -->
+    <!-- ===== HEADER ===== -->
     <header class="shadow-lg">
         
         <!-- Imagem do Logo (listras.png) -->
@@ -62,19 +63,30 @@
              <!-- A imagem 'listras.png' (1200px x 400px) será exibida aqui -->
         </div>
         
-        <!-- Barra de Navegação (Correção: sticky movido para cá) -->
-        <nav class="bg-bolli-nav-bg text-bolli-nav-text py-5 sticky top-0 z-40"> 
-            <div class="max-w-6xl mx-auto px-4 flex justify-center items-center relative">
+        <!-- Barra de Navegação (com carrinho) | AGORA É STICKY -->
+        <nav class="bg-bolli-nav-bg text-bolli-nav-text py-4 sticky top-0 z-40"> 
+            <!--
+              Layout responsivo:
+              - Celular: justify-between, text-sm, space-x-3
+              - Telas Maiores: justify-center, text-lg, space-x-6
+            -->
+            <div class="max-w-6xl mx-auto px-4 flex justify-between items-center relative">
+                
                 <!-- Links (Orçamento Removido) -->
-                <ul class="flex space-x-6 md:space-x-10 font-sans text-xl font-medium"> 
+                <!--
+                  Classes responsivas para texto e espaçamento:
+                  - text-sm sm:text-lg md:text-xl
+                  - space-x-3 sm:space-x-6 md:space-x-10
+                -->
+                <ul class="flex items-center space-x-3 sm:space-x-6 md:space-x-10 font-sans text-sm sm:text-lg md:text-xl font-medium"> 
                     <li><a href="#cookies" class="hover:text-gray-300 transition-colors">Cookies</a></li>
                     <li><a href="#natal" class="hover:text-gray-300 transition-colors">Cardápio Natal</a></li>
                     <li><a href="#suspiros" class="hover:text-gray-300 transition-colors">Suspiros</a></li>
                     <li><a href="#contato" class="hover:text-gray-300 transition-colors">Contato</a></li>
                 </ul>
                 
-                <!-- Ícone do Carrinho (Movido para dentro da Nav) -->
-                <div class="absolute right-0">
+                <!-- Ícone do Carrinho (Fica sempre à direita) -->
+                <div class="">
                     <button id="open-cart-btn" class="relative hover:scale-110 transition-transform">
                         <!-- Ícone do Carrinho (cor 'currentColor' vai usar 'bolli-nav-text') -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -97,10 +109,20 @@
         
         <!-- Seção Cookies -->
         <section id="cookies" class="pb-24"> 
-            <!-- Título da Categoria (Maior) -->
-            <h2 class="text-5xl font-sans text-center text-bolli-special-bg mb-14"> 
-                Nossos cookies
-            </h2>
+            
+            <!-- Container do Título com Linhas -->
+            <div class="flex items-center justify-center text-center mb-14">
+                <!-- Linha Esquerda -->
+                <div class="flex-1 h-px bg-bolli-desc"></div>
+                
+                <!-- Texto do Título -->
+                <h2 class="text-4xl sm:text-5xl font-sans text-bolli-special-bg mx-6 md:mx-10">
+                    Nossos cookies
+                </h2>
+                
+                <!-- Linha Direita -->
+                <div class="flex-1 h-px bg-bolli-desc"></div>
+            </div>
             
             <!-- Grid de Produtos -->
             <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
@@ -111,28 +133,41 @@
         <!-- Seção Cardápio Natal -->
         <section id="natal" class="py-16 bg-bolli-christmas-red">
             <!-- Título da Categoria (Maior) -->
-            <h2 class="text-5xl font-sans text-center text-white mb-10"> 
+            <h2 class="text-4xl sm:text-5xl font-sans text-center text-white mb-6"> <!-- Margem diminuída -->
                 Cardápio Natal
             </h2>
             
-            <!-- Grid de Produtos de Natal -->
-            <div id="natal-product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center max-w-6xl mx-auto px-4 mb-10">
-                <!-- Os produtos 'natal' serão injetados aqui -->
-            </div>
-
-            <!-- Aviso de Natal -->
-            <div class="max-w-3xl mx-auto px-4 text-center text-white text-lg leading-relaxed">
+            <!-- Aviso de Natal (MOVILDO PARA CIMA e sem highlight) -->
+            <div class="max-w-3xl mx-auto px-4 text-center text-white text-lg leading-relaxed mb-10">
                 <p>
-                    Encomendas de Natal serão aceitas até dia <strong class="text-yellow-300">xx/12</strong>.
-                    Para confirmar seu pedido é necessário o pagamento de <strong class="text-yellow-300">50% do valor total</strong> antecipadamente.
+                    Encomendas de Natal serão aceitas até dia xx/12.
+                    Para confirmar seu pedido é necessário o pagamento de 50% do valor total antecipadamente.
                 </p>
+            </div>
+            
+            <!-- Grid de Produtos de Natal -->
+            <div id="natal-product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center max-w-6xl mx-auto px-4"> <!-- Margem removida daqui -->
+                <!-- Os produtos 'natal' serão injetados aqui -->
             </div>
         </section>
         
         <!-- Seção Suspiros (Atualizada) -->
         <section id="suspiros" class="py-20 text-center">
-            <!-- Título Atualizado -->
-            <h2 class="text-5xl font-sans text-center text-bolli-special-bg mb-14">Suspiros</h2>
+            
+            <!-- Container do Título com Linhas -->
+            <div class="flex items-center justify-center text-center mb-14">
+                <!-- Linha Esquerda -->
+                <div class="flex-1 h-px bg-bolli-desc"></div>
+                
+                <!-- Texto do Título -->
+                <h2 class="text-4xl sm:text-5xl font-sans text-bolli-special-bg mx-6 md:mx-10">
+                    Suspiros
+                </h2>
+                
+                <!-- Linha Direita -->
+                <div class="flex-1 h-px bg-bolli-desc"></div>
+            </div>
+
             <!-- Grid de Suspiros -->
             <div id="suspiros-product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
                 <!-- Os produtos 'suspiros' serão injetados aqui -->
@@ -168,9 +203,9 @@
     <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-end hidden">
         <!-- Conteúdo do Modal -->
         <div id="cart-content" class="bg-white w-full max-w-md h-full shadow-xl flex flex-col transform translate-x-full transition-transform duration-300">
-            <!-- Header do Carrinho -->
+            <!-- Header do Carrinho (Cor do Título Atualizada) -->
             <div class="flex justify-between items-center p-5 border-b">
-                <h3 class="text-2xl font-sans text-bolli-text-dark">Meu Carrinho</h3>
+                <h3 class="text-2xl font-sans text-bolli-cart-title">Meu Carrinho</h3>
                 <button id="close-cart-btn" class="text-gray-500 hover:text-gray-800">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 </button>
@@ -194,13 +229,13 @@
         </div>
     </div>
     
-    <!-- ===== MODAL DE CHECKOUT (Atualizado com Entrega/Retirada) ===== -->
+    <!-- ===== MODAL DE CHECKOUT (Cores do Texto Atualizadas) ===== -->
     <div id="checkout-modal" class="fixed inset-0 bg-black bg-opacity-60 z-[60] flex items-center justify-center p-4 hidden">
         <!-- Conteúdo do Modal -->
         <div id="checkout-content" class="bg-white w-full max-w-lg rounded-xl shadow-xl flex flex-col transform scale-95 opacity-0 transition-all duration-300">
             <!-- Header do Checkout -->
             <div class="flex justify-between items-center p-5 border-b">
-                <h3 class="text-2xl font-sans text-bolli-text-dark">Finalizar Pedido</h3>
+                <h3 class="text-2xl font-sans text-bolli-cart-title">Finalizar Pedido</h3>
                 <button id="close-checkout-btn" class="text-gray-500 hover:text-gray-800">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 </button>
@@ -212,44 +247,44 @@
                     Preencha seus dados para finalizar o pedido. Você será redirecionado(a) para o WhatsApp.
                 </p>
                 <div>
-                    <label for="name" class="block text-sm font-medium text-bolli-text-dark mb-1">Nome Completo *</label>
+                    <label for="name" class="block text-sm font-medium text-bolli-cart-title mb-1">Nome Completo *</label>
                     <input type="text" id="name" name="name" required
                            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-bolli-purple-light focus:border-transparent"
                            placeholder="Seu nome">
                 </div>
                 <div>
-                    <label for="phone" class="block text-sm font-medium text-bolli-text-dark mb-1">Seu WhatsApp (para contato) *</label>
+                    <label for="phone" class="block text-sm font-medium text-bolli-cart-title mb-1">Seu WhatsApp (para contato) *</label>
                     <input type="tel" id="phone" name="phone" required
                            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-bolli-purple-light focus:border-transparent"
                            placeholder="(XX) 9XXXX-XXXX">
                 </div>
                 
                 <!-- Opções de Entrega/Retirada -->
-                <div>
-                    <label class="block text-sm font-medium text-bolli-text-dark mb-2">Opção de Entrega *</label>
-                    <div class="flex items-center space-x-6">
-                        <label for="delivery-method-pickup" class="flex items-center space-x-2 cursor-pointer">
-                            <input type="radio" id="delivery-method-pickup" name="deliveryMethod" value="retirada" class="text-bolli-purple-light focus:ring-bolli-purple-light" checked>
-                            <span class="text-bolli-text-dark">Retirada</span>
-                        </label>
-                        <label for="delivery-method-delivery" class="flex items-center space-x-2 cursor-pointer">
-                            <input type="radio" id="delivery-method-delivery" name="deliveryMethod" value="entrega" class="text-bolli-purple-light focus:ring-bolli-purple-light">
-                            <span class="text-bolli-text-dark">Entrega</span>
-                        </label>
+                <fieldset>
+                    <legend class="block text-sm font-medium text-bolli-cart-title mb-2">Método de Envio *</legend>
+                    <div class="flex space-x-4">
+                        <div class="flex items-center">
+                            <input type="radio" id="delivery-pickup" name="deliveryMethod" value="Retirada" required class="focus:ring-bolli-purple-light h-4 w-4 text-bolli-purple-light border-gray-300">
+                            <label for="delivery-pickup" class="ml-2 block text-sm text-bolli-cart-title">Retirada</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="radio" id="delivery-delivery" name="deliveryMethod" value="Entrega" required class="focus:ring-bolli-purple-light h-4 w-4 text-bolli-purple-light border-gray-300">
+                            <label for="delivery-delivery" class="ml-2 block text-sm text-bolli-cart-title">Entrega</label>
+                        </div>
                     </div>
-                </div>
+                </fieldset>
 
-                <!-- Mensagens de Feedback (Retirada/Entrega) -->
-                <p id="pickup-message" class="text-sm text-bolli-purple-light bg-purple-50 p-3 rounded-lg">
-                    O dia e horário para retirada serão combinados via WhatsApp.
+                <!-- Mensagens de Feedback (Inicialmente ocultas) -->
+                <p id="pickup-message" class="text-sm text-bolli-purple-light bg-purple-50 p-3 rounded-lg hidden">
+                    O dia e horário da retirada serão combinados via WhatsApp.
                 </p>
                 <p id="delivery-message" class="text-sm text-bolli-purple-light bg-purple-50 p-3 rounded-lg hidden">
                     O valor da entrega será calculado e informado via WhatsApp.
                 </p>
-                
-                <!-- Campo de Endereço (Condicional) -->
+
+                <!-- Campo de Endereço (Inicialmente oculto) -->
                 <div id="delivery-address-group" class="hidden">
-                    <label for="address" class="block text-sm font-medium text-bolli-text-dark mb-1">Endereço de Entrega *</label>
+                    <label for="address" class="block text-sm font-medium text-bolli-cart-title mb-1">Endereço de Entrega *</label>
                     <input type="text" id="address" name="address"
                            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-bolli-purple-light focus:border-transparent"
                            placeholder="Rua, Número, Bairro, Complemento">
@@ -260,6 +295,7 @@
                     <button type="button" id="cancel-checkout-btn" class="bg-gray-200 text-bolli-text-dark py-2 px-4 rounded-lg font-bold hover:bg-gray-300 transition-colors">
                         Cancelar
                     </button>
+                    <!-- Botão de Envio (type="button" para evitar popup block) -->
                     <button type="button" id="send-whatsapp-btn" class="bg-bolli-purple-light text-white py-2 px-6 rounded-lg font-bold hover:bg-bolli-purple-dark transition-colors">
                         Enviar Pedido via WhatsApp
                     </button>
@@ -272,6 +308,7 @@
     <div id="success-modal" class="fixed inset-0 bg-black bg-opacity-60 z-[70] flex items-center justify-center p-4 hidden">
         <div class="bg-white w-full max-w-sm rounded-xl shadow-xl p-6 text-center transform scale-95 opacity-0 transition-all duration-300">
             <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <!-- Ícone Check -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
             </div>
             <h3 class="text-xl font-sans text-bolli-text-dark mb-2">Pedido Gerado!</h3>
