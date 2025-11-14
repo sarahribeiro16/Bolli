@@ -2,10 +2,10 @@
 document.addEventListener('DOMContentLoaded', () => {
             
     // ===== DADOS DOS PRODUTOS =====
-    // !!! ATENÇÃO AQUI !!!
-    // Verifique se os nomes das imagens (ex: 'ferrero.png')
-    // são EXATAMENTE iguais aos nomes dos seus arquivos de foto.
-    // Letras maiúsculas, minúsculas e o formato (.png, .jpg) importam!
+    //
+    //  NOVO CONTROLE DE ESTOQUE:
+    //  Para "desligar" um produto, mude 'inStock: true' para 'inStock: false'
+    //
     const products = [
         // --- CATEGORIA COOKIES ---
         {
@@ -13,45 +13,50 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Ferrero',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'ferrero.png', // O seu arquivo de foto se chama 'ferrero.png'?
+            image: 'ferrero.png',
             special: false,
-            category: 'cookies'
+            category: 'cookies',
+            inStock: true // <-- CONTROLE DE ESTOQUE
         },
         {
             id: 'kinder',
             name: 'Kinder',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'kinder.png', // O seu arquivo de foto se chama 'kinder.png'?
+            image: 'ferrero.png',
             special: false,
-            category: 'cookies'
+            category: 'cookies',
+            inStock: true
         },
         {
             id: 'black',
             name: 'Black',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'black.png', // ... e assim por diante.
+            image: 'ferrero.png',
             special: false,
-            category: 'cookies'
+            category: 'cookies',
+            inStock: false // <-- EXEMPLO DE PRODUTO ESGOTADO
         },
         {
             id: 'pistache',
             name: 'Pistache',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'pistache.png',
+            image: 'ferrero.png',
             special: false,
-            category: 'cookies'
+            category: 'cookies',
+            inStock: true
         },
         {
             id: 'caramelo',
             name: 'Caramelo',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'caramelo.png',
-            special: true,
-            category: 'cookies'
+            image: 'ferrero.png',
+            special: true, // <-- TAG 'Especial da Semana' VAI APARECER
+            category: 'cookies',
+            inStock: true
         },
 
         // --- CATEGORIA NATAL ---
@@ -60,45 +65,50 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Lata de Cookies',
             price: 70.00,
             description: 'Lata com 8 mini cookies dos nossos sabores tradicionais.',
-            image: 'lata-cookies.png',
+            image: 'ferrero.png',
             special: false,
-            category: 'natal'
+            category: 'natal',
+            inStock: true
         },
         {
             id: 'natal-lata-suspiro',
             name: 'Lata de Suspiro',
             price: 50.00,
             description: 'Lata com suspiros modelados sabor panetone.',
-            image: 'lata-suspiro.png',
+            image: 'ferrero.png',
             special: false,
-            category: 'natal'
+            category: 'natal',
+            inStock: true
         },
         {
             id: 'natal-pote-cookies',
             name: 'Pote de Cookies',
             price: 35.00,
             description: 'Pote de cookie bites tradicionais.',
-            image: 'pote-cookies.png',
+            image: 'ferrero.png',
             special: false,
-            category: 'natal'
+            category: 'natal',
+            inStock: true
         },
         {
             id: 'natal-cartao-suspiro',
             name: 'Cartão de Suspiro',
             price: 12.00,
             description: 'Cartão de natal com suspiro modelado em formato de árvore sabor panetone.',
-            image: 'cartao-suspiro.png',
+            image: 'ferrero.png',
             special: false,
-            category: 'natal'
+            category: 'natal',
+            inStock: true
         },
         {
             id: 'natal-cartao-cookie',
             name: 'Cartão de Cookie',
             price: 20.00,
             description: 'Cartão de Natal com cookie recheado - consulte sabores.',
-            image: 'cartao-cookie.png',
+            image: 'ferrero.png',
             special: false,
-            category: 'natal'
+            category: 'natal',
+            inStock: true
         },
 
         // --- CATEGORIA SUSPIROS ---
@@ -107,9 +117,10 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Suspiro',
             price: 10.00,
             description: 'Suspiro tradicional 40g.',
-            image: 'suspiro.png',
+            image: 'ferrero.png',
             special: false,
-            category: 'suspiros'
+            category: 'suspiros',
+            inStock: true
         }
     ];
 
@@ -162,77 +173,103 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function createProductCard(product) {
         const isSpecial = product.special;
+        const inStock = product.inStock;
         
-        // Define cores baseadas na categoria
-        let bgColor = '';
+        // Define cores (LÓGICA DO FUNDO ESPECIAL REMOVIDA)
+        let bgColor = 'relative'; // Adiciona 'relative' para a tag flutuar
         let textColor = 'text-bolli-special-bg'; // Cor padrão do título
         let descColor = 'text-bolli-desc';     // Cor padrão da descrição
         let priceColor = 'text-bolli-purple-light'; // Cor padrão do preço
 
-        if (isSpecial && product.category === 'cookies') {
-            // Regra especial para cookie especial
-            bgColor = 'bg-bolli-special-bg rounded-44px text-white';
-            textColor = 'text-white';
-            descColor = 'text-white';
-            priceColor = 'text-white';
-        } else if (product.category === 'natal') {
+        if (product.category === 'natal') {
             // Regra para card de Natal (fundo transparente, texto claro)
             textColor = 'text-white';
             descColor = 'text-gray-200';
             priceColor = 'text-white';
         }
         
+        // --- LÓGICA DE CONTROLE (Estoque/Esgotado) ---
+        let controlBlock = '';
+        if (inStock) {
+            // Produto em estoque: mostra botões
+            controlBlock = `
+                <span class="text-2xl font-bold ${priceColor}">
+                    ${formatCurrency(product.price)}
+                </span>
+                
+                <div class="flex items-center space-x-3 bg-bolli-control-bg rounded-lg p-2">
+                    <button 
+                        class="decrease-qty-btn text-bolli-control-icon font-bold text-lg w-6 h-6 flex items-center justify-center rounded hover:bg-gray-300" 
+                        data-id="${product.id}"
+                        aria-label="Diminuir quantidade de ${product.name}"
+                    >
+                        &minus;
+                    </button>
+                    <span 
+                        id="quantity-${product.id}" 
+                        class="font-bold text-lg text-bolli-control-icon w-6 text-center"
+                    >
+                        0
+                    </span>
+                    <button 
+                        class="increase-qty-btn text-bolli-control-icon font-bold text-lg w-6 h-6 flex items-center justify-center rounded hover:bg-gray-300" 
+                        data-id="${product.id}"
+                        aria-label="Aumentar quantidade de ${product.name}"
+                    >
+                        &plus;
+                    </button>
+                </div>
+                
+                <button 
+                    class="add-qty-to-cart-btn bg-bolli-control-bg text-bolli-control-icon rounded-lg p-3 hover:bg-gray-300 transition-colors"
+                    data-id="${product.id}"
+                    aria-label="Adicionar ${product.name} ao carrinho"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                </button>
+            `;
+        } else {
+            // Produto esgotado: mostra aviso
+            controlBlock = `
+                <span class="text-2xl font-bold text-gray-400 line-through ${priceColor === 'text-white' ? 'text-gray-300' : ''}">
+                    ${formatCurrency(product.price)}
+                </span>
+                <div class="col-span-2 text-center text-red-600 font-bold bg-gray-200 px-4 py-2 rounded-lg text-sm">
+                    Esgotado
+                </div>
+            `;
+        }
+        
+        // --- HTML FINAL DO CARD ---
         return `
             <div class="w-full max-w-xs ${bgColor}">
+                
+                <!-- TAG ESPECIAL (NOVA) -->
+                ${isSpecial ? `
+                <div class="absolute top-3 left-3 bg-bolli-special-bg text-white text-xs font-sans px-3 py-1 rounded-full z-10 shadow-lg">
+                    Especial da Semana
+                </div>` : ''}
+
                 <div class="p-5 text-center">
                     
                     <h3 class="text-3xl font-sans ${textColor} mb-4">${product.name}</h3>
                     
-                    <!-- IMAGEM QUADRADA (aspect-square) -->
-                    <img src="${product.image}" alt="${product.name}" class="w-full aspect-square object-cover mb-4 rounded-lg">
+                    <!-- IMAGEM (com efeito se esgotado) -->
+                    <img 
+                        src="${product.image}" 
+                        alt="${product.name}" 
+                        class="w-full aspect-square object-cover mb-4 rounded-lg ${!inStock ? 'opacity-60 grayscale' : ''}"
+                    >
                     
                     <p class="text-sm ${descColor} mb-5 h-16">${product.description}</p>
                     
                     <div class="flex justify-around items-center">
-                        
-                        <span class="text-2xl font-bold ${priceColor}">
-                            ${formatCurrency(product.price)}
-                        </span>
-                        
-                        <div class="flex items-center space-x-3 bg-bolli-control-bg rounded-lg p-2">
-                            <button 
-                                class="decrease-qty-btn text-bolli-control-icon font-bold text-lg w-6 h-6 flex items-center justify-center rounded hover:bg-gray-300" 
-                                data-id="${product.id}"
-                                aria-label="Diminuir quantidade de ${product.name}"
-                            >
-                                &minus;
-                            </button>
-                            <span 
-                                id="quantity-${product.id}" 
-                                class="font-bold text-lg text-bolli-control-icon w-6 text-center"
-                            >
-                                0
-                            </span>
-                            <button 
-                                class="increase-qty-btn text-bolli-control-icon font-bold text-lg w-6 h-6 flex items-center justify-center rounded hover:bg-gray-300" 
-                                data-id="${product.id}"
-                                aria-label="Aumentar quantidade de ${product.name}"
-                            >
-                                &plus;
-                            </button>
-                        </div>
-                        
-                        <button 
-                            class="add-qty-to-cart-btn bg-bolli-control-bg text-bolli-control-icon rounded-lg p-3 hover:bg-gray-300 transition-colors"
-                            data-id="${product.id}"
-                            aria-label="Adicionar ${product.name} ao carrinho"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="9" cy="21" r="1"></circle>
-                                <circle cx="20" cy="21" r="1"></circle>
-                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                            </svg>
-                        </button>
+                        <!-- Bloco de Controle (com ou sem estoque) -->
+                        ${controlBlock}
                     </div>
                 </div>
             </div>
@@ -262,7 +299,8 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function addToCartWithQuantity(productId, quantity) {
         const product = products.find(p => p.id === productId);
-        if (!product || quantity <= 0) return;
+        // Não adiciona se o produto não for encontrado, a quantidade for 0, ou se estiver sem estoque
+        if (!product || quantity <= 0 || !product.inStock) return;
 
         const existingItem = cart.find(item => item.id === productId);
 
@@ -384,6 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Reseta os contadores de todos os produtos (cookies e natal)
         products.forEach(product => {
+            // Só reseta o contador se o produto tiver um (se estiver em estoque)
             const qtySpan = document.getElementById(`quantity-${product.id}`);
             if (qtySpan) {
                 qtySpan.textContent = '0';
@@ -395,6 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * Lida com cliques no grid de produtos (delegação de evento)
      */
     function handleProductGridClick(event) {
+        // A lógica de clique só funciona se os botões existirem (ou seja, se inStock for true)
         const increaseBtn = event.target.closest('.increase-qty-btn');
         const decreaseBtn = event.target.closest('.decrease-qty-btn');
         const addBtn = event.target.closest('.add-qty-to-cart-btn');
