@@ -93,11 +93,11 @@
         </nav>
     </header>
 
-    <!-- ===== MAIN CONTENT ===== -->
-    <main class="max-w-6xl mx-auto px-4 py-12">
+    <!-- ===== MAIN CONTENT (SEM LIMITAÇÃO DE LARGURA) ===== -->
+    <main>
         
-        <!-- Seção Cookies -->
-        <section id="cookies" class="pb-24"> 
+        <!-- Seção Cookies (AGORA COM LARGURA PRÓPRIA) -->
+        <section id="cookies" class="max-w-6xl mx-auto px-4 py-12 pb-24"> 
             
             <!-- Container do Título com Linhas -->
             <div class="flex items-center justify-center text-center mb-14">
@@ -114,15 +114,15 @@
             </div>
         </section>
 
-        <!-- ===== Seção Cardápio Natal (EFEITO MOLDURA) ===== -->
+        <!-- ===== Seção Cardápio Natal (LARGURA TOTAL) ===== -->
         <!-- 1. O <section> é a moldura (com background-image) -->
         <section 
             id="natal" 
             class="py-16 bg-cover bg-center" 
             style="background-image: url('moldura-natal.png');" 
         >
-            <!-- 2. Esta <div> interna é o "miolo" com a cor de fundo do site -->
-            <div class="bg-bolli-bg max-w-6xl mx-auto p-6 sm:p-10 shadow-lg rounded-lg">
+            <!-- 2. Esta <div> interna é o "miolo" (MIOLO MAIS LARGO) -->
+            <div class="bg-bolli-bg max-w-6xl mx-auto p-6 sm:p-10 rounded-lg"> <!-- <-- MUDANÇA DE max-w-5xl PARA max-w-6xl -->
                 
                 <!-- Título da Categoria (Cor Atualizada) -->
                 <h2 class="text-4xl sm:text-5xl font-sans text-center text-bolli-christmas-red mb-6"> 
@@ -144,8 +144,8 @@
             </div>
         </section>
         
-        <!-- Seção Suspiros (Atualizada) -->
-        <section id="suspiros" class="py-20 text-center">
+        <!-- Seção Suspiros (AGORA COM LARGURA PRÓPRIA) -->
+        <section id="suspiros" class="max-w-6xl mx-auto px-4 py-20 text-center">
             
             <!-- Container do Título com Linhas -->
             <div class="flex items-center justify-center text-center mb-14">
@@ -299,9 +299,6 @@
 
     <!-- Link para seu arquivo JavaScript (DEFER garante que ele rode após o HTML) -->
     <script src="script.js" defer></script>
-
-</body>
-</html>
 
 </body>
 </html>
