@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale-1.0">
     
     <title>Bolli Doces | Doces que fazem suspirar</title>
     
@@ -26,7 +26,7 @@
                     colors: {
                         'bolli-purple-dark': '#4a1d3b',
                         'bolli-purple-light': '#8c4a6f',
-                        'bolli-bg': '#fdfaf6',
+                        'bolli-bg': '#F8F7F2', // <-- COR DO FUNDO ATUALIZADA
                         'bolli-text-dark': '#3a2d27',
                         'bolli-text-light': '#6b5e59',
                         
@@ -52,7 +52,7 @@
     <link rel="stylesheet" href="style.css">
 
 </head>
-<body class="bg-bolli-bg text-bolli-text-dark">
+<body class="bg-bolli-bg text-bolli-text-dark"> <!-- 'bg-bolli-bg' agora é F8F7F2 -->
 
     <!-- ===== HEADER ===== -->
     <header class="shadow-lg">
@@ -124,7 +124,7 @@
                 <div class="flex-1 h-px bg-bolli-desc"></div>
             </div>
             
-            <!-- Grid de Produtos -->
+            <!-- Grid de Produtos (ID CORRETO) -->
             <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
                 <!-- Os produtos 'cookies' serão injetados aqui -->
             </div>
@@ -145,7 +145,7 @@
                 </p>
             </div>
             
-            <!-- Grid de Produtos de Natal -->
+            <!-- Grid de Produtos de Natal (ID CORRETO) -->
             <div id="natal-product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center max-w-6xl mx-auto px-4"> <!-- Margem removida daqui -->
                 <!-- Os produtos 'natal' serão injetados aqui -->
             </div>
@@ -168,7 +168,7 @@
                 <div class="flex-1 h-px bg-bolli-desc"></div>
             </div>
 
-            <!-- Grid de Suspiros -->
+            <!-- Grid de Suspiros (ID CORRETO) -->
             <div id="suspiros-product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
                 <!-- Os produtos 'suspiros' serão injetados aqui -->
             </div>
@@ -218,7 +218,7 @@
             
             <!-- Footer do Carrinho -->
             <div class="p-5 border-t bg-gray-50 space-y-4">
-                <div class="flex justify-between items-center text-lg font-medium text-bolli-purple-dark">
+                <div class="flex justify-between items-center text-lg font-medium text-bolli-text-dark">
                     <span>Subtotal:</span>
                     <span id="cart-total" class="text-xl font-bold">R$ 0,00</span>
                 </div>
@@ -320,7 +320,7 @@
     </div>
 
 
-    <!-- Link para seu arquivo JavaScript -->
+    <!-- Link para seu arquivo JavaScript (DEFER garante que ele rode após o HTML) -->
     <script src="script.js" defer></script>
 
 </body>
