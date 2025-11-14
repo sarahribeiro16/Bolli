@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Caramelo',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'https://placehold.co/300x300/e6d4c0/4a1d3b?text=Caramelo', // Mude aqui
+            : 'https://placehold.co/300x300/e6d4c0/4a1d3b?text=Caramelo', // Mude aqui
             special: true,
             category: 'cookies'
         },
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Lata de Cookies',
             price: 70.00,
             description: 'Lata com 8 mini cookies dos nossos sabores tradicionais.',
-            image: 'https://placehold.co/300x300/f0d0d0/790C21?text=Lata+Cookies', // Mude aqui
+            : 'https://placehold.co/300x300/f0d0d0/790C21?text=Lata+Cookies', // Mude aqui
             special: false,
             category: 'natal'
         },
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Lata de Suspiro',
             price: 50.00,
             description: 'Lata com suspiros modelados sabor panetone.',
-            image: 'https://placehold.co/300x300/f0d0d0/790C21?text=Lata+Suspiro', // Mude aqui
+            : 'https://placehold.co/300x300/f0d0d0/790C21?text=Lata+Suspiro', // Mude aqui
             special: false,
             category: 'natal'
         },
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Pote de Cookies',
             price: 35.00,
             description: 'Pote de cookie bites tradicionais.',
-            image: 'https://placehold.co/300x300/f0d0d0/790C21?text=Pote+Cookies', // Mude aqui
+            : 'https://placehold.co/300x300/f0d0d0/790C21?text=Pote+Cookies', // Mude aqui
             special: false,
             category: 'natal'
         },
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Cartão de Suspiro',
             price: 12.00,
             description: 'Cartão de natal com suspiro modelado em formato de árvore sabor panetone.',
-            image: 'https://placehold.co/300x300/f0d0d0/790C21?text=Cartão+Suspiro', // Mude aqui
+            : 'https://placehold.co/300x300/f0d0d0/790C21?text=Cartão+Suspiro', // Mude aqui
             special: false,
             category: 'natal'
         },
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Cartão de Cookie',
             price: 20.00,
             description: 'Cartão de Natal com cookie recheado - consulte sabores.',
-            image: 'https://placehold.co/300x300/f0d0d0/790C21?text=Cartão+Cookie', // Mude aqui
+            : 'https://placehold.co/300x300/f0d0d0/790C21?text=Cartão+Cookie', // Mude aqui
             special: false,
             category: 'natal'
         },
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Suspiro',
             price: 10.00,
             description: 'Suspiro tradicional 40g.',
-            image: 'https://placehold.co/300x300/f5f0e8/4a1d3b?text=Suspiro', // Mude aqui
+            : 'https://placehold.co/300x300/f5f0e8/4a1d3b?text=Suspiro', // Mude aqui
             special: false,
             category: 'suspiros'
         }
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     <h3 class="text-3xl font-sans ${titleColor} mb-4">${product.name}</h3>
                     
-                    <img src="${product.image}" alt="${product.name}" class="w-full h-56 object-cover mb-4 rounded-lg">
+                   <img src="${product.image}" alt="${product.name}" class="w-full aspect-square object-cover mb-4 rounded-lg">
                     
                     <p class="text-sm ${descColor} mb-5 h-16">${product.description}</p>
                     
@@ -312,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cart.forEach(item => {
                 const cartItem = `
                     <div class="flex items-center space-x-4 border-b pb-4">
-                        <img src="${item.image}" alt="${item.name}" class="w-20 h-20 rounded-lg object-cover">
+                        <img src="${item.}" alt="${item.name}" class="w-20 h-20 rounded-lg object-cover">
                         <div class="flex-1">
                             <h4 class="font-bold text-bolli-text-dark">${item.name}</h4>
                             <p class="text-sm text-bolli-purple-light font-medium">${formatCurrency(item.price)}</p>
