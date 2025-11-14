@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
             
     // ===== DADOS DOS PRODUTOS =====
+    // (Substitua as URLs das imagens pelos nomes dos seus arquivos)
     const products = [
         // --- CATEGORIA COOKIES ---
         {
@@ -9,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Ferrero',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'ferrero.png', // Mude aqui
+            image: 'ferrero.png', // Mude aqui (ex: 'meu-cookie-ferrero.jpg')
             special: false,
             category: 'cookies'
         },
@@ -18,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Kinder',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'ferrero.png', // Mude aqui
+            image: 'kinder.png', // Mude aqui
             special: false,
             category: 'cookies'
         },
@@ -27,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Black',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'ferrero.png', // Mude aqui
+            image: 'black.png', // Mude aqui
             special: false,
             category: 'cookies'
         },
@@ -36,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Pistache',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'ferrero.png', // Mude aqui
+            image: 'pistache.png', // Mude aqui
             special: false,
             category: 'cookies'
         },
@@ -45,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Caramelo',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            : 'https://placehold.co/300x300/e6d4c0/4a1d3b?text=Caramelo', // Mude aqui
+            image: 'caramelo.png', // Mude aqui
             special: true,
             category: 'cookies'
         },
@@ -56,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Lata de Cookies',
             price: 70.00,
             description: 'Lata com 8 mini cookies dos nossos sabores tradicionais.',
-            : 'https://placehold.co/300x300/f0d0d0/790C21?text=Lata+Cookies', // Mude aqui
+            image: 'lata-cookies.png', // Mude aqui
             special: false,
             category: 'natal'
         },
@@ -65,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Lata de Suspiro',
             price: 50.00,
             description: 'Lata com suspiros modelados sabor panetone.',
-            : 'https://placehold.co/300x300/f0d0d0/790C21?text=Lata+Suspiro', // Mude aqui
+            image: 'lata-suspiro.png', // Mude aqui
             special: false,
             category: 'natal'
         },
@@ -74,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Pote de Cookies',
             price: 35.00,
             description: 'Pote de cookie bites tradicionais.',
-            : 'https://placehold.co/300x300/f0d0d0/790C21?text=Pote+Cookies', // Mude aqui
+            image: 'pote-cookies.png', // Mude aqui
             special: false,
             category: 'natal'
         },
@@ -83,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Cartão de Suspiro',
             price: 12.00,
             description: 'Cartão de natal com suspiro modelado em formato de árvore sabor panetone.',
-            : 'https://placehold.co/300x300/f0d0d0/790C21?text=Cartão+Suspiro', // Mude aqui
+            image: 'cartao-suspiro.png', // Mude aqui
             special: false,
             category: 'natal'
         },
@@ -92,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Cartão de Cookie',
             price: 20.00,
             description: 'Cartão de Natal com cookie recheado - consulte sabores.',
-            : 'https://placehold.co/300x300/f0d0d0/790C21?text=Cartão+Cookie', // Mude aqui
+            image: 'cartao-cookie.png', // Mude aqui
             special: false,
             category: 'natal'
         },
@@ -103,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Suspiro',
             price: 10.00,
             description: 'Suspiro tradicional 40g.',
-            : 'https://placehold.co/300x300/f5f0e8/4a1d3b?text=Suspiro', // Mude aqui
+            image: 'suspiro.png', // Mude aqui
             special: false,
             category: 'suspiros'
         }
@@ -139,61 +140,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const cancelCheckoutBtn = document.getElementById('cancel-checkout-btn');
     const sendWhatsappBtn = document.getElementById('send-whatsapp-btn');
     
-    // Elementos do Checkout (Entrega/Retirada)
-    const deliveryMethodPickup = document.getElementById('delivery-method-pickup');
-    const deliveryMethodDelivery = document.getElementById('delivery-method-delivery');
+    // Elementos do Formulário de Entrega
+    const deliveryRadio = document.getElementById('delivery-delivery');
+    const pickupRadio = document.getElementById('delivery-pickup');
     const deliveryAddressGroup = document.getElementById('delivery-address-group');
     const deliveryAddressInput = document.getElementById('address');
-    const pickupMessage = document.getElementById('pickup-message');
     const deliveryMessage = document.getElementById('delivery-message');
+    const pickupMessage = document.getElementById('pickup-message');
     
     // Elementos do Modal de Sucesso
     const successModal = document.getElementById('success-modal');
     const closeSuccessBtn = document.getElementById('close-success-btn');
 
     // ===== FUNÇÕES PRINCIPAIS =====
-
-    /**
-     * Renderiza os produtos (Cookies) na página
-     */
-    function renderProducts() {
-        if (!productGrid) return; 
-        
-        productGrid.innerHTML = ''; // Limpa o grid
-        
-        // Filtra apenas produtos da categoria 'cookies'
-        products.filter(p => p.category === 'cookies').forEach(product => {
-            productGrid.innerHTML += createProductCard(product);
-        });
-    }
-
-    /**
-     * Renderiza os produtos de Natal na página
-     */
-    function renderNatalProducts() {
-        if (!natalProductGrid) return; 
-        
-        natalProductGrid.innerHTML = ''; // Limpa o grid de natal
-        
-        // Filtra apenas produtos da categoria 'natal'
-        products.filter(p => p.category === 'natal').forEach(product => {
-            natalProductGrid.innerHTML += createProductCard(product);
-        });
-    }
-    
-    /**
-     * Renderiza os produtos (Suspiros) na página
-     */
-    function renderSuspirosProducts() {
-        if (!suspirosProductGrid) return;
-        
-        suspirosProductGrid.innerHTML = ''; // Limpa o grid
-        
-        // Filtra apenas produtos da categoria 'suspiros'
-        products.filter(p => p.category === 'suspiros').forEach(product => {
-            suspirosProductGrid.innerHTML += createProductCard(product);
-        });
-    }
     
     /**
      * Cria o HTML para um card de produto (reutilizável)
@@ -201,35 +160,33 @@ document.addEventListener('DOMContentLoaded', () => {
     function createProductCard(product) {
         const isSpecial = product.special;
         
-        // Cores base
-        let cardBg = '';
-        let titleColor = 'text-bolli-special-bg';
-        let descColor = 'text-bolli-desc';
-        let priceColor = 'text-bolli-purple-light';
-        let textColor = 'text-black'; // Cor padrão do texto (para contadores, etc)
+        // Define cores baseadas na categoria
+        let bgColor = '';
+        let textColor = 'text-bolli-special-bg'; // Cor padrão do título
+        let descColor = 'text-bolli-desc';     // Cor padrão da descrição
+        let priceColor = 'text-bolli-purple-light'; // Cor padrão do preço
 
-        // Ajusta cores para cards especiais ou de natal
-        if (isSpecial) {
-            cardBg = 'bg-bolli-special-bg rounded-44px';
-            titleColor = 'text-white';
+        if (isSpecial && product.category === 'cookies') {
+            // Regra especial para cookie especial
+            bgColor = 'bg-bolli-special-bg rounded-44px text-white';
+            textColor = 'text-white';
             descColor = 'text-white';
             priceColor = 'text-white';
-            textColor = 'text-white';
         } else if (product.category === 'natal') {
-            titleColor = 'text-white';
+            // Regra para card de Natal (fundo transparente, texto claro)
+            textColor = 'text-white';
             descColor = 'text-gray-200';
             priceColor = 'text-white';
-            textColor = 'text-white';
         }
-
-        // Retorna o HTML do card
+        
         return `
-            <div class="w-full max-w-xs ${cardBg}">
+            <div class="w-full max-w-xs ${bgColor}">
                 <div class="p-5 text-center">
                     
-                    <h3 class="text-3xl font-sans ${titleColor} mb-4">${product.name}</h3>
+                    <h3 class="text-3xl font-sans ${textColor} mb-4">${product.name}</h3>
                     
-                   <img src="${product.image}" alt="${product.name}" class="w-full aspect-square object-cover mb-4 rounded-lg">
+                    <!-- IMAGEM QUADRADA (aspect-square) -->
+                    <img src="${product.image}" alt="${product.name}" class="w-full aspect-square object-cover mb-4 rounded-lg">
                     
                     <p class="text-sm ${descColor} mb-5 h-16">${product.description}</p>
                     
@@ -280,6 +237,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
+     * Renderiza os produtos filtrados em um grid específico
+     */
+    function renderProductsByCategory(category, gridElement) {
+        if (!gridElement) return; 
+        
+        gridElement.innerHTML = ''; // Limpa o grid
+        
+        // Filtra produtos pela categoria
+        products.filter(p => p.category === category).forEach(product => {
+            gridElement.innerHTML += createProductCard(product);
+        });
+    }
+
+
+    /**
      * Adiciona uma quantidade específica de um item ao carrinho
      */
     function addToCartWithQuantity(productId, quantity) {
@@ -312,11 +284,12 @@ document.addEventListener('DOMContentLoaded', () => {
             cart.forEach(item => {
                 const cartItem = `
                     <div class="flex items-center space-x-4 border-b pb-4">
-                        <img src="${item.}" alt="${item.name}" class="w-20 h-20 rounded-lg object-cover">
+                        <img src="${item.image}" alt="${item.name}" class="w-20 h-20 rounded-lg object-cover">
                         <div class="flex-1">
                             <h4 class="font-bold text-bolli-text-dark">${item.name}</h4>
                             <p class="text-sm text-bolli-purple-light font-medium">${formatCurrency(item.price)}</p>
                             
+                            <!-- Controles de Quantidade -->
                             <div class="flex items-center space-x-2 mt-2">
                                 <button class="quantity-btn bg-gray-200 rounded-full w-6 h-6 flex items-center justify-center text-lg hover:bg-gray-300" data-id="${item.id}" data-action="decrease">
                                     &minus;
@@ -328,6 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
                         <button class="remove-item-btn text-red-500 hover:text-red-700" data-id="${item.id}" aria-label="Remover ${item.name}">
+                            <!-- Ícone Lixeira -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                         </button>
                     </div>
@@ -476,25 +450,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     /**
-     * Controla a exibição das opções de entrega/retirada no checkout
-     */
-    function toggleDeliveryOptions() {
-        if (deliveryMethodDelivery && deliveryMethodDelivery.checked) {
-            // Se for ENTREGA
-            if (deliveryAddressGroup) deliveryAddressGroup.classList.remove('hidden');
-            if (deliveryAddressInput) deliveryAddressInput.required = true;
-            if (deliveryMessage) deliveryMessage.classList.remove('hidden');
-            if (pickupMessage) pickupMessage.classList.add('hidden');
-        } else {
-            // Se for RETIRADA (default)
-            if (deliveryAddressGroup) deliveryAddressGroup.classList.add('hidden');
-            if (deliveryAddressInput) deliveryAddressInput.required = false;
-            if (deliveryMessage) deliveryMessage.classList.add('hidden');
-            if (pickupMessage) pickupMessage.classList.remove('hidden');
-        }
-    }
-
-    /**
      * Lida com o clique de Envio para o WhatsApp
      */
     function handleWhatsAppClick() {
@@ -509,7 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: formData.get('name'),
             phone: formData.get('phone'),
             deliveryMethod: formData.get('deliveryMethod'),
-            address: formData.get('address'),
+            address: formData.get('address') || 'N/A', // Pega o endereço ou 'N/A'
         };
         
         // 3. Gera a mensagem
@@ -522,7 +477,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 5. Limpa o carrinho, reseta o form, e mostra sucesso
         clearCartAndResetQuantities();
         checkoutForm.reset();
-        toggleDeliveryOptions(); // Reseta para o estado "Retirada"
+        toggleDeliveryOptions(); // Reseta os campos de entrega/retirada
         closeCheckoutModal();
         openSuccessModal();
     }
@@ -542,26 +497,53 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         message += `\n*SUBTOTAL: ${formatCurrency(total)}*\n`;
+        // Você pode adicionar taxa de entrega aqui se desejar
         message += `*TOTAL: ${formatCurrency(total)}*\n\n`;
-
-        message += '*--- TIPO DE ENTREGA ---*\n';
-        if (customer.deliveryMethod === 'entrega') {
-            message += `*Modo:* ENTREGA\n`;
-            message += `*Endereço:* ${customer.address}\n`;
-            message += `_(Aguardando cálculo da taxa de entrega)_\n\n`;
-        } else {
-            message += `*Modo:* RETIRADA\n`;
-            message += `_(Dia e horário a combinar)_\n\n`;
-        }
         
         message += '*--- MEUS DADOS ---*\n';
         message += `*Nome:* ${customer.name}\n`;
         message += `*WhatsApp:* ${customer.phone}\n\n`;
         
-        message += 'Aguardo a confirmação do pedido!';
+        message += '*--- TIPO DE ENTREGA ---*\n';
+        if (customer.deliveryMethod === 'Retirada') {
+            message += `*Método:* Retirada\n`;
+            message += `_(Combinar dia e horário via WhatsApp)_\n`;
+        } else {
+            message += `*Método:* Entrega\n`;
+            message += `*Endereço:* ${customer.address}\n`;
+            message += `_(Valor da entrega a ser calculado)_\n`;
+        }
+        
+        message += '\nAguardo a confirmação do pedido!';
         
         return message;
     }
+
+    /**
+     * Controla a exibição dos campos de Entrega/Retirada
+     */
+    function toggleDeliveryOptions() {
+        if (!deliveryRadio || !pickupRadio) return; // Se os elementos não existirem, não faz nada
+        
+        if (deliveryRadio.checked) {
+            deliveryAddressGroup.classList.remove('hidden');
+            deliveryMessage.classList.remove('hidden');
+            pickupMessage.classList.add('hidden');
+            deliveryAddressInput.required = true;
+        } else if (pickupRadio.checked) {
+            deliveryAddressGroup.classList.add('hidden');
+            deliveryMessage.classList.add('hidden');
+            pickupMessage.classList.remove('hidden');
+            deliveryAddressInput.required = false;
+        } else {
+            // Estado inicial (nada selecionado)
+            deliveryAddressGroup.classList.add('hidden');
+            deliveryMessage.classList.add('hidden');
+            pickupMessage.classList.add('hidden');
+            deliveryAddressInput.required = false;
+        }
+    }
+
 
     // ===== FUNÇÕES DE CONTROLE DOS MODAIS =====
     
@@ -622,9 +604,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===== ADIÇÃO DE EVENT LISTENERS =====
     
     // Renderização inicial
-    renderProducts();
-    renderNatalProducts();
-    renderSuspirosProducts();
+    renderProductsByCategory('cookies', productGrid);
+    renderProductsByCategory('natal', natalProductGrid);
+    renderProductsByCategory('suspiros', suspirosProductGrid);
     renderCart(); // Para mostrar "carrinho vazio" inicialmente
 
     // Abrir Carrinho
@@ -649,22 +631,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fechar Sucesso
     if(closeSuccessBtn) closeSuccessBtn.addEventListener('click', closeSuccessModal);
 
-    // Ações de clique nos grids de produto
-    if(productGrid) productGrid.addEventListener('click', handleProductGridClick);
-    if(natalProductGrid) natalProductGrid.addEventListener('click', handleProductGridClick);
-    if(suspirosProductGrid) suspirosProductGrid.addEventListener('click', handleProductGridClick);
+    // Ações de clique nos grids de produto (escutando em todos os grids)
+    const allGrids = [productGrid, natalProductGrid, suspirosProductGrid];
+    allGrids.forEach(grid => {
+        if(grid) grid.addEventListener('click', handleProductGridClick);
+    });
     
     // Ações de clique nos itens do carrinho
     if(cartItemsContainer) cartItemsContainer.addEventListener('click', handleCartItemsClick);
     
-    // Ações de clique nos botões de Entrega/Retirada
-    if(deliveryMethodPickup) deliveryMethodPickup.addEventListener('change', toggleDeliveryOptions);
-    if(deliveryMethodDelivery) deliveryMethodDelivery.addEventListener('change', toggleDeliveryOptions);
-
     // Envio do Pedido (clique no botão, não submit)
     if(sendWhatsappBtn) sendWhatsappBtn.addEventListener('click', handleWhatsAppClick);
-    
-    // Estado inicial do formulário de checkout
-    toggleDeliveryOptions();
+
+    // Lógica dos botões de Entrega/Retirada
+    if(deliveryRadio) deliveryRadio.addEventListener('change', toggleDeliveryOptions);
+    if(pickupRadio) pickupRadio.addEventListener('change', toggleDeliveryOptions);
 
 });
