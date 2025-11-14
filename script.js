@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Ferrero',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'https://placehold.co/300x300/e6d4c0/4a1d3b?text=Ferrero', // Mude aqui
+            image: 'ferrero.png', // Mude aqui
             special: false,
             category: 'cookies'
         },
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Kinder',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'https://placehold.co/300x300/e6d4c0/4a1d3b?text=Kinder', // Mude aqui
+            image: 'ferrero.png', // Mude aqui
             special: false,
             category: 'cookies'
         },
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Black',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'https://placehold.co/300x300/e6d4c0/4a1d3b?text=Black', // Mude aqui
+            image: 'ferrero.png', // Mude aqui
             special: false,
             category: 'cookies'
         },
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Pistache',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'https://placehold.co/300x300/e6d4c0/4a1d3b?text=Pistache', // Mude aqui
+            image: 'ferrero.png', // Mude aqui
             special: false,
             category: 'cookies'
         },
