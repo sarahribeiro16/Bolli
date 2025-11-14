@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Kinder',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'kinder.png', 
+            image: 'ferrero.png', 
             special: false,
             category: 'cookies',
             inStock: true
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Black',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'black.png',
+            image: 'ferrero.png',
             special: false,
             category: 'cookies',
             inStock: true // <-- EXEMPLO DE PRODUTO ESGOTADO
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Pistache',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'pistache.png',
+            image: 'ferrero.png',
             special: false,
             category: 'cookies',
             inStock: true
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Caramelo',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'caramelo.png',
+            image: 'ferrero.png',
             special: true, // <-- TAG 'Especial da Semana' VAI APARECER
             category: 'cookies',
             inStock: true
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Lata de Cookies',
             price: 70.00,
             description: 'Lata com 8 mini cookies dos nossos sabores tradicionais.',
-            image: 'lata-cookies.png',
+            image: 'ferrero.png',
             special: false,
             category: 'natal',
             inStock: true
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Lata de Suspiro',
             price: 50.00,
             description: 'Lata com suspiros modelados sabor panetone.',
-            image: 'lata-suspiro.png',
+            image: 'ferrero.png',
             special: false,
             category: 'natal',
             inStock: true
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Pote de Cookies',
             price: 35.00,
             description: 'Pote de cookie bites tradicionais.',
-            image: 'pote-cookies.png',
+            image: 'ferrero.png',
             special: false,
             category: 'natal',
             inStock: true
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Cartão de Suspiro',
             price: 12.00,
             description: 'Cartão de natal com suspiro modelado em formato de árvore sabor panetone.',
-            image: 'cartao-suspiro.png',
+            image: 'ferrero.png',
             special: false,
             category: 'natal',
             inStock: true
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Cartão de Cookie',
             price: 20.00,
             description: 'Cartão de Natal com cookie recheado - consulte sabores.',
-            image: 'cartao-cookie.png',
+            image: 'ferrero.png',
             special: false,
             category: 'natal',
             inStock: true
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Suspiro',
             price: 10.00,
             description: 'Suspiro tradicional 40g.',
-            image: 'suspiro.png',
+            image: 'ferrero.png',
             special: false,
             category: 'suspiros',
             inStock: true
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Suspiro Zero',
             price: 10.00,
             description: 'Suspiro zero açúcar 25g.',
-            image: 'suspiro-zero.png', 
+            image: 'ferrero.png', 
             special: false,
             category: 'suspiros',
             inStock: false
