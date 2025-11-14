@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Ferrero',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'ferrero.png',
+            image: 'ferrero.png', 
             special: false,
             category: 'cookies',
             inStock: true // <-- CONTROLE DE ESTOQUE
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Kinder',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'ferrero.png',
+            image: 'kinder.png', 
             special: false,
             category: 'cookies',
             inStock: true
@@ -33,17 +33,17 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Black',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'ferrero.png',
+            image: 'black.png',
             special: false,
             category: 'cookies',
-            inStock: false // <-- EXEMPLO DE PRODUTO ESGOTADO
+            inStock: true // <-- EXEMPLO DE PRODUTO ESGOTADO
         },
         {
             id: 'pistache',
             name: 'Pistache',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'ferrero.png',
+            image: 'pistache.png',
             special: false,
             category: 'cookies',
             inStock: true
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Caramelo',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'ferrero.png',
+            image: 'caramelo.png',
             special: true, // <-- TAG 'Especial da Semana' VAI APARECER
             category: 'cookies',
             inStock: true
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Lata de Cookies',
             price: 70.00,
             description: 'Lata com 8 mini cookies dos nossos sabores tradicionais.',
-            image: 'ferrero.png',
+            image: 'lata-cookies.png',
             special: false,
             category: 'natal',
             inStock: true
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Lata de Suspiro',
             price: 50.00,
             description: 'Lata com suspiros modelados sabor panetone.',
-            image: 'ferrero.png',
+            image: 'lata-suspiro.png',
             special: false,
             category: 'natal',
             inStock: true
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Pote de Cookies',
             price: 35.00,
             description: 'Pote de cookie bites tradicionais.',
-            image: 'ferrero.png',
+            image: 'pote-cookies.png',
             special: false,
             category: 'natal',
             inStock: true
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Cartão de Suspiro',
             price: 12.00,
             description: 'Cartão de natal com suspiro modelado em formato de árvore sabor panetone.',
-            image: 'ferrero.png',
+            image: 'cartao-suspiro.png',
             special: false,
             category: 'natal',
             inStock: true
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Cartão de Cookie',
             price: 20.00,
             description: 'Cartão de Natal com cookie recheado - consulte sabores.',
-            image: 'ferrero.png',
+            image: 'cartao-cookie.png',
             special: false,
             category: 'natal',
             inStock: true
@@ -117,10 +117,20 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Suspiro',
             price: 10.00,
             description: 'Suspiro tradicional 40g.',
-            image: 'ferrero.png',
+            image: 'suspiro.png',
             special: false,
             category: 'suspiros',
             inStock: true
+        },
+        {
+            id: 'suspiro-zero',
+            name: 'Suspiro Zero',
+            price: 10.00,
+            description: 'Suspiro zero açúcar 25g.',
+            image: 'suspiro-zero.png', 
+            special: false,
+            category: 'suspiros',
+            inStock: false
         }
     ];
 
@@ -175,17 +185,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const isSpecial = product.special;
         const inStock = product.inStock;
         
-        // Define cores (LÓGICA DO FUNDO ESPECIAL REMOVIDA)
-        let bgColor = 'relative'; // Adiciona 'relative' para a tag flutuar
+        // Define cores
+        let bgColor = ''; // Fundo transparente por padrão
         let textColor = 'text-bolli-special-bg'; // Cor padrão do título
         let descColor = 'text-bolli-desc';     // Cor padrão da descrição
         let priceColor = 'text-bolli-purple-light'; // Cor padrão do preço
 
+        // --- LÓGICA DE NATAL (MUDANÇA AQUI) ---
         if (product.category === 'natal') {
-            // Regra para card de Natal (fundo transparente, texto claro)
-            textColor = 'text-white';
-            descColor = 'text-gray-200';
-            priceColor = 'text-white';
+            bgColor = 'bg-bolli-bg'; // <-- FUNDO BRANCO/BEGE DO SITE
+            textColor = 'text-bolli-christmas-red'; // <-- TEXTO VERMELHO
+            descColor = 'text-bolli-desc';        // <-- Descrição cinza normal
+            priceColor = 'text-bolli-christmas-red'; // <-- PREÇO VERMELHO
         }
         
         // --- LÓGICA DE CONTROLE (Estoque/Esgotado) ---
@@ -234,8 +245,11 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         } else {
             // Produto esgotado: mostra aviso
+            // (Verifica se a cor do preço era 'text-white' e aplica 'text-gray-300', senão usa 'text-gray-400')
+            const priceLineThrough = (priceColor === 'text-white' || priceColor === 'text-bolli-christmas-red') ? 'text-gray-400' : 'text-gray-400';
+            
             controlBlock = `
-                <span class="text-2xl font-bold text-gray-400 line-through ${priceColor === 'text-white' ? 'text-gray-300' : ''}">
+                <span class="text-2xl font-bold ${priceLineThrough} line-through">
                     ${formatCurrency(product.price)}
                 </span>
                 <div class="col-span-2 text-center text-red-600 font-bold bg-gray-200 px-4 py-2 rounded-lg text-sm">
@@ -245,26 +259,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // --- HTML FINAL DO CARD ---
+        // (Adicionado 'rounded-lg' e 'overflow-hidden' ao card de Natal para a moldura)
+        const cardClasses = product.category === 'natal' ? `${bgColor} rounded-lg overflow-hidden shadow-lg` : bgColor;
+        
         return `
-            <div class="w-full max-w-xs ${bgColor}">
-                
-                <!-- TAG ESPECIAL (NOVA) -->
-                ${isSpecial ? `
-                <div class="absolute top-3 left-3 bg-bolli-special-bg text-white text-xs font-sans px-3 py-1 rounded-full z-10 shadow-lg">
-                    Especial da Semana
-                </div>` : ''}
-
+            <div class="w-full max-w-xs ${cardClasses}">
                 <div class="p-5 text-center">
                     
                     <h3 class="text-3xl font-sans ${textColor} mb-4">${product.name}</h3>
                     
-                    <!-- IMAGEM (com efeito se esgotado) -->
-                    <img 
-                        src="${product.image}" 
-                        alt="${product.name}" 
-                        class="w-full aspect-square object-cover mb-4 rounded-lg ${!inStock ? 'opacity-60 grayscale' : ''}"
-                    >
-                    
+                    <!-- IMAGEM (com container relativo) -->
+                    <div class="relative w-full mb-4">
+                        <img 
+                            src="${product.image}" 
+                            alt="${product.name}" 
+                            class="w-full aspect-square object-cover rounded-lg ${!inStock ? 'opacity-60 grayscale' : ''}"
+                        >
+                        
+                        <!-- TAG ESPECIAL (MOVIDA PARA CIMA DA IMAGEM) -->
+                        ${isSpecial ? `
+                        <div class="absolute top-2 left-2 bg-bolli-special-bg text-white text-xs font-sans px-3 py-1 rounded-full z-10 shadow-lg">
+                            Especial da Semana
+                        </div>` : ''}
+                    </div>
+
                     <p class="text-sm ${descColor} mb-5 h-16">${product.description}</p>
                     
                     <div class="flex justify-around items-center">
