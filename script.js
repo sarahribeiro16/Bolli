@@ -2,7 +2,10 @@
 document.addEventListener('DOMContentLoaded', () => {
             
     // ===== DADOS DOS PRODUTOS =====
-    // (Substitua as URLs das imagens pelos nomes dos seus arquivos)
+    // !!! ATENÇÃO AQUI !!!
+    // Verifique se os nomes das imagens (ex: 'ferrero.png')
+    // são EXATAMENTE iguais aos nomes dos seus arquivos de foto.
+    // Letras maiúsculas, minúsculas e o formato (.png, .jpg) importam!
     const products = [
         // --- CATEGORIA COOKIES ---
         {
@@ -10,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Ferrero',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'ferrero.png', // Mude aqui (ex: 'meu-cookie-ferrero.jpg')
+            image: 'ferrero.png', // O seu arquivo de foto se chama 'ferrero.png'?
             special: false,
             category: 'cookies'
         },
@@ -19,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Kinder',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'kinder.png', // Mude aqui
+            image: 'kinder.png', // O seu arquivo de foto se chama 'kinder.png'?
             special: false,
             category: 'cookies'
         },
@@ -28,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Black',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'black.png', // Mude aqui
+            image: 'black.png', // ... e assim por diante.
             special: false,
             category: 'cookies'
         },
@@ -37,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Pistache',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'pistache.png', // Mude aqui
+            image: 'pistache.png',
             special: false,
             category: 'cookies'
         },
@@ -46,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Caramelo',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'caramelo.png', // Mude aqui
+            image: 'caramelo.png',
             special: true,
             category: 'cookies'
         },
@@ -57,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Lata de Cookies',
             price: 70.00,
             description: 'Lata com 8 mini cookies dos nossos sabores tradicionais.',
-            image: 'lata-cookies.png', // Mude aqui
+            image: 'lata-cookies.png',
             special: false,
             category: 'natal'
         },
@@ -66,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Lata de Suspiro',
             price: 50.00,
             description: 'Lata com suspiros modelados sabor panetone.',
-            image: 'lata-suspiro.png', // Mude aqui
+            image: 'lata-suspiro.png',
             special: false,
             category: 'natal'
         },
@@ -75,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Pote de Cookies',
             price: 35.00,
             description: 'Pote de cookie bites tradicionais.',
-            image: 'pote-cookies.png', // Mude aqui
+            image: 'pote-cookies.png',
             special: false,
             category: 'natal'
         },
@@ -84,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Cartão de Suspiro',
             price: 12.00,
             description: 'Cartão de natal com suspiro modelado em formato de árvore sabor panetone.',
-            image: 'cartao-suspiro.png', // Mude aqui
+            image: 'cartao-suspiro.png',
             special: false,
             category: 'natal'
         },
@@ -93,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Cartão de Cookie',
             price: 20.00,
             description: 'Cartão de Natal com cookie recheado - consulte sabores.',
-            image: 'cartao-cookie.png', // Mude aqui
+            image: 'cartao-cookie.png',
             special: false,
             category: 'natal'
         },
@@ -104,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Suspiro',
             price: 10.00,
             description: 'Suspiro tradicional 40g.',
-            image: 'suspiro.png', // Mude aqui
+            image: 'suspiro.png',
             special: false,
             category: 'suspiros'
         }
@@ -240,7 +243,10 @@ document.addEventListener('DOMContentLoaded', () => {
      * Renderiza os produtos filtrados em um grid específico
      */
     function renderProductsByCategory(category, gridElement) {
-        if (!gridElement) return; 
+        if (!gridElement) {
+            console.error(`Elemento do grid para a categoria '${category}' não foi encontrado.`);
+            return;
+        }
         
         gridElement.innerHTML = ''; // Limpa o grid
         
