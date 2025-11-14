@@ -1,0 +1,21 @@
+/* Estilos Globais (Define a fonte carregada no HTML) */
+body {
+    font-family: 'Della Respira', serif;
+    background-color: #fdfaf6;
+}
+
+/* Scrollbar customizada para o carrinho */
+.cart-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+.cart-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+.cart-scrollbar::-webkit-scrollbar-thumb {
+    background: #c5a9b6;
+    border-radius: 10px;
+}
+.cart-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #8c4a6f;
+}
