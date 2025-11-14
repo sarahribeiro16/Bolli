@@ -121,8 +121,9 @@
             class="py-16 bg-cover bg-center" 
             style="background-image: url('moldura-natal.png');" 
         >
-            <!-- 2. Esta <div> interna é o "miolo" (MIOLO MAIS LARGO) -->
-            <div class="bg-bolli-bg max-w-6xl mx-auto p-6 sm:p-10"> <!-- <-- MUDANÇA DE max-w-5xl PARA max-w-6xl -->
+            <!-- 2. Esta <div> interna é o "miolo" (MIOLO MAIS FINO NAS BORDAS) -->
+            <!-- MUDANÇA AQUI: Substituí 'max-w-6xl mx-auto' por 'mx-4 sm:mx-8 md:mx-12' -->
+            <div class="bg-bolli-bg mx-4 sm:mx-8 md:mx-12 p-6 sm:p-10 shadow-lg rounded-lg"> 
                 
                 <!-- Título da Categoria (Cor Atualizada) -->
                 <h2 class="text-4xl sm:text-5xl font-sans text-center text-bolli-christmas-red mb-6"> 
