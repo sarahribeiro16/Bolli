@@ -468,7 +468,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(checkoutForm);
         const customerData = {
             name: formData.get('name'),
-            phone: formData.get('phone'),
             deliveryMethod: formData.get('deliveryMethod'),
             address: formData.get('address') || 'N/A',
         };
@@ -503,7 +502,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         message += '*--- MEUS DADOS ---*\n';
         message += `*Nome:* ${customer.name}\n`;
-        message += `*WhatsApp:* ${customer.phone}\n\n`;
         
         message += '*--- TIPO DE ENTREGA ---*\n';
         if (customer.deliveryMethod === 'Retirada') {
