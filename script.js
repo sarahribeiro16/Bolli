@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
             image: 'ferrero.png',
             special: true,
             category: 'cookies',
-            inStock: true
+            inStock: false
         },
         // --- CATEGORIA NATAL ---
         {
