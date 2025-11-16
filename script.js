@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'caramelo',
             name: 'Caramelo',
             price: 17.00,
-            description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
+            description: 'Gotas de chocolate ao leite, recheio de caramelo salgado com sucrilhos.',
             image: 'ferrero.png',
             special: true,
             category: 'cookies',
