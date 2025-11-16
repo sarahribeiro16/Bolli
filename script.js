@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'kinder',
             name: 'Kinder',
             price: 17.00,
-            description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'ferrero.png', 
+            description: 'Gotas de chocolate ao branco e ao leite, recheio de Kinder Bueno White.',
+            image: 'kinder.png', 
             special: false,
             category: 'cookies',
             inStock: true
@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'black',
             name: 'Black',
             price: 17.00,
-            description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'ferrero.png',
+            description: 'Massa com cacau black, gotas de chocolate branco e recheio de brigadeiro de Ninho.',
+            image: 'black.png',
             special: false,
             category: 'cookies',
             inStock: true
@@ -38,8 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'pistache',
             name: 'Pistache',
             price: 17.00,
-            description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'ferrero.png',
+            description: 'Gotas de chocolate branco, recheio com pedaços de pistache.',
+            image: 'pistache.png',
             special: false,
             category: 'cookies',
             inStock: true
