@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Suspiro',
             price: 10.00,
             description: 'Suspiro tradicional 40g.',
-            image: 'ferrero.png',
+            image: 'suspiro.png',
             special: false,
             category: 'suspiros',
             inStock: true
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Suspiro Zero',
             price: 10.00,
             description: 'Suspiro zero açúcar 25g.',
-            image: 'ferrero.pngg', 
+            image: 'suspiro-zero.png', 
             special: false,
             category: 'suspiros',
             inStock: false
