@@ -49,10 +49,10 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Caramelo',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de caramelo salgado com sucrilhos.',
-            image: 'ferrero.png',
+            image: 'caramelo.png',
             special: true,
             category: 'cookies',
-            inStock: false
+            inStock: true
         },
         // --- CATEGORIA NATAL ---
         {
