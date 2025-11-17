@@ -189,28 +189,32 @@ document.addEventListener('DOMContentLoaded', () => {
         if (inStock) {
             // Produto em estoque: mostra botões
             controlBlock = `
-                <span class="text-2xl font-bold ${priceColor}">
-                    ${formatCurrency(product.price)}
-                </span>
-                
-                <div class="flex items-center space-x-3 bg-bolli-control-bg rounded-lg p-2">
-                    <button class="decrease-qty-btn text-bolli-control-icon font-bold text-lg w-6 h-6 flex items-center justify-center rounded hover:bg-gray-300" data-id="${product.id}" aria-label="Diminuir quantidade de ${product.name}">
-                        &minus;
-                    </button>
-                    <span id="quantity-${product.id}" class="font-bold text-lg text-bolli-control-icon w-6 text-center">
-                        0
+                <!-- Linha 1: Preço e Seletor de Qtd -->
+                <div class="flex justify-between items-center w-full mb-3"> 
+                    <span class="text-2xl font-bold ${priceColor}">
+                        ${formatCurrency(product.price)}
                     </span>
-                    <button class="increase-qty-btn text-bolli-control-icon font-bold text-lg w-6 h-6 flex items-center justify-center rounded hover:bg-gray-300" data-id="${product.id}" aria-label="Aumentar quantidade de ${product.name}">
-                        &plus;
-                    </button>
+                    
+                    <div class="flex items-center space-x-3 bg-bolli-control-bg rounded-lg p-2">
+                        <button class="decrease-qty-btn text-bolli-control-icon font-bold text-lg w-6 h-6 flex items-center justify-center rounded hover:bg-gray-300" data-id="${product.id}" aria-label="Diminuir quantidade de ${product.name}">
+                            &minus;
+                        </button>
+                        <span id="quantity-${product.id}" class="font-bold text-lg text-bolli-control-icon w-6 text-center">
+                            0
+                        </span>
+                        <button class="increase-qty-btn text-bolli-control-icon font-bold text-lg w-6 h-6 flex items-center justify-center rounded hover:bg-gray-300" data-id="${product.id}" aria-label="Aumentar quantidade de ${product.name}">
+                            &plus;
+                        </button>
+                    </div>
                 </div>
-                
-                <button class="add-qty-to-cart-btn bg-bolli-control-bg text-bolli-control-icon rounded-lg p-3 hover:bg-gray-300 transition-colors" data-id="${product.id}" aria-label="Adicionar ${product.name} ao carrinho">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="9" cy="21" r="1"></circle>
-                        <circle cx="20" cy="21" r="1"></circle>
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                    </svg>
+
+                <!-- Linha 2: Botão Adicionar ao Carrinho (TEXTO) -->
+                <button 
+                    class="add-qty-to-cart-btn bg-bolli-special-bg text-white rounded-lg py-2 px-4 w-full font-bold text-sm hover:bg-opacity-90 transition-colors" 
+                    data-id="${product.id}" 
+                    aria-label="Adicionar ${product.name} ao carrinho"
+                >
+                    Adicionar ao Carrinho
                 </button>
             `;
         } else {
