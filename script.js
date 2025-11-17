@@ -190,36 +190,48 @@ document.addEventListener('DOMContentLoaded', () => {
             // Produto em estoque: mostra botões
             controlBlock = `
                 <!-- Linha 1: Preço e Seletor de Qtd (Centralizados) -->
-                <div class="flex justify-center items-center w-full mb-3 space-x-4"> 
+                <div class="flex justify-center items-center w-full mb-3 space-x-4 h-9"> 
                     <span class="text-2xl font-bold ${priceColor}">
                         ${formatCurrency(product.price)}
                     </span>
                     
                     <div class="flex items-center space-x-3 bg-bolli-control-bg rounded-lg p-2">
-// ... existing code ... //
+                        <button class="decrease-qty-btn text-bolli-control-icon font-bold text-lg w-6 h-6 flex items-center justify-center rounded hover:bg-gray-300" data-id="${product.id}" aria-label="Diminuir quantidade de ${product.name}">
+                            &minus;
+                        </button>
+                        <span id="quantity-${product.id}" class="font-bold text-lg text-bolli-control-icon w-6 text-center">
+                            0
+                        </span>
+                        <button class="increase-qty-btn text-bolli-control-icon font-bold text-lg w-6 h-6 flex items-center justify-center rounded hover:bg-gray-300" data-id="${product.id}" aria-label="Aumentar quantidade de ${product.name}">
+                            &plus;
                         </button>
                     </div>
                 </div>
 
                 <!-- Linha 2: Botão Adicionar ao Carrinho (Cinza) -->
                 <button 
-                    class="add-qty-to-cart-btn bg-bolli-control-bg text-bolli-control-icon rounded-lg py-2 px-4 w-full font-bold text-sm hover:bg-gray-300 transition-colors" 
+                    class="add-qty-to-cart-btn bg-bolli-control-bg text-bolli-control-icon rounded-lg py-2 px-4 w-full font-bold text-sm hover:bg-gray-300 transition-colors h-9" 
                     data-id="${product.id}" 
                     aria-label="Adicionar ${product.name} ao carrinho"
-// ... existing code ... //
+                >
                     Adicionar ao Carrinho
                 </button>
             `;
         } else {
-            // Produto esgotado: mostra aviso
+            // Produto esgotado: mostra aviso (AGORA CENTRALIZADO)
             const priceLineThrough = (priceColor === 'text-white' || priceColor === 'text-bolli-christmas-red') ? 'text-gray-400' : 'text-gray-400';
             controlBlock = `
-                <span class="text-2xl font-bold ${priceLineThrough} line-through">
-                    ${formatCurrency(product.price)}
-                </span>
-                <div class="col-span-2 text-center text-red-600 font-bold bg-gray-200 px-4 py-2 rounded-lg text-sm">
-                    Esgotado
+                <!-- Linha 1: Preço e Seletor de Qtd (Centralizados) -->
+                <div class="flex justify-center items-center w-full mb-3 space-x-4 h-9"> <!-- h-9 = 36px (matches selector) -->
+                    <span class="text-2xl font-bold ${priceLineThrough} line-through">
+                        ${formatCurrency(product.price)}
+                    </span>
+                    <div class="text-center text-red-600 font-bold bg-gray-200 px-4 py-2 rounded-lg text-sm">
+                        Esgotado
+                    </div>
                 </div>
+                <!-- Linha 2: Botão (Espaçador) -->
+                <div class="h-9"></div> <!-- h-9 = 36px (matches button) -->
             `;
         }
         
@@ -240,6 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             alt="${product.name}" 
                             class="w-full aspect-square object-cover rounded-lg ${!inStock ? 'opacity-60 grayscale' : ''}"
                         >
+                        <!-- Tag "Especial da Semana" (Movida para cima da imagem) -->
                         ${isSpecial ? `
                         <div class="absolute top-2 left-2 bg-bolli-special-bg text-white text-xs font-sans px-3 py-1 rounded-full z-10 shadow-lg">
                             Especial da Semana
@@ -248,10 +261,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     <p class="text-sm ${descColor} mb-5 h-16">${product.description}</p>
                     
-                    <div class="flex justify-around items-center">
-                        <!-- Bloco de Controle (com ou sem estoque) -->
-                        ${controlBlock}
-                    </div>
+                    <!-- Bloco de Controle (com ou sem estoque) -->
+                    <!-- O div externo foi removido para evitar conflito de 'flex' -->
+                    ${controlBlock}
+
                 </div>
             </div>
         `;
@@ -317,7 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
                         <button class="remove-item-btn text-red-500 hover:text-red-700" data-id="${item.id}" aria-label="Remover ${item.name}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                         </button>
                     </div>
                 `;
@@ -647,5 +660,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // Estado inicial dos botões de entrega (garante que 'Retirada' esteja selecionado)
+    if (pickupRadio) pickupRadio.checked = true;
+    toggleDeliveryOptions();
 
 });
