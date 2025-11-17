@@ -189,31 +189,24 @@ document.addEventListener('DOMContentLoaded', () => {
         if (inStock) {
             // Produto em estoque: mostra botões
             controlBlock = `
-                <!-- Linha 1: Preço e Seletor de Qtd -->
-                <div class="flex justify-between items-center w-full mb-3"> 
+                <!-- Linha 1: Preço e Seletor de Qtd (Centralizados) -->
+                <div class="flex justify-center items-center w-full mb-3 space-x-4"> 
                     <span class="text-2xl font-bold ${priceColor}">
                         ${formatCurrency(product.price)}
                     </span>
                     
                     <div class="flex items-center space-x-3 bg-bolli-control-bg rounded-lg p-2">
-                        <button class="decrease-qty-btn text-bolli-control-icon font-bold text-lg w-6 h-6 flex items-center justify-center rounded hover:bg-gray-300" data-id="${product.id}" aria-label="Diminuir quantidade de ${product.name}">
-                            &minus;
-                        </button>
-                        <span id="quantity-${product.id}" class="font-bold text-lg text-bolli-control-icon w-6 text-center">
-                            0
-                        </span>
-                        <button class="increase-qty-btn text-bolli-control-icon font-bold text-lg w-6 h-6 flex items-center justify-center rounded hover:bg-gray-300" data-id="${product.id}" aria-label="Aumentar quantidade de ${product.name}">
-                            &plus;
+// ... existing code ... //
                         </button>
                     </div>
                 </div>
 
-                <!-- Linha 2: Botão Adicionar ao Carrinho (TEXTO) -->
+                <!-- Linha 2: Botão Adicionar ao Carrinho (Cinza) -->
                 <button 
-                    class="add-qty-to-cart-btn bg-bolli-special-bg text-white rounded-lg py-2 px-4 w-full font-bold text-sm hover:bg-opacity-90 transition-colors" 
+                    class="add-qty-to-cart-btn bg-bolli-control-bg text-bolli-control-icon rounded-lg py-2 px-4 w-full font-bold text-sm hover:bg-gray-300 transition-colors" 
                     data-id="${product.id}" 
                     aria-label="Adicionar ${product.name} ao carrinho"
-                >
+// ... existing code ... //
                     Adicionar ao Carrinho
                 </button>
             `;
