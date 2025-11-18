@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             image: 'black.png',
             special: false,
             category: 'cookies',
-            inStock: true
+            inStock: false // Exemplo de produto esgotado
         },
         {
             id: 'pistache',
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de caramelo salgado com sucrilhos.',
             image: 'caramelo.png',
-            special: true,
+            special: true, // Exemplo de produto especial
             category: 'cookies',
             inStock: true
         },
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Lata de Cookies',
             price: 70.00,
             description: 'Lata com 8 mini cookies dos nossos sabores tradicionais.',
-            image: 'ferrero.png',
+            image: 'lata-cookies.png',
             special: false,
             category: 'natal',
             inStock: true
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Lata de Suspiro',
             price: 50.00,
             description: 'Lata com suspiros modelados sabor panetone.',
-            image: 'ferrero.png',
+            image: 'lata-suspiro.png',
             special: false,
             category: 'natal',
             inStock: true
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Pote de Cookies',
             price: 35.00,
             description: 'Pote de cookie bites tradicionais.',
-            image: 'ferrero.png',
+            image: 'pote-cookies.png',
             special: false,
             category: 'natal',
             inStock: true
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Cartão de Suspiro',
             price: 12.00,
             description: 'Cartão de natal com suspiro modelado em formato de árvore sabor panetone.',
-            image: 'ferrero.png',
+            image: 'cartao-suspiro.png',
             special: false,
             category: 'natal',
             inStock: true
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Cartão de Cookie',
             price: 20.00,
             description: 'Cartão de Natal com cookie recheado - consulte sabores.',
-            image: 'ferrero.png',
+            image: 'cartao-cookie.png',
             special: false,
             category: 'natal',
             inStock: true
@@ -152,12 +152,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkoutForm = document.getElementById('checkout-form');
     const cancelCheckoutBtn = document.getElementById('cancel-checkout-btn');
     const sendWhatsappBtn = document.getElementById('send-whatsapp-btn');
+    
+    // Seletores de Envio
     const deliveryRadio = document.getElementById('delivery-delivery');
     const pickupRadio = document.getElementById('delivery-pickup');
     const deliveryAddressGroup = document.getElementById('delivery-address-group');
     const deliveryAddressInput = document.getElementById('address');
     const deliveryMessage = document.getElementById('delivery-message');
     const pickupMessage = document.getElementById('pickup-message');
+    
+    // Seletores de Pagamento (NOVOS)
+    const paymentPixRadio = document.getElementById('payment-pix');
+    const paymentLinkRadio = document.getElementById('payment-link');
+
+    // Seletores de Sucesso
     const successModal = document.getElementById('success-modal');
     const closeSuccessBtn = document.getElementById('close-success-btn');
 
@@ -236,7 +244,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // --- HTML FINAL DO CARD ---
-        // A classe 'cardClasses' agora é 'bgColor', que é '' para Natal e cookies.
         const cardClasses = bgColor; 
         
         return `
@@ -262,7 +269,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p class="text-sm ${descColor} mb-5 h-16">${product.description}</p>
                     
                     <!-- Bloco de Controle (com ou sem estoque) -->
-                    <!-- O div externo foi removido para evitar conflito de 'flex' -->
                     ${controlBlock}
 
                 </div>
@@ -471,25 +477,33 @@ document.addEventListener('DOMContentLoaded', () => {
      * Lida com o clique de Envio para o WhatsApp
      */
     function handleWhatsAppClick() {
+        // 1. Valida o formulário
         if (!checkoutForm || !checkoutForm.reportValidity()) {
-            return;
+            return; // Interrompe se o formulário for inválido
         }
         
+        // 2. Pega os dados do formulário
         const formData = new FormData(checkoutForm);
         const customerData = {
             name: formData.get('name'),
             deliveryMethod: formData.get('deliveryMethod'),
             address: formData.get('address') || 'N/A',
+            paymentMethod: formData.get('paymentMethod') // <-- ADICIONADO
         };
         
+        // 3. Gera a mensagem
         const message = generateWhatsAppMessage(customerData);
         const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
         
+        // 4. Abre o WhatsApp
         window.open(whatsappUrl, '_blank');
         
+        // 5. Limpa o carrinho, reseta o form, e mostra sucesso
         clearCartAndResetQuantities();
         checkoutForm.reset();
-        toggleDeliveryOptions();
+        toggleDeliveryOptions(); // Reseta os campos de entrega/retirada
+        // Reseta os campos de pagamento (chamada de função)
+        resetPaymentOptions(); 
         closeCheckoutModal();
         openSuccessModal();
     }
@@ -499,6 +513,7 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function generateWhatsAppMessage(customer) {
         let message = `*Olá, Bolli! Gostaria de fazer um pedido:*\n\n`;
+        
         message += '*--- MEU PEDIDO ---*\n';
         let total = 0;
         cart.forEach(item => {
@@ -511,19 +526,24 @@ document.addEventListener('DOMContentLoaded', () => {
         message += `*TOTAL: ${formatCurrency(total)}*\n\n`;
         
         message += '*--- MEUS DADOS ---*\n';
-        message += `*Nome:* ${customer.name}\n`;
+        message += `*Nome:* ${customer.name}\n\n`;
         
         message += '*--- TIPO DE ENTREGA ---*\n';
         if (customer.deliveryMethod === 'Retirada') {
             message += `*Método:* Retirada\n`;
-            message += `_(Combinar dia e horário via WhatsApp)_\n`;
+            message += `_(Combinar dia e horário via WhatsApp)_\n\n`;
         } else {
             message += `*Método:* Entrega\n`;
             message += `*Endereço:* ${customer.address}\n`;
-            message += `_(Valor da entrega a ser calculado)_\n`;
+            message += `_(Valor da entrega a ser calculado)_\n\n`;
         }
         
-        message += '\nAguardo a confirmação do pedido!';
+        // ===== SEÇÃO DE PAGAMENTO ADICIONADA =====
+        message += '*--- FORMA DE PAGAMENTO ---*\n';
+        message += `*Método:* ${customer.paymentMethod}\n\n`;
+        // ==========================================
+        
+        message += 'Aguardo a confirmação do pedido!';
         return message;
     }
 
@@ -531,23 +551,30 @@ document.addEventListener('DOMContentLoaded', () => {
      * Controla a exibição dos campos de Entrega/Retirada
      */
     function toggleDeliveryOptions() {
-        if (!deliveryRadio || !pickupRadio) return;
+        if (!deliveryRadio || !pickupRadio) return; 
         
         if (deliveryRadio.checked) {
             deliveryAddressGroup.classList.remove('hidden');
             deliveryMessage.classList.remove('hidden');
             pickupMessage.classList.add('hidden');
             deliveryAddressInput.required = true;
-        } else if (pickupRadio.checked) {
+        } else { // Inclui 'retirada' e o estado inicial (nada checado)
             deliveryAddressGroup.classList.add('hidden');
             deliveryMessage.classList.add('hidden');
             pickupMessage.classList.remove('hidden');
             deliveryAddressInput.required = false;
-        } else {
-            deliveryAddressGroup.classList.add('hidden');
-            deliveryMessage.classList.add('hidden');
-            pickupMessage.classList.add('hidden');
-            deliveryAddressInput.required = false;
+        }
+    }
+
+    /**
+     * Reseta os botões de pagamento para o estado padrão (Pix selecionado)
+     */
+    function resetPaymentOptions() {
+        if (paymentPixRadio) {
+            paymentPixRadio.checked = true;
+        }
+        if (paymentLinkRadio) {
+            paymentLinkRadio.checked = false;
         }
     }
 
@@ -661,8 +688,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Estado inicial dos botões de entrega (garante que 'Retirada' esteja selecionado)
+    // Estado inicial dos formulários (define 'Retirada' e 'Pix' como padrão)
     if (pickupRadio) pickupRadio.checked = true;
     toggleDeliveryOptions();
+    resetPaymentOptions(); // Define 'Pix' como padrão
 
 });
