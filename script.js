@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
             image: 'suspiro.png',
             special: false,
             category: 'suspiros',
-            inStock: true
+            inStock: false
         },
         {
             id: 'suspiro-zero',
