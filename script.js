@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Pistache',
             price: 17.00,
             description: 'Gotas de chocolate branco, recheio com pedaços de pistache.',
-            image: 'pistache.png',
+            image: 'pistache.jpg',
             special: false,
             category: 'cookies',
             inStock: true
