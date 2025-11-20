@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Ferrero',
             price: 17.00,
             description: 'Gotas de chocolate ao leite, recheio de nutella com pedaços de avelã torradas.',
-            image: 'ferrero.png', 
+            image: 'ferrero.jpg', 
             special: false,
             category: 'cookies',
             inStock: true
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Kinder',
             price: 17.00,
             description: 'Gotas de chocolate ao branco e ao leite, recheio de Kinder Bueno White.',
-            image: 'kinder.png', 
+            image: 'kinder.jpg', 
             special: false,
             category: 'cookies',
             inStock: true
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Black',
             price: 17.00,
             description: 'Massa com cacau black, gotas de chocolate branco e recheio de brigadeiro de Ninho.',
-            image: 'black.png',
+            image: 'black.jpg',
             special: false,
             category: 'cookies',
             inStock: true
