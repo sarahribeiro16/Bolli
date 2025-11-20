@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Lata de Cookies',
             price: 70.00,
             description: 'Lata com 8 mini cookies dos nossos sabores tradicionais.',
-            image: 'ferrero.png',
+            image: 'lata-cookies.jpg',
             special: false,
             category: 'natal',
             inStock: true
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Lata de Suspiro',
             price: 50.00,
             description: 'Lata com suspiros modelados sabor panetone.',
-            image: 'ferrero.png',
+            image: 'lata-suspiro.jpg',
             special: false,
             category: 'natal',
             inStock: true
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Pote de Cookies',
             price: 35.00,
             description: 'Pote de cookie bites tradicionais.',
-            image: 'ferrero.png',
+            image: 'pote-cookie.jpg',
             special: false,
             category: 'natal',
             inStock: true
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Cartão de Suspiro',
             price: 12.00,
             description: 'Cartão de natal com suspiro modelado em formato de árvore sabor panetone.',
-            image: 'ferrero.png',
+            image: 'cartao-suspiro.jpg',
             special: false,
             category: 'natal',
             inStock: true
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Cartão de Cookie',
             price: 20.00,
             description: 'Cartão de Natal com cookie recheado - consulte sabores.',
-            image: 'ferrero.png',
+            image: 'cartao-cookie.jpg',
             special: false,
             category: 'natal',
             inStock: true
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
             image: 'suspiro.png',
             special: false,
             category: 'suspiros',
-            inStock: true
+            inStock: false
         },
         {
             id: 'suspiro-zero',
