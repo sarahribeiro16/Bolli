@@ -105,6 +105,16 @@ document.addEventListener('DOMContentLoaded', () => {
             category: 'natal',
             inStock: true
         },
+            {
+            id: 'suspiro-natal',
+            name: 'Suspiro Natal',
+            price: 10.00,
+            description: 'Suspiro tradicional com tag natalina',
+            image: 'suspiro-natal.jpg',
+            special: false,
+            category: 'natal',
+            inStock: true
+        },
         // --- CATEGORIA SUSPIROS ---
         {
             id: 'suspiro-tradicional',
