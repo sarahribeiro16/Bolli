@@ -75,12 +75,32 @@ document.addEventListener('DOMContentLoaded', () => {
             category: 'natal',
             inStock: true
         },
+                 {
+            id: 'mini-pavlova',
+            name: 'Mini Pavlovas',
+            price: 40.00,
+            description: 'Kit com 6 suspiros com formato para mini pavlovas',
+            image: 'pavlova.jpg',
+            special: false,
+            category: 'natal',
+            inStock: true
+        },
         {
             id: 'natal-pote-cookies',
             name: 'Pote de Cookies',
             price: 35.00,
             description: 'Pote com 150g de cookie bites tradicionais.',
             image: 'pote-cookie.jpg',
+            special: false,
+            category: 'natal',
+            inStock: true
+        },
+                 {
+            id: 'natal-cartao-cookie',
+            name: 'Cartão de Cookie',
+            price: 20.00,
+            description: 'Cartão de Natal com cookie recheado. Consulte sabores.',
+            image: 'cartao-cookie.jpg',
             special: false,
             category: 'natal',
             inStock: true
@@ -95,26 +115,17 @@ document.addEventListener('DOMContentLoaded', () => {
             category: 'natal',
             inStock: true
         },
-        {
-            id: 'natal-cartao-cookie',
-            name: 'Cartão de Cookie',
-            price: 20.00,
-            description: 'Cartão de Natal com cookie recheado. Consulte sabores.',
-            image: 'cartao-cookie.jpg',
-            special: false,
-            category: 'natal',
-            inStock: true
-        },
             {
             id: 'suspiro-natal',
             name: 'Suspiro Natal',
             price: 10.00,
-            description: 'Suspiro tradicional com tag natalina',
+            description: 'Suspiro tradicional 40g com tag natalina',
             image: 'suspiro-natal.jpg',
             special: false,
             category: 'natal',
             inStock: true
         },
+
         // --- CATEGORIA SUSPIROS ---
         {
             id: 'suspiro-tradicional',
