@@ -45,10 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
             inStock: true
         },
         {
-            id: 'caramelo',
-            name: 'Caramelo',
+            id: 'Natal',
+            name: 'Cookie Natal',
             price: 17.00,
-            description: 'Gotas de chocolate ao leite, recheio de caramelo salgado com sucrilhos.',
+            description: 'Gotas de chocolate ao leite, recheio de brigadeiro com aroma de especiarias e laranja, coberto com glacê.',
             image: 'caramelo.png',
             special: true,
             category: 'cookies',
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
             image: 'suspiro-natal.jpg',
             special: false,
             category: 'natal',
-            inStock: true
+            inStock: false
         },
 
         // --- CATEGORIA SUSPIROS ---
