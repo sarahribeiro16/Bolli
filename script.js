@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
             image: 'lata-suspiro.jpg',
             special: false,
             category: 'natal',
-            inStock: true
+            inStock: false
         },
                  {
             id: 'mini-pavlova',
