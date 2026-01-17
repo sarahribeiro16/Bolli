@@ -54,78 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
             category: 'cookies',
             inStock: true
         },
-        // --- CATEGORIA NATAL ---
-        {
-            id: 'natal-lata-cookies',
-            name: 'Lata de Cookies',
-            price: 70.00,
-            description: 'Lata com 8 mini cookies (50g): 2 de cada dos nossos sabores tradicionais.',
-            image: 'lata-cookies.jpg',
-            special: false,
-            category: 'natal',
-            inStock: true
-        },
-        {
-            id: 'natal-lata-suspiro',
-            name: 'Lata de Suspiro',
-            price: 50.00,
-            description: 'Lata com suspiros modelados sabor panetone.',
-            image: 'lata-suspiro.jpg',
-            special: false,
-            category: 'natal',
-            inStock: false
-        },
-                 {
-            id: 'mini-pavlova',
-            name: 'Mini Pavlovas',
-            price: 40.00,
-            description: 'Kit com 6 suspiros com formato para mini pavlovas',
-            image: 'pavlova.jpg',
-            special: false,
-            category: 'natal',
-            inStock: true
-        },
-        {
-            id: 'natal-pote-cookies',
-            name: 'Pote de Cookies',
-            price: 35.00,
-            description: 'Pote com 150g de cookie bites tradicionais.',
-            image: 'pote-cookie.jpg',
-            special: false,
-            category: 'natal',
-            inStock: true
-        },
-                 {
-            id: 'natal-cartao-cookie',
-            name: 'Cartão de Cookie',
-            price: 20.00,
-            description: 'Cartão de Natal com cookie recheado. Consulte sabores.',
-            image: 'cartao-cookie.jpg',
-            special: false,
-            category: 'natal',
-            inStock: true
-        },
-        {
-            id: 'natal-cartao-suspiro',
-            name: 'Cartão de Suspiro',
-            price: 12.00,
-            description: 'Cartão de natal com suspiro modelado em formato de árvore sabor panetone.',
-            image: 'cartao-suspiro.jpg',
-            special: false,
-            category: 'natal',
-            inStock: true
-        },
-            {
-            id: 'suspiro-natal',
-            name: 'Suspiro Natal',
-            price: 10.00,
-            description: 'Suspiro tradicional 40g com tag natalina',
-            image: 'suspiro-natal.jpg',
-            special: false,
-            category: 'natal',
-            inStock: false
-        },
-
+       
         // --- CATEGORIA SUSPIROS ---
         {
             id: 'suspiro-tradicional',
