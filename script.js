@@ -45,10 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
             inStock: true
         },
         {
-            id: 'Natal',
-            name: 'Cookie Natal',
+            id: 'Tres leites',
+            name: 'Três leites',
             price: 17.00,
-            description: 'Gotas de chocolate ao leite, recheio de brigadeiro com aroma de especiarias e laranja, coberto com glacê.',
+            description: 'Massa com leite de coco e chocolate branco, recehio de leite ninho e doce de leite',
             image: 'caramelo.png',
             special: true,
             category: 'cookies',
