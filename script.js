@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Brookie',
             price: 15.00,
             description: 'Camada de cookie tracicional coberto com brownie. 6x6cm',
-            image: 'caramelo.png',
+            image: 'brookie.jpg',
             special: true,
             category: 'cookies',
             inStock: true
