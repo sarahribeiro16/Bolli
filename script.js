@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'mini-cookies-pascoa',
             name: 'Mini cookies',
             price: 45.00,
-            description: 'Pote de acrílico com 5 mini cookies recheados no formato de macarrons. Sabores: pistache, kinder, caramelo, ninho e ferrero.',
+            description: 'Pote de acrílico com 5 mini cookies recheados, nos sabores tradicionais da Bolli.',
             image: 'pote cookies.jpg',
             special: true,
             category: 'pascoa',
