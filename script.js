@@ -67,9 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         { 
             id: 'biscoito-amanteigado-pote',
-            name: 'Pote de biscoito amanteigado',
+            name: 'Biscoito amanteigado',
             price: 55.00,
-            description: 'Pote com 170g e biscoito amanteigado de Páscoa com chocolate',
+            description: 'Pote pet com 170g e biscoito amanteigado de Páscoa com chocolate',
             image: 'pote amanteigado.jpg',
             special: false,
             category: 'pascoa',
