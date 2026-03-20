@@ -44,36 +44,36 @@ document.addEventListener('DOMContentLoaded', () => {
             inStock: true
         },
 
-        // --- CATEGORIA PÁSCOA (Substituindo Natal) ---
+        // --- CATEGORIA PÁSCOA (Seus 3 produtos) ---
         {
-            id: 'Cenourinha de suspiro',
+            id: 'cenourinha-suspiro',
             name: 'Cenourinha de suspiro',
             price: 10.00,
             description: 'Cenourinha de suspiro com recheio de chocolate.',
-            image: 'cenourinha',
+            image: 'cenourinha.jpg', // Adicionado .jpg para o caminho
             special: false,
-            category: 'natal',
+            category: 'pascoa',
             inStock: true
         },
-        { id: 'cookies',
+        { 
+            id: 'mini-cookies-pascoa',
             name: 'Mini cookies',
             price: 45.00,
             description: 'Pote de acrílico com 5 mini cookies recheados no formato de macarrons. Sabores: pistache, kinder, caramelo, ninho e ferrero.',
             image: 'pote cookies.jpg',
             special: true,
-            category: 'natal',
-            inStock: false
-            
+            category: 'pascoa',
+            inStock: false // Marcado como esgotado conforme seu pedido
         },
-        { id: 'Biscoito',
+        { 
+            id: 'biscoito-amanteigado-pote',
             name: 'Pote de biscoito amanteigado',
             price: 55.00,
             description: 'Pote com 170g e biscoito amanteigado de Páscoa com chocolate',
             image: 'pote amanteigado.jpg',
             special: false,
-            category: 'natal',
+            category: 'pascoa',
             inStock: true
-           
         },
 
         // --- CATEGORIA SUSPIROS ---
@@ -100,70 +100,42 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const WHATSAPP_NUMBER = '5541995404238'; 
-
     let cart = [];
 
-    // ===== SELETORES DO DOM =====
+    // Seletores
     const productGrid = document.getElementById('product-grid');
-    const pascoaProductGrid = document.getElementById('pascoa-product-grid'); // Ajustado para o novo ID
+    const pascoaProductGrid = document.getElementById('pascoa-product-grid');
     const suspirosProductGrid = document.getElementById('suspiros-product-grid');
-    // ... (restante dos seletores iguais)
     const cartModal = document.getElementById('cart-modal');
     const cartContent = document.getElementById('cart-content');
-    const openCartBtn = document.getElementById('open-cart-btn');
-    const closeCartBtn = document.getElementById('close-cart-btn');
     const cartItemsContainer = document.getElementById('cart-items');
     const cartTotalEl = document.getElementById('cart-total');
     const cartCountBadge = document.getElementById('cart-count-badge');
-    const checkoutBtn = document.getElementById('checkout-btn');
     const checkoutModal = document.getElementById('checkout-modal');
     const checkoutContent = document.getElementById('checkout-content');
-    const closeCheckoutBtn = document.getElementById('close-checkout-btn');
     const checkoutForm = document.getElementById('checkout-form');
-    const cancelCheckoutBtn = document.getElementById('cancel-checkout-btn');
-    const sendWhatsappBtn = document.getElementById('send-whatsapp-btn');
     const deliveryRadio = document.getElementById('delivery-delivery');
     const pickupRadio = document.getElementById('delivery-pickup');
     const deliveryAddressGroup = document.getElementById('delivery-address-group');
-    const deliveryAddressInput = document.getElementById('address');
-    const deliveryMessage = document.getElementById('delivery-message');
-    const pickupMessage = document.getElementById('pickup-message');
     const successModal = document.getElementById('success-modal');
-    const closeSuccessBtn = document.getElementById('close-success-btn');
 
-    // ===== FUNÇÕES PRINCIPAIS =====
-    
     function createProductCard(product) {
-        const isSpecial = product.special;
         const inStock = product.inStock;
-        
-        // Cores ajustadas para o roxo da Bolli
-        let textColor = 'text-bolli-special-bg'; 
-        let priceColor = 'text-bolli-purple-light'; 
-
-        if (product.category === 'pascoa') {
-            textColor = 'text-bolli-purple-dark';
-            priceColor = 'text-bolli-purple-dark';
-        }
+        const priceColor = product.category === 'pascoa' ? 'text-bolli-easter-main' : 'text-bolli-purple-light';
+        const textColor = product.category === 'pascoa' ? 'text-bolli-easter-main' : 'text-bolli-special-bg';
         
         let controlBlock = '';
         if (inStock) {
             controlBlock = `
                 <div class="flex justify-center items-center w-full mb-3 space-x-4 h-9"> 
-                    <span class="text-2xl font-bold ${priceColor}">
-                        ${formatCurrency(product.price)}
-                    </span>
+                    <span class="text-2xl font-bold ${priceColor}">${formatCurrency(product.price)}</span>
                     <div class="flex items-center space-x-3 bg-bolli-control-bg rounded-lg p-2">
-                        <button class="decrease-qty-btn text-bolli-control-icon font-bold text-lg w-6 h-6 flex items-center justify-center rounded hover:bg-gray-300" data-id="${product.id}">
-                            &minus;
-                        </button>
+                        <button class="decrease-qty-btn text-bolli-control-icon font-bold text-lg w-6" data-id="${product.id}">&minus;</button>
                         <span id="quantity-${product.id}" class="font-bold text-lg text-bolli-control-icon w-6 text-center">0</span>
-                        <button class="increase-qty-btn text-bolli-control-icon font-bold text-lg w-6 h-6 flex items-center justify-center rounded hover:bg-gray-300" data-id="${product.id}">
-                            &plus;
-                        </button>
+                        <button class="increase-qty-btn text-bolli-control-icon font-bold text-lg w-6" data-id="${product.id}">&plus;</button>
                     </div>
                 </div>
-                <button class="add-qty-to-cart-btn bg-bolli-control-bg text-bolli-control-icon rounded-lg py-2 px-4 w-full font-bold text-sm hover:bg-gray-300 transition-colors h-9" data-id="${product.id}">
+                <button class="add-qty-to-cart-btn bg-bolli-control-bg text-bolli-control-icon rounded-lg py-2 px-4 w-full font-bold text-sm hover:bg-gray-300 h-9" data-id="${product.id}">
                     Adicionar ao Carrinho
                 </button>
             `;
@@ -180,10 +152,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return `
             <div class="w-full max-w-xs">
                 <div class="p-5 text-center">
-                    <h3 class="text-3xl font-sans ${textColor} mb-4">${product.name}</h3>
+                    <h3 class="text-2xl font-sans ${textColor} mb-4">${product.name}</h3>
                     <div class="relative w-full mb-4">
                         <img src="${product.image}" alt="${product.name}" class="w-full aspect-square object-cover rounded-lg ${!inStock ? 'opacity-60 grayscale' : ''}">
-                        ${isSpecial ? `<div class="absolute top-2 left-2 bg-bolli-special-bg text-white text-xs font-sans px-3 py-1 rounded-full z-10 shadow-lg">Destaque de Páscoa</div>` : ''}
+                        ${product.special ? `<div class="absolute top-2 left-2 bg-bolli-special-bg text-white text-xs px-3 py-1 rounded-full z-10 shadow-lg">Especial da Semana</div>` : ''}
                     </div>
                     <p class="text-sm text-bolli-desc mb-5 h-16">${product.description}</p>
                     ${controlBlock}
@@ -192,66 +164,12 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     }
 
-    // --- RENDERIZAÇÃO ---
     function renderProductsByCategory(category, gridElement) {
         if (!gridElement) return;
         gridElement.innerHTML = '';
         products.filter(p => p.category === category).forEach(product => {
             gridElement.innerHTML += createProductCard(product);
         });
-    }
-
-    // Inicialização dos grids
-    renderProductsByCategory('cookies', productGrid);
-    renderProductsByCategory('pascoa', pascoaProductGrid); // Novo Grid de Páscoa
-    renderProductsByCategory('suspiros', suspirosProductGrid);
-
-    // ... (As demais funções de carrinho, WhatsApp e Modais permanecem EXATAMENTE iguais ao seu código original)
-    // Certifique-se de manter o restante do seu script original abaixo daqui para as funcionalidades de clique e checkout funcionarem!
-
-    // Funções utilitárias (mantenha as que já existem no seu código)
-    function formatCurrency(value) {
-        return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    }
-
-    // Event Listeners de clique nos grids (Adicionando o de Páscoa na lista)
-    const allGrids = [productGrid, pascoaProductGrid, suspirosProductGrid];
-    allGrids.forEach(grid => {
-        if(grid) grid.addEventListener('click', handleProductGridClick);
-    });
-
-    // Reutilize todas as suas funções handleProductGridClick, renderCart, updateQuantity, etc.
-    // (Omiti o restante para o código não ficar gigante, mas você deve manter as funções originais do seu script.js)
-
-    // FUNÇÕES DE CARRINHO (IGUAIS AO ORIGINAL)
-    function handleProductGridClick(event) {
-        const increaseBtn = event.target.closest('.increase-qty-btn');
-        const decreaseBtn = event.target.closest('.decrease-qty-btn');
-        const addBtn = event.target.closest('.add-qty-to-cart-btn');
-
-        if (increaseBtn) {
-            const id = increaseBtn.dataset.id;
-            const qtySpan = document.getElementById(`quantity-${id}`);
-            if (qtySpan) qtySpan.textContent = parseInt(qtySpan.textContent) + 1;
-        }
-
-        if (decreaseBtn) {
-            const id = decreaseBtn.dataset.id;
-            const qtySpan = document.getElementById(`quantity-${id}`);
-            if (qtySpan && parseInt(qtySpan.textContent) > 0) qtySpan.textContent = parseInt(qtySpan.textContent) - 1;
-        }
-
-        if (addBtn) {
-            const id = addBtn.dataset.id;
-            const qtySpan = document.getElementById(`quantity-${id}`);
-            if (qtySpan) {
-                const quantity = parseInt(qtySpan.textContent);
-                if (quantity > 0) {
-                    addToCartWithQuantity(id, quantity);
-                    qtySpan.textContent = '0';
-                }
-            }
-        }
     }
 
     function addToCartWithQuantity(productId, quantity) {
@@ -266,35 +184,126 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderCart() {
         if (!cartItemsContainer) return;
-        cartItemsContainer.innerHTML = cart.length === 0 ? '<p class="text-center mt-10">Carrinho vazio.</p>' : '';
-        cart.forEach(item => {
-            cartItemsContainer.innerHTML += `
-                <div class="flex items-center justify-between border-b pb-4">
-                    <div class="flex items-center gap-4">
-                        <img src="${item.image}" class="w-16 h-16 rounded object-cover">
-                        <div>
-                            <p class="font-bold">${item.name}</p>
-                            <p class="text-sm">${item.quantity}x ${formatCurrency(item.price)}</p>
+        cartItemsContainer.innerHTML = '';
+        if (cart.length === 0) {
+            cartItemsContainer.innerHTML = '<p class="text-center text-bolli-text-light mt-10">Carrinho vazio.</p>';
+            document.getElementById('checkout-btn').disabled = true;
+        } else {
+            cart.forEach(item => {
+                cartItemsContainer.innerHTML += `
+                    <div class="flex items-center space-x-4 border-b pb-4">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 rounded-lg object-cover">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-bolli-text-dark text-sm">${item.name}</h4>
+                            <p class="text-xs text-bolli-purple-light">${formatCurrency(item.price)}</p>
+                            <div class="flex items-center space-x-2 mt-1">
+                                <button class="quantity-btn bg-gray-200 rounded-full w-5 h-5 flex items-center justify-center" data-id="${item.id}" data-action="decrease">&minus;</button>
+                                <span class="text-xs font-medium w-4 text-center">${item.quantity}</span>
+                                <button class="quantity-btn bg-gray-200 rounded-full w-5 h-5 flex items-center justify-center" data-id="${item.id}" data-action="increase">&plus;</button>
+                            </div>
                         </div>
+                        <button class="remove-item-btn text-red-500" data-id="${item.id}">X</button>
                     </div>
-                </div>`;
-        });
+                `;
+            });
+            document.getElementById('checkout-btn').disabled = false;
+        }
         updateCartTotal();
+        updateCartCountBadge();
     }
 
     function updateCartTotal() {
         const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
         if (cartTotalEl) cartTotalEl.textContent = formatCurrency(total);
+    }
+
+    function updateCartCountBadge() {
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
         if (cartCountBadge) {
-            cartCountBadge.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
-            cartCountBadge.classList.toggle('hidden', cart.length === 0);
+            cartCountBadge.textContent = totalItems;
+            totalItems > 0 ? cartCountBadge.classList.remove('hidden') : cartCountBadge.classList.add('hidden');
         }
     }
 
-    function openCartModal() { cartModal?.classList.remove('hidden'); cartContent?.classList.remove('translate-x-full'); }
-    function closeCartModal() { cartContent?.classList.add('translate-x-full'); setTimeout(() => cartModal?.classList.add('hidden'), 300); }
-    
-    if(openCartBtn) openCartBtn.addEventListener('click', openCartModal);
-    if(closeCartBtn) closeCartBtn.addEventListener('click', closeCartModal);
+    function formatCurrency(v) { return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); }
 
+    function openCartModal() { cartModal.classList.remove('hidden'); setTimeout(() => cartContent.classList.remove('translate-x-full'), 10); }
+    function closeCartModal() { cartContent.classList.add('translate-x-full'); setTimeout(() => cartModal.classList.add('hidden'), 300); }
+    function openCheckoutModal() { closeCartModal(); checkoutModal.classList.remove('hidden'); setTimeout(() => checkoutContent.classList.remove('scale-95', 'opacity-0'), 10); }
+    function closeCheckoutModal() { checkoutContent.classList.add('scale-95', 'opacity-0'); setTimeout(() => checkoutModal.classList.add('hidden'), 300); }
+    function openSuccessModal() { successModal.classList.remove('hidden'); setTimeout(() => successModal.querySelector('div').classList.remove('scale-95', 'opacity-0'), 10); }
+    function closeSuccessModal() { successModal.querySelector('div').classList.add('scale-95', 'opacity-0'); setTimeout(() => successModal.classList.add('hidden'), 300); }
+
+    function toggleDeliveryOptions() {
+        if (deliveryRadio.checked) {
+            deliveryAddressGroup.classList.remove('hidden');
+            document.getElementById('address').required = true;
+        } else {
+            deliveryAddressGroup.classList.add('hidden');
+            document.getElementById('address').required = false;
+        }
+    }
+
+    // Event Listeners
+    document.getElementById('open-cart-btn').addEventListener('click', openCartModal);
+    document.getElementById('close-cart-btn').addEventListener('click', closeCartModal);
+    document.getElementById('checkout-btn').addEventListener('click', openCheckoutModal);
+    document.getElementById('close-checkout-btn').addEventListener('click', closeCheckoutModal);
+    document.getElementById('cancel-checkout-btn').addEventListener('click', closeCheckoutModal);
+    document.getElementById('close-success-btn').addEventListener('click', closeSuccessModal);
+    deliveryRadio.addEventListener('change', toggleDeliveryOptions);
+    pickupRadio.addEventListener('change', toggleDeliveryOptions);
+
+    document.getElementById('send-whatsapp-btn').addEventListener('click', () => {
+        if (!checkoutForm.reportValidity()) return;
+        const formData = new FormData(checkoutForm);
+        let msg = `*Pedido de Páscoa - Bolli Doces*\n\n`;
+        cart.forEach(item => msg += `*${item.quantity}x* ${item.name} - ${formatCurrency(item.price * item.quantity)}\n`);
+        msg += `\n*TOTAL: ${cartTotalEl.textContent}*\n\n*Cliente:* ${formData.get('name')}\n*Método:* ${formData.get('deliveryMethod')}`;
+        if (formData.get('deliveryMethod') === 'Entrega') msg += `\n*Endereço:* ${formData.get('address')}`;
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+        cart = []; renderCart(); closeCheckoutModal(); openSuccessModal();
+    });
+
+    [productGrid, pascoaProductGrid, suspirosProductGrid].forEach(grid => {
+        grid.addEventListener('click', (e) => {
+            const btn = e.target.closest('button');
+            if (!btn) return;
+            const id = btn.dataset.id;
+            const span = document.getElementById(`quantity-${id}`);
+            if (btn.classList.contains('increase-qty-btn')) span.textContent = parseInt(span.textContent) + 1;
+            if (btn.classList.contains('decrease-qty-btn') && parseInt(span.textContent) > 0) span.textContent = parseInt(span.textContent) - 1;
+            if (btn.classList.contains('add-qty-to-cart-btn') && parseInt(span.textContent) > 0) {
+                addToCartWithQuantity(id, parseInt(span.textContent));
+                span.textContent = '0';
+            }
+        });
+    });
+
+    cartItemsContainer.addEventListener('click', (e) => {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        const id = btn.dataset.id;
+        const item = cart.find(i => i.id === id);
+        if (btn.classList.contains('quantity-btn')) {
+            if (btn.dataset.action === 'increase') item.quantity++;
+            else item.quantity--;
+            if (item.quantity <= 0) cart = cart.filter(i => i.id !== id);
+        } else if (btn.classList.contains('remove-item-btn')) {
+            cart = cart.filter(i => i.id !== id);
+        }
+        renderCart();
+    });
+
+    document.querySelectorAll('.smooth-scroll').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.querySelector(link.getAttribute('href'));
+            window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+        });
+    });
+
+    renderProductsByCategory('cookies', productGrid);
+    renderProductsByCategory('pascoa', pascoaProductGrid);
+    renderProductsByCategory('suspiros', suspirosProductGrid);
 });
