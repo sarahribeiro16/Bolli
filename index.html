@@ -4,55 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Bolli | Doces - Páscoa</title> 
+    <!-- Mude o título da aba do navegador aqui -->
+    <title>Bolli | Doces</title> 
     
+    <!-- Google Fonts (Della Respira e Dancing Script) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Della+Respira&display=swap" rel="stylesheet">
     
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- Configuração customizada do Tailwind -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Della Respira', 'serif'],
-                        script: ['"Dancing Script"', 'cursive']
+                        sans: ['Della Respira', 'serif'], // Fonte principal
+                        script: ['"Dancing Script"', 'cursive'] // Fonte do Logo
                     },
                     colors: {
                         'bolli-purple-dark': '#4a1d3b',
                         'bolli-purple-light': '#8c4a6f',
-                        'bolli-bg': '#ffffff', // Alterado para Branco FFFFFF
+                        'bolli-bg': '#F8F7F2', // Cor do fundo
                         'bolli-text-dark': '#3a2d27',
                         'bolli-text-light': '#6b5e59',
-                        'bolli-special-bg': '#4a1d3b', // Roxo Bolli nas escritas
-                        'bolli-desc': '#919191',
-                        'bolli-nav-bg': '#4a1d3b', // Barra de navegação no roxo Bolli
-                        'bolli-nav-text': '#ffffff',
-                        'bolli-cart-title': '#4a1d3b'
+                        
+                        // Novas Cores
+                        'bolli-special-bg': '#78284F',       // Cor do título e fundo especial
+                        'bolli-desc': '#919191',             // Cor da descrição
+                        'bolli-control-bg': '#E8E8E8',        // Fundo dos controles
+                        'bolli-control-icon': '#6B6B6B',      // Ícones e texto dos controles
+                        'bolli-christmas-red': '#4a1d3b',     // Vermelho de Natal
+                        'bolli-nav-bg': '#78284F',           // Cor da barra de navegação
+                        'bolli-nav-text': '#F8F7F2',          // Cor do texto da navegação
+                        'bolli-cart-title': '#5C1F40'       // Cor do título "Meu Carrinho" e checkout
+                    },
+                    borderRadius: {
+                        '44px': '44px', // Borda customizada
                     }
                 }
             }
         }
     </script>
+    
+    <!-- Link para seu arquivo de estilos CSS -->
     <link rel="stylesheet" href="style.css">
-</head>
-<body class="bg-bolli-bg text-bolli-text-dark">
 
+</head>
+<body class="bg-bolli-bg text-bolli-text-dark"> <!-- 'bg-bolli-bg' agora é F8F7F2 -->
+
+    <!-- ===== HEADER ===== -->
     <header class="shadow-lg">
-        <div class="relative w-full h-[400px] bg-no-repeat bg-cover bg-center" style="background-image: url('Frame 1104.jpeg');">
+        
+        <!-- Imagem do Logo (listras.png) -->
+        <!-- RECOMENDAÇÃO: Use uma imagem de 1200px (largura) por 400px (altura) -->
+        <div class="relative w-full h-[400px] bg-no-repeat bg-cover bg-center" style="background-image: url('listras.png');">
+             <!-- A imagem 'listras.png' (1200px x 400px) será exibida aqui -->
         </div>
         
+        <!-- Barra de Navegação (com carrinho) | AGORA É STICKY -->
         <nav id="main-nav" class="bg-bolli-nav-bg text-bolli-nav-text py-4 sticky top-0 z-40"> 
             <div class="max-w-6xl mx-auto px-4 flex justify-between items-center relative">
+                
+                <!-- Links (com classe 'smooth-scroll' para JS) -->
                 <ul class="flex items-center space-x-3 sm:space-x-6 md:space-x-10 font-sans text-sm sm:text-lg md:text-xl font-medium"> 
                     <li><a href="#cookies" class="hover:text-gray-300 transition-colors smooth-scroll">Cookies</a></li>
-                    <li><a href="#pascoa" class="hover:text-gray-300 transition-colors smooth-scroll">Cardápio Páscoa</a></li>
+                    <li><a href="#natal" class="hover:text-gray-300 transition-colors smooth-scroll">Cardápio Natal</a></li>
                     <li><a href="#suspiros" class="hover:text-gray-300 transition-colors smooth-scroll">Suspiros</a></li>
                     <li><a href="#contato" class="hover:text-gray-300 transition-colors smooth-scroll">Contato</a></li>
                 </ul>
                 
+                <!-- Ícone do Carrinho (Fica sempre à direita) -->
                 <div class="">
                     <button id="open-cart-btn" class="relative hover:scale-110 transition-transform">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -60,54 +84,207 @@
                             <circle cx="20" cy="21" r="1"></circle>
                             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                         </svg>
-                        <span id="cart-count-badge" class="absolute -top-2 -right-3 bg-bolli-purple-light text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                        <span id="cart-count-badge" class="absolute -top-2 -right-3 bg-bolli-purple-light text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center hidden">
+                            0
+                        </span>
                     </button>
                 </div>
             </div>
         </nav>
     </header>
 
+    <!-- ===== MAIN CONTENT ===== -->
     <main class="max-w-6xl mx-auto px-4 py-12">
         
+        <!-- Seção Cookies -->
         <section id="cookies" class="pb-24"> 
+            
+            <!-- Container do Título com Linhas -->
             <div class="flex items-center justify-center text-center mb-14">
                 <div class="flex-1 h-px bg-bolli-desc"></div>
-                <h2 class="text-4xl sm:text-5xl font-sans text-bolli-special-bg mx-6 md:mx-10">Nossos cookies</h2>
-                <div class="flex-1 h-px bg-bolli-desc"></div>
-            </div>
-            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center"></div>
-        </section>
-
-        <section 
-            id="pascoa" 
-            class="py-10 bg-cover bg-center border-[12px] border-double border-bolli-purple-dark" 
-            style="background-image: url('moldura-pascoa.png');" 
-        >
-            <div class="bg-white max-w-4xl mx-auto p-6 sm:p-10 shadow-sm">
-                
-                <h2 class="text-4xl sm:text-5xl font-sans text-center text-bolli-purple-dark mb-10"> 
-                    Cardápio Páscoa
+                <h2 class="text-4xl sm:text-5xl font-sans text-bolli-special-bg mx-6 md:mx-10">
+                    Nossos cookies
                 </h2>
-                
-                <div id="pascoa-product-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-6 justify-items-center max-w-4xl mx-auto px-4"> 
-                    </div>
+                <div class="flex-1 h-px bg-bolli-desc"></div>
+            </div>
+            
+            <!-- Grid de Produtos (ID CORRETO) -->
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                <!-- Os produtos 'cookies' serão injetados aqui -->
             </div>
         </section>
-
+ <!-- ===== Seção Cardápio Natal (EFEITO MOLDURA) ===== -->
+        <!-- 1. O <section> é a moldura (com background-image) -->
+        <section 
+            id="natal" 
+            class="py-16 bg-cover bg-center" 
+            style="background-image: url('Frame 1104.jpeg');" 
+        >
+            <!-- 2. Esta <div> interna é o "miolo" com a cor de fundo do site -->
+            <div class="bg-bolli-bg max-w-6xl mx-auto p-6 sm:p-10">
+                
+                <!-- Título da Categoria (Cor Atualizada) -->
+                <h2 class="text-4xl sm:text-5xl font-sans text-center text-bolli-christmas-red mb-6"> 
+                    Cardápio de Páscoa
+                </h2>
+            
+                </div>
+                
+                <!-- Grid de Produtos de Natal (ID CORRETO) -->
+                <div id="natal-product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center max-w-6xl mx-auto px-4"> 
+                    <!-- Os produtos 'natal' serão injetados aqui (sem fundo/bloquinho) -->
+                </div>
+            </div>
+        </section>
+        <!-- Seção Suspiros (Atualizada) -->
         <section id="suspiros" class="py-20 text-center">
+            
+            <!-- Container do Título com Linhas -->
             <div class="flex items-center justify-center text-center mb-14">
                 <div class="flex-1 h-px bg-bolli-desc"></div>
-                <h2 class="text-4xl sm:text-5xl font-sans text-bolli-special-bg mx-6 md:mx-10">Suspiros</h2>
+                <h2 class="text-4xl sm:text-5xl font-sans text-bolli-special-bg mx-6 md:mx-10">
+                    Suspiros
+                </h2>
                 <div class="flex-1 h-px bg-bolli-desc"></div>
             </div>
-            <div id="suspiros-product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center"></div>
+
+            <!-- Grid de Suspiros (ID CORRETO) -->
+            <div id="suspiros-product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                <!-- Os produtos 'suspiros' serão injetados aqui -->
+            </div>
         </section>
         
     </main>
 
-    <footer id="contato" class="bg-white border-t border-gray-200 py-8">
-        </footer>
+    <!-- ===== FOOTER (Contato Atualizado com Instagram) ===== -->
+    <footer id="contato" class="bg-bolli-bg border-t border-gray-200 py-8">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-center md:text-left space-y-4 md:space-y-0">
+            <!-- Logo (meu-logo.png) -->
+            <div class="text-center">
+                <img src="meu-logo.png" alt="Bolli Doces Logo" class="h-16 mx-auto">
+            </div>
+            <!-- Texto de Contato -->
+            <div class="text-bolli-text-light text-center md:text-right">
+                <p class="font-bold text-lg">Entre em contato</p>
+                
+                <!-- Container para links de contato -->
+                <div class="flex flex-col sm:flex-row sm:justify-center md:justify-end sm:space-x-6 space-y-2 sm:space-y-0 mt-2">
+                    
+                    <!-- Link Instagram (ADICIONADO) -->
+                    <a href="https://www.instagram.com/da_bolli" target="_blank" class="flex items-center justify-center md:justify-end space-x-2 hover:text-bolli-purple-light">
+                        <!-- Ícone Instagram SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        <span>@da_bolli</span>
+                    </a>
 
+                    <!-- Link WhatsApp -->
+                    <a href="https://wa.me/5541995404238" target="_blank" class="flex items-center justify-center md:justify-end space-x-2 hover:text-bolli-purple-light">
+                        <!-- Ícone WhatsApp -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                        <span>(41) 99540-4238</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <p class="text-center text-xs text-gray-400 mt-6">&copy; 2025 Bolli Doces. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- ===== MODAL DO CARRINHO ===== -->
+    <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-end hidden">
+        <div id="cart-content" class="bg-white w-full max-w-md h-full shadow-xl flex flex-col transform translate-x-full transition-transform duration-300">
+            <div class="flex justify-between items-center p-5 border-b">
+                <h3 class="text-2xl font-sans text-bolli-cart-title">Meu Carrinho</h3>
+                <button id="close-cart-btn" class="text-gray-500 hover:text-gray-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div id="cart-items" class="flex-1 p-5 overflow-y-auto cart-scrollbar space-y-4">
+            </div>
+            <div class="p-5 border-t bg-gray-50 space-y-4">
+                <div class="flex justify-between items-center text-lg font-medium text-bolli-text-dark">
+                    <span>Subtotal:</span>
+                    <span id="cart-total" class="text-xl font-bold">R$ 0,00</span>
+                </div>
+                <button id="checkout-btn" class="w-full bg-bolli-purple-light text-white py-3 rounded-lg font-bold text-lg hover:bg-bolli-purple-dark transition-colors disabled:opacity-50">
+                    Continuar para o Pedido
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ===== MODAL DE CHECKOUT ===== -->
+    <div id="checkout-modal" class="fixed inset-0 bg-black bg-opacity-60 z-[60] flex items-center justify-center p-4 hidden">
+        <div id="checkout-content" class="bg-white w-full max-w-lg rounded-xl shadow-xl flex flex-col transform scale-95 opacity-0 transition-all duration-300">
+            <div class="flex justify-between items-center p-5 border-b">
+                <h3 class="text-2xl font-sans text-bolli-cart-title">Finalizar Pedido</h3>
+                <button id="close-checkout-btn" class="text-gray-500 hover:text-gray-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <form id="checkout-form" class="p-6 space-y-5">
+                <p class="text-sm text-bolli-text-light">
+                    Preencha seus dados para finalizar o pedido. Você será redirecionado(a) para o WhatsApp.
+                </p>
+                <div>
+                    <label for="name" class="block text-sm font-medium text-bolli-cart-title mb-1">Nome Completo *</label>
+                    <input type="text" id="name" name="name" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-bolli-purple-light focus:border-transparent"
+                           placeholder="Seu nome">
+                </div>
+                <fieldset>
+                    <legend class="block text-sm font-medium text-bolli-cart-title mb-2">Método de Envio *</legend>
+                    <div class="flex space-x-4">
+                        <div class="flex items-center">
+                            <input type="radio" id="delivery-pickup" name="deliveryMethod" value="Retirada" required class="focus:ring-bolli-purple-light h-4 w-4 text-bolli-purple-light border-gray-300">
+                            <label for="delivery-pickup" class="ml-2 block text-sm text-bolli-cart-title">Retirada</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="radio" id="delivery-delivery" name="deliveryMethod" value="Entrega" required class="focus:ring-bolli-purple-light h-4 w-4 text-bolli-purple-light border-gray-300">
+                            <label for="delivery-delivery" class="ml-2 block text-sm text-bolli-cart-title">Entrega</label>
+                        </div>
+                    </div>
+                </fieldset>
+                <p id="pickup-message" class="text-sm text-bolli-purple-light bg-purple-50 p-3 rounded-lg hidden">
+                    O dia e horário da retirada serão combinados via WhatsApp.
+                </p>
+                <p id="delivery-message" class="text-sm text-bolli-purple-light bg-purple-50 p-3 rounded-lg hidden">
+                    O valor da entrega será calculado e informado via WhatsApp.
+                </p>
+                <div id="delivery-address-group" class="hidden">
+                    <label for="address" class="block text-sm font-medium text-bolli-cart-title mb-1">Endereço de Entrega *</label>
+                    <input type="text" id="address" name="address"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-bolli-purple-light focus:border-transparent"
+                           placeholder="Rua, Número, Bairro, Complemento">
+                </div>
+                <div class="mt-6 flex justify-end space-x-3">
+                    <button type="button" id="cancel-checkout-btn" class="bg-gray-200 text-bolli-text-dark py-2 px-4 rounded-lg font-bold hover:bg-gray-300 transition-colors">
+                        Cancelar
+                    </button>
+                    <button type="button" id="send-whatsapp-btn" class="bg-bolli-purple-light text-white py-2 px-6 rounded-lg font-bold hover:bg-bolli-purple-dark transition-colors">
+                        Enviar Pedido via WhatsApp
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- ===== MODAL DE SUCESSO ===== -->
+    <div id="success-modal" class="fixed inset-0 bg-black bg-opacity-60 z-[70] flex items-center justify-center p-4 hidden">
+        <div class="bg-white w-full max-w-sm rounded-xl shadow-xl p-6 text-center transform scale-95 opacity-0 transition-all duration-300">
+            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <h3 class="text-xl font-sans text-bolli-text-dark mb-2">Pedido Gerado!</h3>
+            <p class="text-bolli-text-light mb-5">Seu pedido foi limpo. Não se esqueça de enviá-lo no WhatsApp!</p>
+            <button id="close-success-btn" class="w-full bg-bolli-purple-light text-white py-2 rounded-lg font-bold hover:bg-bolli-purple-dark transition-colors">
+                Fechar
+            </button>
+        </div>
+    </div>
+
+
+    <!-- Link para seu arquivo JavaScript (DEFER garante que ele rode após o HTML) -->
     <script src="script.js" defer></script>
+
 </body>
 </html>
