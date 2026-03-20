@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Cenourinha de suspiro',
             price: 10.00,
             description: 'Cenourinha de suspiro com recheio de chocolate.',
-            image: 'cenourinha.jpg', // Adicionado .jpg para o caminho
+            image: 'cenourinha.jpg', 
             special: false,
             category: 'pascoa',
             inStock: true
