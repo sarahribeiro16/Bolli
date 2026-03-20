@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'Cenourinha de suspiro com recheio de chocolate.',
             image: 'cenourinha',
             special: false,
-            category: 'pascoa',
+            category: 'natal',
             inStock: true
         },
         { id: 'cookies',
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'Pote de acrílico com 5 mini cookies recheados no formato de macarrons. Sabores: pistache, kinder, caramelo, ninho e ferrero.',
             image: 'pote cookies.jpg',
             special: true,
-            category: 'pascoa',
+            category: 'natal',
             inStock: false
             
         },
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'Pote com 170g e biscoito amanteigado de Páscoa com chocolate',
             image: 'pote amanteigado.jpg',
             special: false,
-            category: 'pascoa',
+            category: 'natal',
             inStock: true
            
         },
