@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             image: 'cenourinha.jpg', 
             special: false,
             category: 'pascoa',
-            inStock: true
+            inStock: false
         },
         { 
             id: 'mini-cookies-pascoa',
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
             image: 'pote amanteigado.jpg',
             special: false,
             category: 'pascoa',
-            inStock: true
+            inStock: false
         },
 
         // --- CATEGORIA SUSPIROS ---
