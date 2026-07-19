@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sweetness: 4,
             allergens: ['Glúten', 'Leite', 'Ovo', 'Nozes'],
             image: 'ferrero.jpg',
+            coverImage: 'ferrero1.png',
             special: false,
             category: 'cookies-recheados',
             inStock: true
@@ -30,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sweetness: 5,
             allergens: ['Glúten', 'Leite', 'Ovo', 'Soja'],
             image: 'kinder.jpg',
+            coverImage: 'kinder1.png',
             special: false,
             category: 'cookies-recheados',
             inStock: true
@@ -43,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sweetness: 4,
             allergens: ['Glúten', 'Leite', 'Ovo'],
             image: 'black.jpg',
+            coverImage: 'black1.png',
             special: false,
             category: 'cookies-recheados',
             inStock: true
@@ -56,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sweetness: 3,
             allergens: ['Glúten', 'Leite', 'Ovo', 'Nozes'],
             image: 'pistache.jpg',
+            coverImage: 'pistache1.png',
             special: false,
             category: 'cookies-recheados',
             inStock: true
@@ -155,6 +159,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const WHATSAPP_NUMBER = '5541995404238';
     const PICKUP_ADDRESS = 'Rua Irmã Schreiner Maran, 503 - Santa Cândida, Curitiba/PR';
 
+    // ===== PAGAMENTO ONLINE (Mercado Pago) =====
+    // TODO (Sarah): deixe "false" até você ter criado a conta de desenvolvedor no
+    // Mercado Pago, colado o Access Token em criar-pagamento.php e publicado o
+    // site num servidor com PHP (esse recurso não funciona testando localmente).
+    // Quando estiver tudo pronto, mude pra "true".
+    const MERCADOPAGO_ENABLED = false;
+    const PAYMENT_API_URL = 'criar-pagamento.php';
+
     // Cidades onde a Bolli entrega. TODO (Sarah): ajustar se quiser incluir/remover cidades.
     const ALLOWED_DELIVERY_CITIES = ['Curitiba', 'Colombo', 'Pinhais', 'Almirante Tamandaré'];
 
@@ -243,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="product-card w-full sm:max-w-xs mx-auto sm:p-5" data-id="${product.id}">
                 <div class="card-header flex sm:flex-col items-center sm:items-stretch gap-4 sm:gap-0 px-1 sm:px-0 py-3 sm:py-0 cursor-pointer" data-id="${product.id}" role="button" tabindex="0">
                     <div class="relative w-28 h-28 sm:w-full sm:h-auto sm:aspect-square flex-shrink-0 overflow-hidden rounded-lg sm:mb-4">
-                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover ${!inStock ? 'opacity-60 grayscale' : ''}">
+                        <img src="${product.coverImage || product.image}" alt="${product.name}" class="w-full h-full object-cover ${!inStock ? 'opacity-60 grayscale' : ''}">
                         ${product.special ? `<div class="absolute top-1 left-1 sm:top-2 sm:left-2 bg-bolli-special-bg text-white text-[10px] sm:text-xs px-2 py-0.5 sm:px-3 sm:py-1 rounded-full z-10 shadow">Especial</div>` : ''}
                         ${quickAddBtn}
                     </div>
@@ -254,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             ${!inStock ? '<span class="text-xs font-bold text-red-600 bg-gray-200 px-2 py-0.5 rounded-full">Esgotado</span>' : ''}
                         </div>
                     </div>
-                    <svg class="chevron-icon sm:hidden w-5 h-5 text-gray-400 flex-shrink-0 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    <svg class="chevron-icon sm:mt-2 sm:mx-auto w-5 h-5 text-gray-400 flex-shrink-0 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </div>
             </div>
         `;
@@ -263,7 +275,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // com "col-span-full" — por isso, ao abrir, ele ocupa a largura toda da
         // grade (todas as colunas) em vez de ficar preso na coluna do card.
         const detailsHtml = `
-            <div class="card-details col-span-full w-full hidden mt-3 bg-white shadow-md p-4 sm:p-6 text-left" data-id="${product.id}">
+            <div class="card-details relative col-span-full w-full hidden mt-3 bg-white shadow-md p-4 sm:p-6 text-left" data-id="${product.id}">
+                <button class="close-details-btn absolute top-3 right-3 sm:top-4 sm:right-4 text-bolli-control-icon hover:text-bolli-purple-dark bg-bolli-control-bg hover:bg-gray-300 rounded-full w-7 h-7 flex items-center justify-center transition-colors" data-id="${product.id}" aria-label="Fechar detalhes" title="Fechar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
                 <div class="sm:flex sm:gap-6">
                     <img src="${product.image}" alt="${product.name}" class="w-full sm:w-2/5 aspect-square object-cover flex-shrink-0 mb-4 sm:mb-0 ${!inStock ? 'opacity-60 grayscale' : ''}">
                     <div class="flex-1 min-w-0">
@@ -585,7 +600,27 @@ document.addEventListener('DOMContentLoaded', () => {
         cepInput.value = v;
     });
 
-    document.getElementById('send-whatsapp-btn').addEventListener('click', () => {
+    const sendWhatsappBtn = document.getElementById('send-whatsapp-btn');
+    if (MERCADOPAGO_ENABLED) sendWhatsappBtn.textContent = 'Pagar e Enviar Pedido';
+
+    async function criarPagamentoMercadoPago(customerName, freight) {
+        const res = await fetch(PAYMENT_API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                customerName,
+                freight,
+                items: cart.map(item => ({ name: item.name, quantity: item.quantity, price: item.price }))
+            })
+        });
+        const data = await res.json();
+        if (!data.success || !data.checkout_url) {
+            throw new Error(data.error || 'Não foi possível criar o pagamento.');
+        }
+        return data.checkout_url;
+    }
+
+    sendWhatsappBtn.addEventListener('click', async () => {
         if (!checkoutForm.reportValidity()) return;
         const formData = new FormData(checkoutForm);
         const method = formData.get('deliveryMethod');
@@ -598,6 +633,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
         let total = subtotal;
+        const freight = method === 'Entrega' ? currentFreight : 0;
 
         let msg = `*Novo Pedido - Bolli Doces*\n\n`;
         cart.forEach(item => msg += `*${item.quantity}x* ${item.name} - ${formatCurrency(item.price * item.quantity)}\n`);
@@ -621,6 +657,25 @@ document.addEventListener('DOMContentLoaded', () => {
             msg += `\n*Dia/horário preferido:* ${formData.get('pickupWhen')}`;
         }
 
+        // Pagamento online (Mercado Pago) — só entra em ação depois de configurado
+        if (MERCADOPAGO_ENABLED) {
+            sendWhatsappBtn.disabled = true;
+            sendWhatsappBtn.textContent = 'Gerando pagamento...';
+            try {
+                const checkoutUrl = await criarPagamentoMercadoPago(formData.get('name'), freight);
+                // Avisa a Sarah pelo WhatsApp com os detalhes do pedido antes de mandar
+                // o cliente pra tela de pagamento.
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+                cart = []; renderCart(); closeCheckoutModal();
+                window.location.href = checkoutUrl;
+            } catch (err) {
+                alert('Não foi possível iniciar o pagamento agora. Tente novamente ou finalize pelo WhatsApp.');
+                sendWhatsappBtn.disabled = false;
+                sendWhatsappBtn.textContent = 'Pagar e Enviar Pedido';
+            }
+            return;
+        }
+
         window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
         cart = []; renderCart(); closeCheckoutModal(); openSuccessModal();
     });
@@ -633,6 +688,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const quickAddBtn = e.target.closest('.quick-add-btn');
             if (quickAddBtn) {
                 addToCartWithQuantity(quickAddBtn.dataset.id, 1);
+                return;
+            }
+
+            // 1b) Botão de fechar dentro do card expandido
+            const closeBtn = e.target.closest('.close-details-btn');
+            if (closeBtn) {
+                closeCard(closeBtn.dataset.id);
+                openCardId = null;
                 return;
             }
 
@@ -699,4 +762,29 @@ document.addEventListener('DOMContentLoaded', () => {
     renderProductsByCategory('cookies-tradicionais', productGridTradicionais);
     renderProductsByCategory('cookies-recheados', productGridRecheados);
     renderProductsByCategory('suspiros', suspirosProductGrid);
+
+    // ===== RETORNO DO PAGAMENTO (Mercado Pago) =====
+    // Quando o cliente volta do Mercado Pago, o link tem "?pagamento=sucesso/erro/pendente"
+    (function handlePaymentReturn() {
+        const params = new URLSearchParams(window.location.search);
+        const status = params.get('pagamento');
+        if (!status) return;
+
+        if (status === 'sucesso') {
+            openSuccessModal();
+            const title = successModal.querySelector('h3');
+            const text = successModal.querySelector('p');
+            if (title) title.textContent = 'Pagamento aprovado!';
+            if (text) text.textContent = 'Recebemos seu pedido e já vamos preparar tudo.';
+        } else if (status === 'pendente') {
+            alert('Seu pagamento está sendo processado. Assim que for aprovado, te avisamos por aqui.');
+        } else if (status === 'erro') {
+            alert('Não conseguimos confirmar seu pagamento. Tente novamente ou finalize pelo WhatsApp.');
+        }
+
+        // Limpa o parâmetro da URL pra não reabrir esse aviso se a pessoa atualizar a página
+        params.delete('pagamento');
+        const newUrl = window.location.pathname + (params.toString() ? `?${params.toString()}` : '');
+        window.history.replaceState({}, '', newUrl);
+    })();
 });
