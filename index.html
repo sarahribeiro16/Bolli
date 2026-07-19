@@ -10,7 +10,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Della+Respira&display=swap" rel="stylesheet">
-    
+
+    <!-- Estilos customizados (scrollbar do carrinho, animações dos cards) -->
+    <link rel="stylesheet" href="style.css">
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -54,9 +57,9 @@
         
         <nav id="main-nav" class="bg-bolli-nav-bg text-bolli-nav-text py-4 sticky top-0 z-40"> 
             <div class="max-w-6xl mx-auto px-4 flex justify-between items-center relative">
-                <ul class="flex items-center space-x-3 sm:space-x-6 md:space-x-10 font-sans text-sm sm:text-lg md:text-xl font-medium"> 
-                    <li><a href="#cookies" class="hover:text-gray-300 transition-colors smooth-scroll">Cookies</a></li>
-                    <li><a href="#pascoa" class="hover:text-gray-300 transition-colors smooth-scroll">Cardápio Páscoa</a></li>
+                <ul class="flex items-center space-x-3 sm:space-x-6 md:space-x-10 font-sans text-sm sm:text-lg md:text-xl font-medium">
+                    <li><a href="#cookies-tradicionais" class="hover:text-gray-300 transition-colors smooth-scroll">Cookies tradicionais</a></li>
+                    <li><a href="#cookies-recheados" class="hover:text-gray-300 transition-colors smooth-scroll">Cookies recheados</a></li>
                     <li><a href="#suspiros" class="hover:text-gray-300 transition-colors smooth-scroll">Suspiros</a></li>
                     <li><a href="#contato" class="hover:text-gray-300 transition-colors smooth-scroll">Contato</a></li>
                 </ul>
@@ -76,38 +79,40 @@
     </header>
 
     <main class="max-w-6xl mx-auto px-4 py-12">
-        <!-- Seção Cookies -->
-        <section id="cookies" class="pb-24"> 
-            <div class="flex items-center justify-center text-center mb-14">
-                <div class="flex-1 h-px bg-bolli-desc"></div>
-                <h2 class="text-4xl sm:text-5xl font-sans text-bolli-special-bg mx-6 md:mx-10">Nossos cookies</h2>
-                <div class="flex-1 h-px bg-bolli-desc"></div>
+        <!-- Seção Cookies tradicionais -->
+        <section id="cookies-tradicionais" class="pb-24">
+            <!-- TODO (Sarah): trocar pela foto retangular de introdução da seção -->
+            <img src="banner-cookies-tradicionais.jpg" alt="Cookies tradicionais Bolli" class="w-full h-48 sm:h-64 object-cover rounded-lg mb-10">
+            <div class="text-center mb-14">
+                <h2 class="text-4xl sm:text-5xl font-sans text-bolli-special-bg mb-3">Cookies tradicionais</h2>
+                <p class="text-bolli-text-light text-sm sm:text-base italic max-w-xl mx-auto">O sabor de sempre: massa amanteigada, crocante por fora e macia por dentro.</p>
             </div>
-            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center"></div>
+            <div id="product-grid-tradicionais" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 justify-items-center grid-flow-row-dense"></div>
         </section>
 
-        <!-- Seção Cardápio Páscoa -->
-        <section id="pascoa" class="py-16 bg-cover bg-center" style="background-image: url('Frame 1104.jpg');">
-            <div class="bg-bolli-bg max-w-6xl mx-auto p-6 sm:p-10">
-                <h2 class="text-4xl sm:text-5xl font-sans text-center text-bolli-easter-main mb-6">Cardápio Páscoa</h2>
-                <div class="max-w-3xl mx-auto px-4 text-center text-bolli-easter-main text-lg leading-relaxed mb-10">
-                    <p>
-                        Pedidos serão entregues na semana do dia 30/03! <br>
-                    </p>
-                </div>
-                <div id="pascoa-product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center max-w-6xl mx-auto px-4"></div>
+        <!-- Seção Cookies recheados -->
+        <section id="cookies-recheados" class="pb-24">
+            <!-- TODO (Sarah): trocar pela foto retangular de introdução da seção -->
+            <img src="banner-cookies-recheados.jpg" alt="Cookies recheados Bolli" class="w-full h-48 sm:h-64 object-cover rounded-lg mb-10">
+            <div class="text-center mb-14">
+                <h2 class="text-4xl sm:text-5xl font-sans text-bolli-special-bg mb-3">Cookies recheados</h2>
+                <p class="text-bolli-text-light text-sm sm:text-base italic max-w-xl mx-auto">Recheios generosos em cada mordida, para quem não abre mão de um chocolate de verdade.</p>
             </div>
+            <div id="product-grid-recheados" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 justify-items-center grid-flow-row-dense"></div>
         </section>
 
         <!-- Seção Suspiros -->
         <section id="suspiros" class="py-20 text-center">
-            <div class="flex items-center justify-center text-center mb-14">
-                <div class="flex-1 h-px bg-bolli-desc"></div>
-                <h2 class="text-4xl sm:text-5xl font-sans text-bolli-special-bg mx-6 md:mx-10">Suspiros</h2>
-                <div class="flex-1 h-px bg-bolli-desc"></div>
+            <!-- TODO (Sarah): trocar pela foto retangular de introdução da seção -->
+            <img src="banner-suspiros.jpg" alt="Suspiros Bolli" class="w-full h-48 sm:h-64 object-cover rounded-lg mb-10">
+            <div class="text-center mb-14">
+                <h2 class="text-4xl sm:text-5xl font-sans text-bolli-special-bg mb-3">Suspiros</h2>
+                <p class="text-bolli-text-light text-sm sm:text-base italic max-w-xl mx-auto">Leves, crocantes por fora e macios por dentro — um clássico da Bolli.</p>
             </div>
-            <div id="suspiros-product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center"></div>
+            <div id="suspiros-product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 justify-items-center grid-flow-row-dense"></div>
         </section>
+
+        <!-- Seção Páscoa removida temporariamente (ver JS.txt para reativar os produtos) -->
     </main>
 
     <footer id="contato" class="bg-bolli-bg border-t border-gray-200 py-8">
@@ -160,8 +165,8 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 </button>
             </div>
-            <form id="checkout-form" class="p-6 space-y-5">
-                <p class="text-sm text-bolli-text-light">Preencha seus dados para finalizar o pedido de Páscoa.</p>
+            <form id="checkout-form" class="p-6 space-y-5 max-h-[75vh] overflow-y-auto cart-scrollbar">
+                <p class="text-sm text-bolli-text-light">Preencha seus dados para finalizar seu pedido.</p>
                 <div>
                     <label for="name" class="block text-sm font-medium text-bolli-cart-title mb-1">Nome Completo *</label>
                     <input type="text" id="name" name="name" required class="w-full px-3 py-2 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-bolli-purple-light" placeholder="Seu nome">
@@ -179,10 +184,52 @@
                         </div>
                     </div>
                 </fieldset>
-                <div id="delivery-address-group" class="hidden">
-                    <label for="address" class="block text-sm font-medium text-bolli-cart-title mb-1">Endereço de Entrega *</label>
-                    <input type="text" id="address" name="address" class="w-full px-3 py-2 border border-gray-300 rounded-lg outline-none" placeholder="Rua, Número, Bairro">
+
+                <!-- Retirada: endereço fixo + preferência de dia/horário -->
+                <div id="pickup-group" class="hidden bg-gray-50 rounded-lg p-4 space-y-3">
+                    <p class="text-sm text-bolli-cart-title"><span class="font-bold">Endereço para retirada:</span><br>Rua Irmã Schreiner Maran, 503 - Santa Cândida, Curitiba/PR</p>
+                    <div>
+                        <label for="pickup-when" class="block text-sm font-medium text-bolli-cart-title mb-1">Dia e horário preferido *</label>
+                        <input type="text" id="pickup-when" name="pickupWhen" class="w-full px-3 py-2 border border-gray-300 rounded-lg outline-none" placeholder="Ex: sábado à tarde, por volta das 14h">
+                        <p class="text-xs text-bolli-text-light mt-1">Vamos confirmar o horário exato com você pelo WhatsApp.</p>
+                    </div>
                 </div>
+
+                <!-- Entrega: CEP + endereço + validação/frete -->
+                <div id="delivery-address-group" class="hidden space-y-3">
+                    <div>
+                        <label for="cep" class="block text-sm font-medium text-bolli-cart-title mb-1">CEP *</label>
+                        <input type="text" id="cep" name="cep" inputmode="numeric" maxlength="9" class="w-full px-3 py-2 border border-gray-300 rounded-lg outline-none" placeholder="00000-000">
+                        <p id="cep-feedback" class="text-xs mt-1"></p>
+                    </div>
+                    <div>
+                        <label for="address" class="block text-sm font-medium text-bolli-cart-title mb-1">Endereço completo *</label>
+                        <input type="text" id="address" name="address" class="w-full px-3 py-2 border border-gray-300 rounded-lg outline-none" placeholder="Rua, número, complemento">
+                    </div>
+                    <p id="freight-info" class="text-xs"></p>
+                </div>
+
+                <fieldset>
+                    <legend class="block text-sm font-medium text-bolli-cart-title mb-2">Forma de Pagamento *</legend>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex items-center">
+                            <input type="radio" id="payment-debito" name="paymentMethod" value="Débito" required class="h-4 w-4 text-bolli-purple-light">
+                            <label for="payment-debito" class="ml-2 text-sm text-bolli-cart-title">Débito</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="radio" id="payment-credito" name="paymentMethod" value="Crédito" required class="h-4 w-4 text-bolli-purple-light">
+                            <label for="payment-credito" class="ml-2 text-sm text-bolli-cart-title">Crédito</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="radio" id="payment-pix" name="paymentMethod" value="Pix" required class="h-4 w-4 text-bolli-purple-light">
+                            <label for="payment-pix" class="ml-2 text-sm text-bolli-cart-title">Pix</label>
+                        </div>
+                    </div>
+                    <p class="text-xs text-bolli-text-light mt-2">Por enquanto o pagamento é combinado direto com você pelo WhatsApp — em breve o checkout deve ter pagamento integrado.</p>
+                </fieldset>
+
+                <p id="checkout-total-line" class="text-right text-sm font-bold text-bolli-cart-title"></p>
+
                 <div class="mt-6 flex justify-end space-x-3">
                     <button type="button" id="cancel-checkout-btn" class="bg-gray-200 text-bolli-text-dark py-2 px-4 rounded-lg font-bold hover:bg-gray-300 transition-colors">Cancelar</button>
                     <button type="button" id="send-whatsapp-btn" class="bg-bolli-purple-light text-white py-2 px-6 rounded-lg font-bold hover:bg-bolli-purple-dark transition-colors">Enviar via WhatsApp</button>
@@ -193,7 +240,7 @@
 
     <div id="success-modal" class="fixed inset-0 bg-black bg-opacity-60 z-[70] flex items-center justify-center p-4 hidden">
         <div class="bg-white w-full max-w-sm rounded-xl shadow-xl p-6 text-center transform scale-95 opacity-0 transition-all duration-300">
-            <h3 class="text-xl font-sans text-bolli-text-dark mb-2">Pedido de Páscoa Gerado!</h3>
+            <h3 class="text-xl font-sans text-bolli-text-dark mb-2">Pedido Gerado!</h3>
             <p class="text-bolli-text-light mb-5">Não se esqueça de enviá-lo no WhatsApp!</p>
             <button id="close-success-btn" class="w-full bg-bolli-purple-light text-white py-2 rounded-lg font-bold">Fechar</button>
         </div>
