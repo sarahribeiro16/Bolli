@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sweetness: 3,
             allergens: ['Glúten', 'Leite', 'Ovo', 'Nozes'],
             image: 'pistache.jpg',
-            coverImage: 'pistache1.png',
+            coverImage: 'pistache1.jpg',
             special: false,
             category: 'cookies-recheados',
             inStock: true
