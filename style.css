@@ -19,3 +19,37 @@ body {
 .cart-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #8c4a6f;
 }
+
+/* ===== Cards de produto (accordion + adição rápida) ===== */
+
+/* Botão de adição rápida: some por padrão, aparece no hover (desktop com mouse)
+   ou quando o card está aberto (funciona em qualquer dispositivo, incluindo touch) */
+.quick-add-btn {
+    opacity: 0;
+    transform: scale(0.85);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+@media (hover: hover) {
+    .product-card:hover .quick-add-btn {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+.product-card.is-open .quick-add-btn {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Seta (chevron) do card no mobile gira quando o card está aberto */
+.product-card.is-open .chevron-icon {
+    transform: rotate(90deg);
+}
+
+/* Transição suave ao revelar os detalhes do card */
+.card-details {
+    animation: fadeInDetails 0.25s ease;
+}
+@keyframes fadeInDetails {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
