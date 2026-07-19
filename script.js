@@ -62,8 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         // --- CATEGORIA: COOKIES TRADICIONAIS ---
-        // TODO (Sarah): confirmar nomes dos arquivos de imagem (assumi
-        // 'triplo-chocolate.jpg' e 'belga-chips.jpg') e revisar descrição/ingredientes/alergênicos.
+        // TODO (Sarah): os dois estão usando 'caramelo.png' como imagem por enquanto —
+        // revisar descrição/ingredientes/alergênicos também.
         {
             id: 'triplo-chocolate',
             name: 'Triplo Chocolate',
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ingredients: 'Farinha de trigo, manteiga, açúcar, ovos, gotas de chocolate ao leite, meio amargo e branco.',
             sweetness: 4,
             allergens: ['Glúten', 'Leite', 'Ovo'],
-            image: 'triplo-chocolate.jpg',
+            image: 'caramelo.png',
             special: false,
             category: 'cookies-tradicionais',
             inStock: true
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ingredients: 'Farinha de trigo, manteiga, açúcar, ovos, gotas de chocolate belga.',
             sweetness: 4,
             allergens: ['Glúten', 'Leite', 'Ovo'],
-            image: 'belga-chips.jpg',
+            image: 'caramelo.png',
             special: false,
             category: 'cookies-tradicionais',
             inStock: true
@@ -242,16 +242,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const headerHtml = `
             <div class="product-card w-full sm:max-w-xs mx-auto sm:p-5" data-id="${product.id}">
                 <div class="card-header flex sm:flex-col items-center sm:items-stretch gap-4 sm:gap-0 px-1 sm:px-0 py-3 sm:py-0 cursor-pointer" data-id="${product.id}" role="button" tabindex="0">
-                    <div class="relative w-20 h-20 sm:w-full sm:aspect-square flex-shrink-0 overflow-hidden rounded-lg sm:mb-4">
+                    <div class="relative w-28 h-28 sm:w-full sm:h-auto sm:aspect-square flex-shrink-0 overflow-hidden rounded-lg sm:mb-4">
                         <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover ${!inStock ? 'opacity-60 grayscale' : ''}">
                         ${product.special ? `<div class="absolute top-1 left-1 sm:top-2 sm:left-2 bg-bolli-special-bg text-white text-[10px] sm:text-xs px-2 py-0.5 sm:px-3 sm:py-1 rounded-full z-10 shadow">Especial</div>` : ''}
                         ${quickAddBtn}
                     </div>
                     <div class="flex-1 sm:text-center min-w-0">
-                        <h3 class="text-base sm:text-2xl font-sans ${textColor} truncate sm:whitespace-normal">${product.name}</h3>
+                        <h3 class="text-xl sm:text-2xl font-sans ${textColor} truncate sm:whitespace-normal">${product.name}</h3>
                         <div class="flex items-center gap-2 sm:justify-center mt-1 flex-wrap">
-                            <span class="font-bold ${inStock ? priceColor : 'text-gray-400 line-through'}">${formatCurrency(product.price)}</span>
-                            ${!inStock ? '<span class="text-[10px] sm:text-xs font-bold text-red-600 bg-gray-200 px-2 py-0.5 rounded-full">Esgotado</span>' : ''}
+                            <span class="font-bold text-lg ${inStock ? priceColor : 'text-gray-400 line-through'}">${formatCurrency(product.price)}</span>
+                            ${!inStock ? '<span class="text-xs font-bold text-red-600 bg-gray-200 px-2 py-0.5 rounded-full">Esgotado</span>' : ''}
                         </div>
                     </div>
                     <svg class="chevron-icon sm:hidden w-5 h-5 text-gray-400 flex-shrink-0 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
