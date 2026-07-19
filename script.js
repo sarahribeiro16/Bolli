@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sweetness: 4,
             allergens: ['Glúten', 'Leite', 'Ovo', 'Nozes'],
             image: 'ferrero.jpg',
-            coverImage: 'ferrero1.png',
+            coverImage: 'ferrero1.jpg',
             special: false,
             category: 'cookies-recheados',
             inStock: true
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sweetness: 5,
             allergens: ['Glúten', 'Leite', 'Ovo', 'Soja'],
             image: 'kinder.jpg',
-            coverImage: 'kinder1.png',
+            coverImage: 'kinder1.jpg',
             special: false,
             category: 'cookies-recheados',
             inStock: true
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sweetness: 4,
             allergens: ['Glúten', 'Leite', 'Ovo'],
             image: 'black.jpg',
-            coverImage: 'black1.png',
+            coverImage: 'black1.jpg',
             special: false,
             category: 'cookies-recheados',
             inStock: true
